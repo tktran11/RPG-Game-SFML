@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Menu Headers">
+      <UniqueIdentifier>{ca7d5017-fc69-4103-a2b5-b32cb4e24bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu Files">
+      <UniqueIdentifier>{91c3dc82-14ea-4f59-a22d-6f28dfb1a4d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI Headers">
+      <UniqueIdentifier>{bde1ffa2-6d9a-4850-b245-afcdc89aa374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI Files">
+      <UniqueIdentifier>{fed9e42a-8125-41ac-8d0a-0aaa1ddf5ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Headers">
+      <UniqueIdentifier>{00a59b77-0e1e-4816-954e-15e2c80be682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Files">
+      <UniqueIdentifier>{1c587de8-f3c4-411c-8c08-de4f0f8410bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Headers">
+      <UniqueIdentifier>{0675591f-95bb-4ce4-899a-072e8016ef4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{3497280b-c26f-40d6-b76f-d0b629b8de7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State Files">
+      <UniqueIdentifier>{7fce55c2-00d9-47e5-9cb8-cd4cae5fc618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State Headers">
+      <UniqueIdentifier>{0c0a67f0-207a-45a9-a6c2-9cf133bfe9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component Files">
+      <UniqueIdentifier>{cee9fdc7-b46e-42c5-86e9-4df1bbf1120e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component Headers">
+      <UniqueIdentifier>{2ab8713d-51c2-4e3e-8e63-ee4dd9f6dc99}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterSelectState.cpp">
+      <Filter>Menu Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Entity Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>State Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gui.cpp">
+      <Filter>GUI Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Menu Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCharacter.cpp">
+      <Filter>Entity Files</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>State Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreenState.cpp">
+      <Filter>Menu Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>GUI Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsMenuState.cpp">
+      <Filter>Menu Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterSelectState.h">
+      <Filter>Menu Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Entity Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>State Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gui.h">
+      <Filter>GUI Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>Menu Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Component Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCharacter.h">
+      <Filter>Entity Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Resource Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScreenState.h">
+      <Filter>Menu Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Component Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.h">
+      <Filter>GUI Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>State Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsMenuState.h">
+      <Filter>Menu Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsSettings.h" />
+  </ItemGroup>
+</Project>
