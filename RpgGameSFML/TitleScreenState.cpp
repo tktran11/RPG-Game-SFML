@@ -6,8 +6,8 @@
 
 // Constructor for the Title Screen. It initializes the background, some keybinds (enter)
 //   and the static button 
-TitleScreenState::TitleScreenState(StateData* stateData)
-	: State(stateData)
+TitleScreenState::TitleScreenState(StateData* stateInfo)
+	: State(stateInfo)
 {
 	this->initializeBackground();
 	this->initializeKeybinds();
@@ -22,7 +22,7 @@ void TitleScreenState::initializeBackground()
 		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
 
-	if (!this->backgroundTexture.loadFromFile("StartScreenTextures/TitleArt.png"))
+	if (!this->backgroundTexture.loadFromFile("MenuTextures/StartScreen/TitleArt.png"))
 	{
 		throw "ERROR::TITLE_SCREEN_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -52,7 +52,7 @@ void TitleScreenState::initializeKeybinds()
 // Creates any buttons
 void TitleScreenState::initializeButtons()
 {
-	this->playButton = new gui::Button(640.f, 650.f, 431.f, 83.f, "StartScreenTextures/EnterButton.png");
+	this->playButton = new gui::Button(640.f, 650.f, 431.f, 83.f, "MenuTextures/StartScreen/EnterButton.png");
 }
 
 // Checks to see if the enter button has been pressed

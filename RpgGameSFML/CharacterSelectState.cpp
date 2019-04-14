@@ -6,6 +6,11 @@
 CharacterSelectState::CharacterSelectState(StateData* stateInfo)
 	: State(stateInfo)
 {
+	// Resize window view to properly scale contents of the screen
+	// PUT THIS SHIT EVERYWHERE
+	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
+	this->window->setView(properScreenView);
+
 	this->initializeVariables();
 	this->initializeBackground();
 	this->initializeKeybinds();
@@ -31,7 +36,7 @@ void CharacterSelectState::initializeBackground()
 		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
 
-	if (!this->backgroundTexture.loadFromFile("CharSelectTextures/CharacterSelectBG.png"))
+	if (!this->backgroundTexture.loadFromFile("MenuTextures/CharSelect/CharacterSelectBG.png"))
 	{
 		throw "ERROR::CHAR_SELECT_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -61,8 +66,8 @@ void CharacterSelectState::initializeKeybinds()
 /* initializeButtons() creates the buttons */
 void CharacterSelectState::initializeButtons()
 {
-	this->buttons["CHOOSE_KNIGHT"] = new gui::Button(340.f, 390, 250.f, 250.f, "CharSelectTextures/KnightPort.png");
-	this->buttons["CHOOSE_MAGE"] = new gui::Button(930.f, 390.f, 250.f, 250.f, "CharSelectTextures/MagePort.png");
+	this->buttons["CHOOSE_KNIGHT"] = new gui::Button(340.f, 390, 250.f, 250.f, "MenuTextures/CharSelect/KnightPort.png");
+	this->buttons["CHOOSE_MAGE"] = new gui::Button(930.f, 390.f, 250.f, 250.f, "MenuTextures/CharSelect/MagePort.png");
 }
 
 /* updateButtons() checks to see the state of the buttons and selects the appropriate action */

@@ -10,7 +10,7 @@ void PauseMenu::initializeBackground(sf::RenderWindow& window)
 				static_cast<float>(window.getSize().y)));
 
 		this->background.setFillColor(sf::Color(20, 20, 20, 100));
-		if (!this->menuTexture.loadFromFile("PauseMenuTextures/Banner.png"))
+		if (!this->menuTexture.loadFromFile("MenuTextures/PauseMenu/Banner.png"))
 		{
 			throw "ERROR::PAUSE_MENU:: FAILED TO LOAD BACKGROUND TEXTURE";
 		}
@@ -18,7 +18,7 @@ void PauseMenu::initializeBackground(sf::RenderWindow& window)
 		this->buttonHolder.setSize(
 			sf::Vector2f
 			(static_cast<float>(window.getSize().x) / 2.f,
-				static_cast<float>(window.getSize().y) -80.f));
+				static_cast<float>(window.getSize().y)));
 		this->buttonHolder.setTexture(&this->menuTexture);
 		this->buttonHolder.setPosition(static_cast<float>(window.getSize().x) /2.f - this->buttonHolder.getSize().x / 2.f, 0.f);
 }

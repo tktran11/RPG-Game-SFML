@@ -1,36 +1,25 @@
 #pragma once
 #include "MainMenuState.h"
-
-/* TitleScreenState.h is the header file for the Title Screen which is the intro screen the player sees when entering the game */
-
-class TitleScreenState :
+#include "State.h"
+class CreditScreenState :
 	public State
 {
 private:
-
-	// Visuals and Texture storage
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
-	gui::Button *playButton;
+	gui::Button* backButton;
 
-	
 	// Initializations
-
 	void initializeBackground();
 	void initializeKeybinds();
 	void initializeButtons();
-
-
 public:
-	// Constructor
-	TitleScreenState(StateData* stateInfo);
+	CreditScreenState(StateData* stateInfo);
 
 	void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);
 	void renderButtons(sf::RenderTarget* target);
 	void renderState(sf::RenderTarget* target = nullptr);
-	
-	// Destructor
-	virtual ~TitleScreenState();
+	virtual ~CreditScreenState();
 };
 

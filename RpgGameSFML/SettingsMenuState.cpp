@@ -4,6 +4,9 @@
 SettingsMenuState::SettingsMenuState(StateData* stateInfo)
 	: State(stateInfo)
 {
+	// Resize window view to properly scale contents of the screen
+	// PUT THIS SHIT EVERYWHERE
+	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
 	this->initializeVariables();
 	this->initializeBackground();
 	this->initializeKeybinds();
@@ -36,8 +39,8 @@ void SettingsMenuState::initializeBackground()
 		sf::Vector2f
 		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
-
-	if (!this->backgroundTexture.loadFromFile("MainMenuTextures/MenuArt.png"))
+	
+	if (!this->backgroundTexture.loadFromFile("MenuTextures/MainMenu/MenuArt.png"))
 	{
 		throw "ERROR::SETTINGS_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -63,22 +66,22 @@ void SettingsMenuState::initializeKeybinds()
 void SettingsMenuState::initializeGUI()
 {
 
-	this->buttons["BACK"] = new gui::Button(900.f, 650.f, 200.f, 80.f, "SettingsMenuTextures/Back.png");
-	this->buttons["APPLY"] = new gui::Button(1150.f, 650.f, 200.f, 80.f, "SettingsMenuTextures/Apply.png");
-	this->buttons["VSYNC_ON"] = new gui::Button(450.f, 550.f, 150.f, 75.f, "SettingsMenuTextures/On.png");
-	this->buttons["VSYNC_OFF"] = new gui::Button(650.f, 550.f, 150.f, 75.f, "SettingsMenuTextures/Off.png");
+	this->buttons["BACK"] = new gui::Button(900.f, 650.f, 200.f, 80.f, "MenuTextures/Back.png");
+	this->buttons["APPLY"] = new gui::Button(1150.f, 650.f, 200.f, 80.f, "MenuTextures/Settings/Apply.png");
+	this->buttons["VSYNC_ON"] = new gui::Button(450.f, 550.f, 150.f, 75.f, "MenuTextures/Settings/On.png");
+	this->buttons["VSYNC_OFF"] = new gui::Button(650.f, 550.f, 150.f, 75.f, "MenuTextures/Settings/Off.png");
 
 	// Resolution Textures
-	std::string	resolutions[] = { "SettingsMenuTextures/1280x720.png", "SettingsMenuTextures/1152x648.png",
-		 "SettingsMenuTextures/1366x768.png" };
+	std::string	resolutions[] = { "MenuTextures/Settings/1280x720.png", "MenuTextures/Settings/1152x648.png",
+		 "MenuTextures/Settings/1366x768.png" };
 	this->dropDown["RESOLUTIONS"] = new gui::DropDownMenu(450.f, 250.f, 150.f, 75.f, resolutions, this->resolutionModes.size());
 
 	// Screen Type Textures
-	std::string screenTypes[] = {"SettingsMenuTextures/Windowed.png", "SettingsMenuTextures/Fullscreen.png"};
+	std::string screenTypes[] = {"MenuTextures/Settings/Windowed.png", "MenuTextures/Settings/Fullscreen.png"};
 	this->dropDown["SCREEN_MODE"] = new gui::DropDownMenu(450.f, 450.f, 150.f, 75.f, screenTypes, 2);
 
-	std::string FPSChoices[] = { "SettingsMenuTextures/1280x720.png", "SettingsMenuTextures/1152x648.png",
-		 "SettingsMenuTextures/1366x768.png" };
+	std::string FPSChoices[] = { "MenuTextures/Settings/1280x720.png", "MenuTextures/Settings/1152x648.png",
+		 "MenuTextures/Settings/1366x768.png" };
 	// Frame Rate Limit Choices
 	this->dropDown["FRAMERATE"] = new gui::DropDownMenu(450.f, 650.f, 150.f, 75.f, FPSChoices, 3);
 }
@@ -128,16 +131,11 @@ void SettingsMenuState::updateButtons()
 
 		// Set vertical sync
 		this->stateInfo->graphicsSettings->hasVerticalSync = this->hasVerticalSync;
-		this->window->setVerticalSyncEnabled = this->stateInfo->graphicsSettings->hasVerticalSync;
+		this->window->setVerticalSyncEnabled(this->stateInfo->graphicsSettings->hasVerticalSync);
 
 		// Resize window view to properly scale contents of the screen
 		sf::View properScreenView((sf::FloatRect(0, 0, 1280.f, 720.f)));
 		this->window->setView(properScreenView);
-
-		// Save settings to file to make them default on next load
-		this->stateInfo->graphicsSettings->saveSettingsToFile("Config/graphicsSettings.ini");
-		
-
 	}
 
 	// Drop Down Menu

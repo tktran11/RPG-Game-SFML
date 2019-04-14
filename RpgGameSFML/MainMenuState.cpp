@@ -5,6 +5,9 @@
 MainMenuState::MainMenuState(StateData* stateInfo)
 	: State(stateInfo)
 {
+	// Resize window view to properly scale contents of the screen
+	// PUT THIS SHIT EVERYWHERE
+	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
 	this->initializeBackground();
 	this->initializeKeybinds();
 	this->initializeButtons();
@@ -18,7 +21,7 @@ void MainMenuState::initializeBackground()
 			(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
 
-		if (!this->backgroundTexture.loadFromFile("MainMenuTextures/MenuArt.png"))
+		if (!this->backgroundTexture.loadFromFile("MenuTextures/MainMenu/MenuArt.png"))
 		{
 			throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 		}
@@ -46,9 +49,10 @@ void MainMenuState::initializeKeybinds()
 // Creates a set of buttons for the main menu
 void MainMenuState::initializeButtons()
 {
-	this->buttons["PLAY_GAME"] = new gui::Button(640.f, 360.f, 200.f, 80.f, "MainMenuTextures/Play.png");
-	this->buttons["SETTINGS"] = new gui::Button(640.f, 480.f, 200.f, 80.f, "MainMenuTextures/Settings.png");
-	this->buttons["QUIT_GAME"] = new gui::Button(640.f, 600.f, 200.f, 80.f, "MainMenuTextures/Quit.png");
+	
+	this->buttons["PLAY_GAME"] = new gui::Button(640.f, 360.f, 200.f, 80.f, "MenuTextures/MainMenu/Play.png");
+	this->buttons["SETTINGS"] = new gui::Button(640.f, 480.f, 200.f, 80.f, "MenuTextures/MainMenu/Settings.png");
+	this->buttons["QUIT_GAME"] = new gui::Button(640.f, 600.f, 200.f, 80.f, "MenuTextures/MainMenu/Quit.png");
 }
 
 // Updates the buttons based on mouse position

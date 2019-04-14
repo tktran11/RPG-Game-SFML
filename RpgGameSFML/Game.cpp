@@ -27,7 +27,8 @@ void Game::startWindow()
 	
 	this->gameWindow->setFramerateLimit(this->graphicsSettings.fpsLimit);
 	this->gameWindow->setVerticalSyncEnabled(this->graphicsSettings.hasVerticalSync);
-
+	sf::View properScreenView((sf::FloatRect(0, 0, 1280.f, 720.f)));
+	this->gameWindow->setView(properScreenView);
 }
 
 void Game::startStates()

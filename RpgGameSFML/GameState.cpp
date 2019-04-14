@@ -56,7 +56,7 @@ void GameState::initializeTextures()
 void GameState::initializePauseMenu()
 {
 	this->pauseMenu = new PauseMenu(*this->window);
-	this->pauseMenu->createButton(500.f, 170.f, 80.f, "MainMenuTextures/Quit.png", "QUIT_GAME");
+	this->pauseMenu->createButton(500.f, 170.f, 80.f, "MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
 }
 
 // Creates a new player, setting its texture and position

@@ -91,6 +91,12 @@
     <ClCompile Include="GraphicsSettings.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="CreditScreenState.cpp">
+      <Filter>Menu Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameScreen.cpp">
+      <Filter>Menu Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -137,6 +143,12 @@
     </ClInclude>
     <ClInclude Include="GraphicsSettings.h">
       <Filter>Resource Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditScreenState.h">
+      <Filter>Menu Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameScreen.h">
+      <Filter>Menu Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

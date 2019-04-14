@@ -153,6 +153,8 @@
   <ItemGroup>
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
+    <ClCompile Include="CreditScreenState.cpp" />
+    <ClCompile Include="EndGameScreen.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="gui.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
@@ -204,6 +206,8 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="CharacterSelectState.h" />
+    <ClInclude Include="CreditScreenState.h" />
+    <ClInclude Include="EndGameScreen.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="Entity.h" />
