@@ -9,7 +9,6 @@ class TitleScreenState :
 private:
 
 	// Visuals and Texture storage
-	GraphicsSettings& graphicsSettings;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 	gui::Button *playButton;
@@ -24,7 +23,7 @@ private:
 
 public:
 	// Constructor
-	TitleScreenState(sf::RenderWindow* window, GraphicsSettings& graphics, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	TitleScreenState(StateData* stateData);
 
 	void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);

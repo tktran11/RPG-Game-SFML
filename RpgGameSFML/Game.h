@@ -14,6 +14,7 @@ private:
 	sf::RenderWindow *gameWindow;
 	sf::Event event;
 	GraphicsSettings graphicsSettings;
+	StateData stateData;
 
 	// Delta Time for making gameplay framerate independant
 	sf::Clock deltaClock;
@@ -30,6 +31,7 @@ private:
 
 	void startWindow();
 	void startStates();
+	void initializeStateData();
 	void initializeGraphicsSettings();
 	void initializeVariables();
 	void initializeKeyboard();

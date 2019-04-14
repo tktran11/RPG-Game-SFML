@@ -1,7 +1,6 @@
 #pragma once
 #include "PlayerCharacter.h"
 #include "GraphicsSettings.h"
-
 /*
 State.h is the header for the state class, which handles the resources for
 each game state. It houses textures and such for each menu or screen. 
@@ -9,12 +8,32 @@ Each state is essentially a screen in the game and its encapuslated logic and
 graphics
 */
 
+// Forward Declarations (tells compiler that this thing exists to save compile time), used like function prototypes
+class Player;
+class GraphicsSettings;
+class State;
+
+class StateData
+{
+public:
+	StateData() {};
+
+	//Variables
+	sf::RenderWindow* gameWindow;
+	GraphicsSettings* graphicsSettings;
+	std::map<std::string, int>* supportedKeys;
+	std::stack<State*>* states;
+};
+
+// Beginning of the State class
 class State
 {
 protected:
 
 	// State Stack to keep track of all the possible states that the game has, top state is the one in use
 	std::stack<State*>* states;
+	// State Data Holder
+	StateData* stateInfo;
 
 	// Variables for single state management 
 	
@@ -41,7 +60,7 @@ protected:
 
 public:
 	// Constructor
-	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	State(StateData* stateInfo);
 
 	// Assessor for 
 	const bool& getQuit() const;

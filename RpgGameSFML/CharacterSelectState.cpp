@@ -3,9 +3,8 @@
 
 /* CharacterSelectState.cpp is the body file for the Character Selection Menu. Here the player
    will select which of the two characters they would like to begin the game as */
-CharacterSelectState::CharacterSelectState(sf::RenderWindow* window, GraphicsSettings& graphics,
-	std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states), graphicsSettings(graphics)
+CharacterSelectState::CharacterSelectState(StateData* stateInfo)
+	: State(stateInfo)
 {
 	this->initializeVariables();
 	this->initializeBackground();
@@ -77,12 +76,12 @@ void CharacterSelectState::updateButtons()
 	if (this->buttons["CHOOSE_KNIGHT"]->isPressed())
 	{
 		this->characterChoice = "knight";
-		this->states->push(new GameState(this->window, this->graphicsSettings,this->supportedKeys, this->states, this->characterChoice));
+		this->states->push(new GameState(this->stateInfo, this->characterChoice));
 	}
 	else if (this->buttons["CHOOSE_MAGE"]->isPressed())
 	{
 		this->characterChoice = "mage";
-		this->states->push(new GameState(this->window, this->graphicsSettings, this->supportedKeys, this->states, this->characterChoice));
+		this->states->push(new GameState(this->stateInfo, this->characterChoice));
 	}
 
 

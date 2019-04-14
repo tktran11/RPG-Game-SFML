@@ -140,7 +140,6 @@ void gui::DropDownMenu::updateDropDown(const sf::Vector2f mousePosition)
 				this->listVisable = false;
 				this->activeElement->changeTexture(iterator->getTexture());
 				this->activeElement->changeID(iterator->getButtonID());
-				std::cout << this->activeElement->getButtonID();
 			}
 		}
 	}

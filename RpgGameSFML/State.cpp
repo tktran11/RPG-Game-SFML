@@ -10,11 +10,12 @@ graphics
 */
 
 // Constructor for the State Class, initializes its general features
-State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+State::State(StateData* stateInfo)
 {
-	this->window = window;
-	this->supportedKeys = supportedKeys;
-	this->states = states;
+	this->stateInfo = stateInfo;
+	this->window = stateInfo->gameWindow;
+	this->supportedKeys = stateInfo->supportedKeys;
+	this->states = stateInfo->states;
 	this->isPaused = false;
 	this->askedForQuit = false;
 	this->keyboardTimer = 0.f;

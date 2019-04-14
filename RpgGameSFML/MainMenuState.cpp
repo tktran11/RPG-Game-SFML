@@ -2,9 +2,8 @@
 #include "MainMenuState.h"
 
 // Constructor
-MainMenuState::MainMenuState(sf::RenderWindow* window, GraphicsSettings& graphics,
-	std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states), graphicsSettings(graphics)
+MainMenuState::MainMenuState(StateData* stateInfo)
+	: State(stateInfo)
 {
 	this->initializeBackground();
 	this->initializeKeybinds();
@@ -62,11 +61,11 @@ void MainMenuState::updateButtons()
 
 	if (this->buttons["PLAY_GAME"]->isPressed())
 	{
-		this->states->push(new CharacterSelectState(this->window, this->graphicsSettings, this->supportedKeys, this->states));
+		this->states->push(new CharacterSelectState(this->stateInfo));
 	}
 	if (this->buttons["SETTINGS"]->isPressed())
 	{
-		this->states->push(new SettingsMenuState(this->window, this->graphicsSettings, this->supportedKeys, this->states));
+		this->states->push(new SettingsMenuState(this->stateInfo));
 	}
 	if (this->buttons["QUIT_GAME"]->isPressed())
 	{

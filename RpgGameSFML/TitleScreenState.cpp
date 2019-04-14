@@ -6,9 +6,8 @@
 
 // Constructor for the Title Screen. It initializes the background, some keybinds (enter)
 //   and the static button 
-TitleScreenState::TitleScreenState(sf::RenderWindow* window, GraphicsSettings& graphics,
-	std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states), graphicsSettings(graphics)
+TitleScreenState::TitleScreenState(StateData* stateData)
+	: State(stateData)
 {
 	this->initializeBackground();
 	this->initializeKeybinds();
@@ -61,7 +60,7 @@ void TitleScreenState::updateInput(const float & deltaTime)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("ENTER"))))
 	{
-		this->states->push(new MainMenuState(this->window, this->graphicsSettings, this->supportedKeys, this->states));
+		this->states->push(new MainMenuState(this->stateInfo));
 	}
 }
 

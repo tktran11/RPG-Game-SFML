@@ -10,7 +10,6 @@ the game.
 class GameState : public State
 {
 private:
-	GraphicsSettings& graphicsSettings;
 	PauseMenu* pauseMenu;
 	// Key for chosen character (mage or knight)
 	std::string chosenCharacter;
@@ -25,7 +24,7 @@ private:
 	void initializePlayer();
 public:
 	// Constructor
-	GameState(sf::RenderWindow* window, GraphicsSettings& graphics, std::map<std::string, int>* supportedKeys, std::stack<State*>* states, std::string playerType);
+	GameState(StateData* stateInfo, std::string playerType);
 	// Destructor
 	virtual ~GameState();
 

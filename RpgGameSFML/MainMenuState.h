@@ -9,7 +9,6 @@ the specific state called Main Menu. It houses textures and such for that state.
 class MainMenuState : public State
 {
 private:
-	GraphicsSettings& graphicsSettings;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 
@@ -21,8 +20,7 @@ private:
 	void initializeButtons();
 public:
 	// Constructor
-	MainMenuState(sf::RenderWindow* window, GraphicsSettings& graphics,
-		std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	MainMenuState(StateData* stateData);
 
 	// Virtual Functions
 	void updateButtons();

@@ -7,7 +7,7 @@ public:
 	std::string gameTitle;
 	sf::VideoMode windowResolution;
 	bool isFullScreen;
-	bool verticalSyncOn;
+	bool hasVerticalSync;
 	unsigned fpsLimit;
 	sf::ContextSettings contextSettings;
 	std::vector<sf::VideoMode> displayModes;

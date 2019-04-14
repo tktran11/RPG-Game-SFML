@@ -9,7 +9,6 @@ class CharacterSelectState :
 	public State
 {
 private:
-	GraphicsSettings& graphicsSettings;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 	std::string characterChoice;
@@ -24,7 +23,7 @@ private:
 	void initializeButtons();
 public:
 	// Constructor
-	CharacterSelectState(sf::RenderWindow* window, GraphicsSettings& graphicsSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	CharacterSelectState(StateData* stateInfo);
  	// Storage for character choice --> after adding animations, store this as a Sprite pointer and pass that instead.
 	std::string getCharacterChoice();
 	// Character Select Updating and Rendering

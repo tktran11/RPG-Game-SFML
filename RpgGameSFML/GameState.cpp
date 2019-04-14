@@ -8,9 +8,8 @@ the game.
 */
 
 // Constructor, calls initialization features
-GameState::GameState(sf::RenderWindow* window, GraphicsSettings& graphics, std::map<std::string, int>* supportedKeys,
-	std::stack<State*>* states, std::string playerType)
-	: State(window, supportedKeys, states), graphicsSettings(graphics)
+GameState::GameState(StateData* stateInfo, std::string playerType)
+	: State(stateInfo)
 {
 	this->chosenCharacter = playerType;
 	this->initializeKeybinds();
@@ -93,7 +92,7 @@ void GameState::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
 	{
-		this->states->push(new MainMenuState(this->window, this->graphicsSettings, this->supportedKeys, this->states));
+		this->states->push(new MainMenuState(this->stateInfo));
 	}
 }
 

@@ -7,6 +7,7 @@ Game::Game()
 	this->initializeGraphicsSettings();
 	this->startWindow();
 	this->initializeKeyboard();
+	this->initializeStateData();
 	this->startStates();
 
 }
@@ -16,7 +17,7 @@ void Game::startWindow()
 	if (this->graphicsSettings.isFullScreen)
 	{
 		this->gameWindow = new sf::RenderWindow(this->graphicsSettings.windowResolution,
-			this->graphicsSettings.gameTitle, sf::Style::Fullscreen, this->graphicsSettings.contextSettings);
+			this->graphicsSettings.gameTitle, sf::Style::Resize, this->graphicsSettings.contextSettings);
 	}
 	else
 	{
@@ -25,13 +26,21 @@ void Game::startWindow()
 	}
 	
 	this->gameWindow->setFramerateLimit(this->graphicsSettings.fpsLimit);
-	this->gameWindow->setVerticalSyncEnabled(this->graphicsSettings.verticalSyncOn);
+	this->gameWindow->setVerticalSyncEnabled(this->graphicsSettings.hasVerticalSync);
 
 }
 
 void Game::startStates()
 {
-	this->states.push(new TitleScreenState(this->gameWindow, this->graphicsSettings, &this->supportedKeys, &this->states));
+	this->states.push(new TitleScreenState(&this->stateData));
+}
+
+void Game::initializeStateData()
+{
+	this->stateData.gameWindow = this->gameWindow;
+	this->stateData.graphicsSettings = &this->graphicsSettings;
+	this->stateData.supportedKeys = &this->supportedKeys;
+	this->stateData.states = &this->states;
 }
 
 void Game::initializeGraphicsSettings()

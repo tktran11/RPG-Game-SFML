@@ -89,7 +89,7 @@
       <Filter>Menu Files</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsSettings.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +135,8 @@
     <ClInclude Include="SettingsMenuState.h">
       <Filter>Menu Headers</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsSettings.h" />
+    <ClInclude Include="GraphicsSettings.h">
+      <Filter>Resource Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
