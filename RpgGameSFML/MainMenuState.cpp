@@ -85,6 +85,7 @@ void MainMenuState::updateButtons()
 	if (this->buttons["SETTINGS"]->isPressed())
 	{
 		this->states->push(new SettingsMenuState(this->stateInfo));
+		
 	}
 	if (this->buttons["CREDITS"]->isPressed())
 	{

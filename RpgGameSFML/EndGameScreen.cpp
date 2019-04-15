@@ -1,13 +1,15 @@
 #include "stdafx.h"
 #include "EndGameScreen.h"
 
-EndGameScreen::EndGameScreen(StateData* stateInfo, bool win)
+EndGameScreen::EndGameScreen(StateData* stateInfo, bool wonGame)
 	: State(stateInfo)
 {
 	// Resize window view to properly scale contents of the screen
 	// PUT THIS SHIT EVERYWHERE
 	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
 	this->window->setView(properScreenView);
+
+	this->wonGame = wonGame;
 	this->initializeBackground();
 	this->initializeKeybinds();
 	this->initializeButtons();
@@ -17,12 +19,22 @@ void EndGameScreen::initializeBackground()
 {
 	this->background.setSize(
 		sf::Vector2f
-		(static_cast<float>(this->window->getSize().x),
-			static_cast<float>(this->window->getSize().y)));
+		(static_cast<float>(this->window->getSize().x * 0.95f),
+			static_cast<float>(this->window->getSize().y * 0.95f)));
 
-	if (!this->backgroundTexture.loadFromFile("MenuTextures/StartScreen/TitleArt.png"))
+	if (this->wonGame)
 	{
-		throw "ERROR::CREDITS_SCREEN::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+		if (!this->backgroundTexture.loadFromFile("MenuTextures/EndScreen/Victory.png"))
+		{
+			throw "ERROR::ENDGAME_SCREEN::FAILED_TO_LOAD_WIN_BACKGROUND_TEXTURE";
+		}
+	}
+	else
+	{
+		if (!this->backgroundTexture.loadFromFile("MenuTextures/EndScreen/Death.png"))
+		{
+			throw "ERROR::ENDGAME_SCREEN::FAILED_TO_LOAD_DEATH_BACKGROUND_TEXTURE";
+		}
 	}
 
 	this->background.setTexture(&this->backgroundTexture);
@@ -46,7 +58,9 @@ void EndGameScreen::initializeKeybinds()
 
 void EndGameScreen::initializeButtons()
 {
-	this->mainMenuButton = new gui::Button(1150.f, 650.f, 200.f, 80.f, "MenuTextures/Settings/Back.png");
+	this->mainMenuButton = new gui::Button((this->window->getSize().x * 0.898f),
+		(this->window->getSize().y * 0.902f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/Back.png");
 }
 
 void EndGameScreen::updateInput(const float & deltaTime)
@@ -62,6 +76,16 @@ void EndGameScreen::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
 	this->updateInput(deltaTime);
+}
+
+void EndGameScreen::updateButtons()
+{
+	this->mainMenuButton->updateButton(this->mousPositView);
+
+	if (this->mainMenuButton->isPressed())
+	{
+		this->states->push(new MainMenuState(this->stateInfo));
+	}
 }
 
 void EndGameScreen::renderButtons(sf::RenderTarget * target)
