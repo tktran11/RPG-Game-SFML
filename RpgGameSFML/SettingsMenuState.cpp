@@ -113,7 +113,7 @@ void SettingsMenuState::updateButtons()
 	}
 	if (this->buttons["BACK"]->isPressed())
 	{
-		this->states->push(new MainMenuState(this->stateInfo));
+		this->endState();
 	}
 	if (this->buttons["VSYNC_ON"]->isPressed())
 	{
@@ -164,7 +164,8 @@ void SettingsMenuState::updateButtons()
 			sf::View properScreenView((sf::FloatRect(0, 0, 1280, 720)));
 			this->window->setView(properScreenView);
 		}
-
+		
+		this->states->push(new MainMenuState(this->stateInfo));
 	}
 
 	// Drop Down Menu
