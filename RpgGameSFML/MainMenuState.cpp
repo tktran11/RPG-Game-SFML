@@ -7,7 +7,9 @@ MainMenuState::MainMenuState(StateData* stateInfo)
 {
 	// Resize window view to properly scale contents of the screen
 	// PUT THIS SHIT EVERYWHERE
-	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
+	sf::View properScreenView((sf::FloatRect(0.f, 0.f, this->window->getSize().x, this->window->getSize().y)));
+	this->window->setView(properScreenView);
+
 	this->initializeBackground();
 	this->initializeKeybinds();
 	this->initializeButtons();
@@ -50,9 +52,22 @@ void MainMenuState::initializeKeybinds()
 void MainMenuState::initializeButtons()
 {
 	
-	this->buttons["PLAY_GAME"] = new gui::Button(640.f, 360.f, 200.f, 80.f, "MenuTextures/MainMenu/Play.png");
-	this->buttons["SETTINGS"] = new gui::Button(640.f, 480.f, 200.f, 80.f, "MenuTextures/MainMenu/Settings.png");
-	this->buttons["QUIT_GAME"] = new gui::Button(640.f, 600.f, 200.f, 80.f, "MenuTextures/MainMenu/Quit.png");
+	
+	this->buttons["PLAY_GAME"] = new gui::Button((this->window->getSize().x * 0.5f),
+		(this->window->getSize().y * 0.5f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/MainMenu/Play.png");
+
+	this->buttons["SETTINGS"] = new gui::Button((this->window->getSize().x * 0.5f),
+		(this->window->getSize().y * 0.666f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/MainMenu/Settings.png");
+
+	this->buttons["CREDITS"] = new gui::Button((this->window->getSize().x * 0.851f), 
+		(this->window->getSize().y * 0.902f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/MainMenu/Credits.png");
+
+	this->buttons["QUIT_GAME"] = new gui::Button((this->window->getSize().x * 0.5f),
+		(this->window->getSize().y * 0.833f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/MainMenu/Quit.png");
 }
 
 // Updates the buttons based on mouse position
@@ -70,6 +85,10 @@ void MainMenuState::updateButtons()
 	if (this->buttons["SETTINGS"]->isPressed())
 	{
 		this->states->push(new SettingsMenuState(this->stateInfo));
+	}
+	if (this->buttons["CREDITS"]->isPressed())
+	{
+		this->states->push(new CreditScreenState(this->stateInfo));
 	}
 	if (this->buttons["QUIT_GAME"]->isPressed())
 	{

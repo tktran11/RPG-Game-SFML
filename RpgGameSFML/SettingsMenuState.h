@@ -12,6 +12,7 @@ private:
 	std::map<std::string, gui::Button*> buttons;
 	std::map<short unsigned, std::string> screenResolution;
 	std::vector<unsigned> fpsLimits;
+	
 	bool hasVerticalSync;
 	std::vector<sf::VideoMode> resolutionModes;
 	sf::VideoMode mode;

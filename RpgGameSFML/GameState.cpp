@@ -11,6 +11,8 @@ the game.
 GameState::GameState(StateData* stateInfo, std::string playerType)
 	: State(stateInfo)
 {
+	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
+	this->window->setView(properScreenView);
 	this->chosenCharacter = playerType;
 	this->initializeKeybinds();
 	this->initializeTextures();
@@ -56,7 +58,9 @@ void GameState::initializeTextures()
 void GameState::initializePauseMenu()
 {
 	this->pauseMenu = new PauseMenu(*this->window);
-	this->pauseMenu->createButton(500.f, 170.f, 80.f, "MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
+	this->pauseMenu->createButton((this->window->getSize().y * 0.694f),
+		(this->window->getSize().x * 0.132f),(this->window->getSize().y * 0.111f),
+		"MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
 }
 
 // Creates a new player, setting its texture and position
@@ -92,6 +96,7 @@ void GameState::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
 	{
+		
 		this->states->push(new MainMenuState(this->stateInfo));
 	}
 }

@@ -42,17 +42,14 @@ namespace gui
 	class DropDownMenu
 	{
 	private:
-
 		gui::Button* activeElement;
-		std::vector<gui::Button*> dropDownElements;
 		bool listVisable;
 	public:
 		DropDownMenu(float xPos, float yPos, float width, float height,
 			std::string list[], unsigned numOfElements, unsigned defaultIndex = 0);
-
 		// Accessor
 		const unsigned short& getActiveElementID() const;
-
+		std::vector<gui::Button*> dropDownElements;
 		void updateDropDown(const sf::Vector2f mousePosition);
 		void renderDropDown(sf::RenderTarget& target);
 		virtual ~DropDownMenu();

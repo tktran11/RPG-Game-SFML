@@ -96,15 +96,13 @@ void gui::Button::renderButton(sf::RenderTarget& target)
 gui::DropDownMenu::DropDownMenu(float xPos, float yPos, float width, float height, 
 	std::string list[], unsigned numOfElements, unsigned defaultIndex) :listVisable(false)
 {
+	
 	this->activeElement = new gui::Button(xPos, yPos, width, height, list[defaultIndex]);
 
 	for (unsigned i = 0; i < numOfElements; i++)
 	{
-		this->dropDownElements.push_back(new gui::Button(xPos, yPos + ((i + 1) * height), width, height, list[i], i));
+		this->dropDownElements.push_back(new gui::Button(xPos + ((i + 1) * width), yPos, width, height, list[i], i));
 	}
-
-	
-
 }
 
 const unsigned short & gui::DropDownMenu::getActiveElementID() const

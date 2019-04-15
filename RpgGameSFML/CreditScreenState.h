@@ -1,5 +1,5 @@
 #pragma once
-#include "MainMenuState.h"
+#include "gui.h"
 #include "State.h"
 class CreditScreenState :
 	public State

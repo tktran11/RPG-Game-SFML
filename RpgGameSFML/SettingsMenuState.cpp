@@ -6,7 +6,9 @@ SettingsMenuState::SettingsMenuState(StateData* stateInfo)
 {
 	// Resize window view to properly scale contents of the screen
 	// PUT THIS SHIT EVERYWHERE
-	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
+	sf::View properScreenView((sf::FloatRect(0.f, 0.f, this->window->getSize().x, this->window->getSize().y)));
+	this->window->setView(properScreenView);
+
 	this->initializeVariables();
 	this->initializeBackground();
 	this->initializeKeybinds();
@@ -21,7 +23,7 @@ void SettingsMenuState::initializeVariables()
 	this->hasVerticalSync = false;
 	unsigned short widths[] = { 1280, 1152, 1366 };
 	unsigned short heights[] = { 720, 648, 768 };
-	unsigned frameRateChoices[] = { 144, 120, 60 };
+	unsigned frameRateChoices[] = { 144, 60, 30 };
 	for (int i = 0; i < choices; i++)
 	{
 		this->mode.width = widths[i];
@@ -31,7 +33,6 @@ void SettingsMenuState::initializeVariables()
 		this->fpsLimits.push_back(frameRateChoices[i]);
 	}
 
-
 }
 void SettingsMenuState::initializeBackground()
 {
@@ -39,8 +40,8 @@ void SettingsMenuState::initializeBackground()
 		sf::Vector2f
 		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
-	
-	if (!this->backgroundTexture.loadFromFile("MenuTextures/MainMenu/MenuArt.png"))
+
+	if (!this->backgroundTexture.loadFromFile("MenuTextures/Settings/SettingScreen.png"))
 	{
 		throw "ERROR::SETTINGS_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -66,24 +67,42 @@ void SettingsMenuState::initializeKeybinds()
 void SettingsMenuState::initializeGUI()
 {
 
-	this->buttons["BACK"] = new gui::Button(900.f, 650.f, 200.f, 80.f, "MenuTextures/Back.png");
-	this->buttons["APPLY"] = new gui::Button(1150.f, 650.f, 200.f, 80.f, "MenuTextures/Settings/Apply.png");
-	this->buttons["VSYNC_ON"] = new gui::Button(450.f, 550.f, 150.f, 75.f, "MenuTextures/Settings/On.png");
-	this->buttons["VSYNC_OFF"] = new gui::Button(650.f, 550.f, 150.f, 75.f, "MenuTextures/Settings/Off.png");
+	this->buttons["BACK"] = new gui::Button((this->window->getSize().x * 0.703f),
+		(this->window->getSize().y * 0.902f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/Back.png");
+
+	this->buttons["APPLY"] = new gui::Button((this->window->getSize().x * 0.898f),
+		(this->window->getSize().y * 0.902f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/Settings/Apply.png");
+
+	this->buttons["VSYNC_ON"] = new gui::Button((this->window->getSize().x * 0.351f),
+		(this->window->getSize().y * 0.743f), (this->window->getSize().x * 0.117f),
+		(this->window->getSize().y * 0.104f), "MenuTextures/Settings/On.png");
+	this->buttons["VSYNC_OFF"] = new gui::Button((this->window->getSize().x * 0.507f),
+		(this->window->getSize().y * 0.743f), (this->window->getSize().x * 0.117f),
+		(this->window->getSize().y * 0.104f), "MenuTextures/Settings/Off.png");
 
 	// Resolution Textures
 	std::string	resolutions[] = { "MenuTextures/Settings/1280x720.png", "MenuTextures/Settings/1152x648.png",
 		 "MenuTextures/Settings/1366x768.png" };
-	this->dropDown["RESOLUTIONS"] = new gui::DropDownMenu(450.f, 250.f, 150.f, 75.f, resolutions, this->resolutionModes.size());
+	this->dropDown["RESOLUTIONS"] = new gui::DropDownMenu((this->window->getSize().x * 0.351f),
+		(this->window->getSize().y * 0.326f), (this->window->getSize().x * 0.117f),
+		(this->window->getSize().y * 0.104f), resolutions, this->resolutionModes.size());
+
+	// Frame Rate Limit Choices
+	std::string FPSChoices[] = { "MenuTextures/Settings/144.png", "MenuTextures/Settings/60.png",
+	 "MenuTextures/Settings/30.png" };
+	this->dropDown["FRAMERATE"] = new gui::DropDownMenu((this->window->getSize().x * 0.351f),
+		(this->window->getSize().y * 0.465f), (this->window->getSize().x * 0.117f),
+		(this->window->getSize().y * 0.104f), FPSChoices, 3);
 
 	// Screen Type Textures
-	std::string screenTypes[] = {"MenuTextures/Settings/Windowed.png", "MenuTextures/Settings/Fullscreen.png"};
-	this->dropDown["SCREEN_MODE"] = new gui::DropDownMenu(450.f, 450.f, 150.f, 75.f, screenTypes, 2);
+	std::string screenTypes[] = { "MenuTextures/Settings/Windowed.png", "MenuTextures/Settings/Fullscreen.png" };
+	this->dropDown["SCREEN_MODE"] = new gui::DropDownMenu((this->window->getSize().x * 0.351f),
+		(this->window->getSize().y * 0.604f), (this->window->getSize().x * 0.117f),
+		(this->window->getSize().y * 0.104f), screenTypes, 2);
 
-	std::string FPSChoices[] = { "MenuTextures/Settings/1280x720.png", "MenuTextures/Settings/1152x648.png",
-		 "MenuTextures/Settings/1366x768.png" };
-	// Frame Rate Limit Choices
-	this->dropDown["FRAMERATE"] = new gui::DropDownMenu(450.f, 650.f, 150.f, 75.f, FPSChoices, 3);
+
 }
 
 void SettingsMenuState::updateButtons()
@@ -94,7 +113,7 @@ void SettingsMenuState::updateButtons()
 	}
 	if (this->buttons["BACK"]->isPressed())
 	{
-		this->endState();
+		this->states->push(new MainMenuState(this->stateInfo));
 	}
 	if (this->buttons["VSYNC_ON"]->isPressed())
 	{
@@ -112,20 +131,21 @@ void SettingsMenuState::updateButtons()
 		this->stateInfo->graphicsSettings->isFullScreen = this->dropDown["SCREEN_MODE"]->getActiveElementID();
 
 		// Create window based on graphics settings to be applied
-		unsigned screenMode = this->stateInfo->graphicsSettings->isFullScreen;
-		switch (screenMode)
-		{
-		case 0:
-			this->window->create(this->stateInfo->graphicsSettings->windowResolution,
-			this->stateInfo->graphicsSettings->gameTitle, sf::Style::Titlebar | sf::Style::Close);
-			break;
-		case 1:
-			this->window->create(this->stateInfo->graphicsSettings->windowResolution,
-				this->stateInfo->graphicsSettings->gameTitle, sf::Style::Fullscreen);
-			break;
-		}
-
+		
+			if (!this->stateInfo->graphicsSettings->isFullScreen)
+			{
+			
+				this->window->create(this->stateInfo->graphicsSettings->windowResolution,
+					this->stateInfo->graphicsSettings->gameTitle, sf::Style::Titlebar | sf::Style::Close);
+			}
+			else
+			{
+				this->window->create(this->stateInfo->graphicsSettings->windowResolution,
+					this->stateInfo->graphicsSettings->gameTitle, sf::Style::Fullscreen);
+			}
+	
 		// Set framerate
+
 		this->stateInfo->graphicsSettings->fpsLimit = this->fpsLimits[this->dropDown["FRAMERATE"]->getActiveElementID()];
 		this->window->setFramerateLimit(this->stateInfo->graphicsSettings->fpsLimit);
 
@@ -134,8 +154,17 @@ void SettingsMenuState::updateButtons()
 		this->window->setVerticalSyncEnabled(this->stateInfo->graphicsSettings->hasVerticalSync);
 
 		// Resize window view to properly scale contents of the screen
-		sf::View properScreenView((sf::FloatRect(0, 0, 1280.f, 720.f)));
-		this->window->setView(properScreenView);
+		if (!this->stateInfo->graphicsSettings->isFullScreen)
+		{
+			sf::View properScreenView((sf::FloatRect(0, 0, 1920.f, 1080.f)));
+			this->window->setView(properScreenView);
+		}
+		else
+		{
+			sf::View properScreenView((sf::FloatRect(0, 0, 1280, 720)));
+			this->window->setView(properScreenView);
+		}
+
 	}
 
 	// Drop Down Menu

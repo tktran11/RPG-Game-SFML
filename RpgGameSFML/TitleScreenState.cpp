@@ -52,7 +52,8 @@ void TitleScreenState::initializeKeybinds()
 // Creates any buttons
 void TitleScreenState::initializeButtons()
 {
-	this->playButton = new gui::Button(640.f, 650.f, 431.f, 83.f, "MenuTextures/StartScreen/EnterButton.png");
+	
+	this->playButton = new gui::Button(640.f, 650.f, 350.f, 85.f, "MenuTextures/StartScreen/EnterButton.png");
 }
 
 // Checks to see if the enter button has been pressed

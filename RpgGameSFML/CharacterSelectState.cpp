@@ -66,8 +66,14 @@ void CharacterSelectState::initializeKeybinds()
 /* initializeButtons() creates the buttons */
 void CharacterSelectState::initializeButtons()
 {
-	this->buttons["CHOOSE_KNIGHT"] = new gui::Button(340.f, 390, 250.f, 250.f, "MenuTextures/CharSelect/KnightPort.png");
-	this->buttons["CHOOSE_MAGE"] = new gui::Button(930.f, 390.f, 250.f, 250.f, "MenuTextures/CharSelect/MagePort.png");
+	this->buttons["CHOOSE_KNIGHT"] = new gui::Button((this->window->getSize().x * 0.265f),
+		(this->window->getSize().y * 0.542f), 
+		(this->window->getSize().x * 0.195f), (this->window->getSize().y * 0.347f), 
+		"MenuTextures/CharSelect/KnightPort.png");
+	this->buttons["CHOOSE_MAGE"] = new gui::Button((this->window->getSize().x * 0.726f), 
+		(this->window->getSize().y * 0.542f),
+		(this->window->getSize().x * 0.195f), (this->window->getSize().y * 0.347f), 
+		"MenuTextures/CharSelect/MagePort.png");
 }
 
 /* updateButtons() checks to see the state of the buttons and selects the appropriate action */

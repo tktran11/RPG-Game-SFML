@@ -20,7 +20,7 @@ void CreditScreenState::initializeBackground()
 		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
 
-	if (!this->backgroundTexture.loadFromFile("MenuTextures/StartScreen/TitleArt.png"))
+	if (!this->backgroundTexture.loadFromFile("MenuTextures/Credits/Credits.png"))
 	{
 		throw "ERROR::CREDITS_SCREEN::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -46,7 +46,10 @@ void CreditScreenState::initializeKeybinds()
 
 void CreditScreenState::initializeButtons()
 {
-	this->backButton = new gui::Button(1150.f, 650.f, 200.f, 80.f, "MenuTextures/Back.png");
+	this->backButton = new gui::Button((this->window->getSize().x * 0.898f), 
+		(this->window->getSize().y * 0.902f),
+		(this->window->getSize().x * 0.156f), (this->window->getSize().y * 0.111f),
+		"MenuTextures/Back.png");
 }
 
 void CreditScreenState::updateInput(const float & deltaTime)
