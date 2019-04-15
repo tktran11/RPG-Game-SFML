@@ -62,7 +62,7 @@ void GameState::initializePauseMenu()
 // Creates a new player, setting its texture and position
 void GameState::initializePlayer()
 {
-	this->player = new PlayerCharacter(this->stateTextures["PLAYER_SPRITES"], 0, 0);
+	this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, 0);
 }
 
 // Updates input for the player movement by polling the keyboard for any input and moving the player based on that

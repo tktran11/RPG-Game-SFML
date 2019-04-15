@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerCharacter.h"
+#include "Knight.h"
 #include "GraphicsSettings.h"
 /*
 State.h is the header for the state class, which handles the resources for
