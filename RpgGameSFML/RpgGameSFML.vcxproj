@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationComponent.cpp" />
+    <ClCompile Include="CharacterAttributes.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
     <ClCompile Include="CreditScreenState.cpp" />
     <ClCompile Include="EndGameScreen.cpp" />
@@ -206,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="CharacterAttributes.h" />
     <ClInclude Include="CharacterSelectState.h" />
     <ClInclude Include="CreditScreenState.h" />
     <ClInclude Include="EndGameScreen.h" />

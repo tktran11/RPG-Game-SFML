@@ -10,7 +10,7 @@ class PlayerCharacter :
 {
 private:
 	// Initialization Functions
-	void initializeComponents();
+	void initializeComponents(sf::Texture& spriteTextureSheet);
 	void initializeVariables();
 
 	bool isAttacking;

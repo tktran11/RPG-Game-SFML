@@ -19,13 +19,15 @@ void EndGameScreen::initializeBackground()
 {
 	this->background.setSize(
 		sf::Vector2f
-		(static_cast<float>(this->window->getSize().x * 0.95f),
-			static_cast<float>(this->window->getSize().y * 0.95f)));
+		(static_cast<float>(this->window->getSize().x * 0.55f),
+			static_cast<float>(this->window->getSize().y * 0.55f)));
+	this->background.setOrigin(this->window->getSize().x * -0.2f, this->window->getSize().y * -0.25f);
 
 	if (this->wonGame)
 	{
 		if (!this->backgroundTexture.loadFromFile("MenuTextures/EndScreen/Victory.png"))
 		{
+			
 			throw "ERROR::ENDGAME_SCREEN::FAILED_TO_LOAD_WIN_BACKGROUND_TEXTURE";
 		}
 	}

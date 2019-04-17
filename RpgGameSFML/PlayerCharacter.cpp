@@ -14,10 +14,9 @@ user's playable character.It stores information and will house components to man
 /* Constructor for the player character*/
 PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY)
 {
-	this->initializeComponents();
+	this->initializeComponents(spriteTextureSheet);
 	this->initializeVariables();
 	this->setPosition(startPointX, startPointY);
-	this->makeAnimationComponent(spriteTextureSheet);
 
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("MOVE", 5.f, 0, 1, 11, 1, 192, 192);
@@ -105,15 +104,24 @@ void PlayerCharacter::checkForAttackAnimation()
 
 void PlayerCharacter::update(const float & deltaTime)
 {
+	this->attributeComponent->update();
+	// REMOVE LATER
+	system("cls");
+	std::cout << this->attributeComponent->debugPrint() << "\n";
+	// This cout and cls shit super lags everything. If you don't remove it the game will feel like trash
+
+
+
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
 }
 
-void PlayerCharacter::initializeComponents()
+void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet)
 {
 	this->makeMovementComponent(300.f, 12.f, 3.f);
-
+	this->makeAnimationComponent(spriteTextureSheet);
+	this->makeAttributeComponent(1); // first level is level 1
 }
 
 void PlayerCharacter::initializeVariables()

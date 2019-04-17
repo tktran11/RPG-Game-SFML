@@ -100,6 +100,9 @@
     <ClCompile Include="Knight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterAttributes.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -154,5 +157,8 @@
       <Filter>Menu Headers</Filter>
     </ClInclude>
     <ClInclude Include="Knight.h" />
+    <ClInclude Include="CharacterAttributes.h">
+      <Filter>Component Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,11 +1,18 @@
 #pragma once
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
+#include "CharacterAttributes.h"
 /*
 Enity.h is the header for the entity class, which is the base class for characters and
 other entities.
 It stores information and will house components for entities to make use of.
 */
+
+// Forward Declarations
+class MovementComponent;
+class AnimationComponent;
+class CharacterAttributes;
+
 class Entity
 {
 private:
@@ -15,6 +22,7 @@ protected:
 	
 	MovementComponent* movementComponent;
 	AnimationComponent* animationComponent;
+	CharacterAttributes* attributeComponent;
 public:
 
 	// Constructor
@@ -29,6 +37,7 @@ public:
 	void setSpriteTexture(sf::Texture& spriteTextureSheet);
 	void makeMovementComponent(const float maximumVelocity, const float accel, const float decel);
 	void makeAnimationComponent(sf::Texture& spriteTextureSheet);
+	void makeAttributeComponent(const unsigned level);
 	// Virtual Destructor
 	virtual ~Entity();
 };
