@@ -3,11 +3,11 @@
 #include "PauseMenu.h"
 #include "MainMenuState.h"
 /*
-GameState.h is the header for the Gamestate class, which handles the resources for
-the specific state called GameState. It houses textures and such for the main portion of
+CombatState.h is the header for the CombatState class, which handles the resources for
+the specific state called CombatState. It houses textures and such for the main portion of
 the game.
 */
-class GameState : public State
+class CombatState :	public State
 {
 private:
 	PauseMenu* pauseMenu;
@@ -27,19 +27,15 @@ private:
 	void initializePlayer();
 public:
 	// Constructor
-	GameState(StateData* stateInfo, std::string playerType);
-
-	// State Updating
+	CombatState(StateData* stateInfo, std::string playerType);
+	// Destructor
+	virtual ~CombatState();
+	
+	// Virtual Functions
 	void updatePlayerInput(const float& deltaTime);
 	void updatePauseMenuButtons();
-	void updateInput(const float& deltaTime);
+	//void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);
-
-	// State Rendering
 	void renderState(sf::RenderTarget* target = nullptr);
-
-	// Destructor
-	virtual ~GameState();
-
 };
 

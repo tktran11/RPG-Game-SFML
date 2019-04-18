@@ -41,6 +41,24 @@
     <Filter Include="Component Headers">
       <UniqueIdentifier>{2ab8713d-51c2-4e3e-8e63-ee4dd9f6dc99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity Files\Base Classes">
+      <UniqueIdentifier>{cfd3b916-46ce-45b1-8b3d-5f37eab14f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Files\Player">
+      <UniqueIdentifier>{18c4e887-d7c1-4d08-86cf-09969b98ecbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Files\Enemies">
+      <UniqueIdentifier>{77e3d820-3888-4cf1-84e3-24f9a0bf8bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Headers\Base Classes">
+      <UniqueIdentifier>{51c0c37a-b33a-4a3f-8c1d-8b3a8419f27e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Headers\Player Character">
+      <UniqueIdentifier>{50f7d2f7-a492-472e-9c2a-8f5ddbf6f10f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Headers\Enemies">
+      <UniqueIdentifier>{da3e05a5-9193-4104-aced-1714c7bf6872}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,9 +69,6 @@
     </ClCompile>
     <ClCompile Include="CharacterSelectState.cpp">
       <Filter>Menu Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Entity Files</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>State Files</Filter>
@@ -66,9 +81,6 @@
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Component Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCharacter.cpp">
-      <Filter>Entity Files</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>State Files</Filter>
@@ -97,17 +109,29 @@
     <ClCompile Include="EndGameScreen.cpp">
       <Filter>Menu Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Entity Files\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Entity Files\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCharacter.cpp">
+      <Filter>Entity Files\Base Classes</Filter>
+    </ClCompile>
     <ClCompile Include="Knight.cpp">
-      <Filter>Entity Files</Filter>
+      <Filter>Entity Files\Player</Filter>
     </ClCompile>
     <ClCompile Include="Mage.cpp">
-      <Filter>Entity Files</Filter>
+      <Filter>Entity Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Entity Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatState.cpp">
+      <Filter>State Files</Filter>
     </ClCompile>
     <ClCompile Include="CharacterAttributes.cpp">
       <Filter>Component Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Entity Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="CharacterSelectState.h">
       <Filter>Menu Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Entity Headers</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>State Headers</Filter>
@@ -131,9 +152,6 @@
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
       <Filter>Component Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerCharacter.h">
-      <Filter>Entity Headers</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Resource Headers</Filter>
@@ -162,17 +180,29 @@
     <ClInclude Include="EndGameScreen.h">
       <Filter>Menu Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Knight.h">
-      <Filter>Entity Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Mage.h">
-      <Filter>Entity Headers</Filter>
-    </ClInclude>
     <ClInclude Include="CharacterAttributes.h">
       <Filter>Component Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Entity Headers\Base Classes</Filter>
+    </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Entity Headers</Filter>
+      <Filter>Entity Headers\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCharacter.h">
+      <Filter>Entity Headers\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>Entity Headers\Player Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Mage.h">
+      <Filter>Entity Headers\Player Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Entity Headers\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatState.h">
+      <Filter>State Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

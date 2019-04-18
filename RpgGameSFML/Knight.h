@@ -14,7 +14,8 @@ public:
 
 	void updateAnimation(const float& deltaTime);
 	void checkForAttackAnimation();
-	virtual void update(const float& deltaTime);
-	virtual ~Knight();
+	void update(const float& deltaTime);
+
+	~Knight();
 };
 

@@ -16,6 +16,7 @@ GameState::GameState(StateData* stateInfo, std::string playerType)
 	this->chosenCharacter = playerType;
 	this->initializeKeybinds();
 	this->initializeTextures();
+	this->initializeBackground();
 	this->initializePauseMenu();
 	this->initializePlayer();
 }
@@ -53,6 +54,21 @@ void GameState::initializeTextures()
 			throw "ERROR:GAME_STATE::MISSING_PLAYER_TEXTURE";
 		}
 	}
+}
+
+void GameState::initializeBackground()
+{
+	this->background.setSize(
+		sf::Vector2f
+		(static_cast<float>(this->window->getSize().x),
+			static_cast<float>(this->window->getSize().y)));
+
+	if (!this->backgroundTexture.loadFromFile("MenuTextures/GameBackground/Map1.png"))
+	{
+		throw "ERROR::GAME_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+	}
+
+	this->background.setTexture(&this->backgroundTexture);
 }
 
 void GameState::initializePauseMenu()
@@ -152,6 +168,7 @@ void GameState::renderState(sf::RenderTarget* target)
 	if (!target) {
 		target = this->window;
 	}
+	target->draw(this->background);
 	this->player->renderEntity(*target);
 
 	// Render pause menu

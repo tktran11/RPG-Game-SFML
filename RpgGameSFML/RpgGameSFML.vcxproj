@@ -154,6 +154,7 @@
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="CharacterAttributes.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
+    <ClCompile Include="CombatState.cpp" />
     <ClCompile Include="CreditScreenState.cpp" />
     <ClCompile Include="EndGameScreen.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -190,6 +191,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="SettingsMenuState.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="State.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
@@ -211,6 +213,7 @@
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="CharacterAttributes.h" />
     <ClInclude Include="CharacterSelectState.h" />
+    <ClInclude Include="CombatState.h" />
     <ClInclude Include="CreditScreenState.h" />
     <ClInclude Include="EndGameScreen.h" />
     <ClInclude Include="Enemy.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="SettingsMenuState.h" />
+    <ClInclude Include="Slime.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TitleScreenState.h" />

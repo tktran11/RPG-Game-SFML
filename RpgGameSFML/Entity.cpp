@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Entity.h"
 
-/*Enity.cpp is the body for the Entity class, which is the base class for characters and
+/*
+Enity.cpp is the body for the Entity class, which is the base class for characters and
 other entities.
 It stores information and will house components for entities to make use of.
 */
