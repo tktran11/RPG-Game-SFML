@@ -15,8 +15,8 @@ Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPo
 	this->makeAnimationComponent(spriteTextureSheet);
 
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
-	this->animationComponent->addAnimation("MOVE", 5.f, 0, 1, 11, 1, 192, 192);
-	this->animationComponent->addAnimation("IDLE", 15.f, 0, 2, 13, 2, 192, 192);
+	this->animationComponent->addAnimation("MOVE", 5.f, 0, 0, 11, 0, 192, 192);
+	this->animationComponent->addAnimation("IDLE", 15.f, 0, 3, 13, 3, 192, 192);
 	this->animationComponent->addAnimation("SWING", 5.f, 0, 4, 13, 4, 384, 192);
 }
 
@@ -37,11 +37,12 @@ void Knight::updateAnimation(const float & deltaTime)
 		// facing rightside
 		if (this->sprite.getScale().x > 0.f)
 		{
-			this->sprite.setOrigin(96.f, 0.f);
+			this->sprite.setOrigin(354.f, 0.f);
 		}
 		// facing leftside
 		else
 		{
+	
 			this->sprite.setOrigin(354.f, 0.f);
 		}
 		// animate attack and set end of attack animation
@@ -66,22 +67,22 @@ void Knight::updateAnimation(const float & deltaTime)
 	}
 	else if (this->movementComponent->checkMoveType(WALK_RIGHT))
 	{
-		if (this->sprite.getScale().x > 0.f)
+		if (this->sprite.getScale().x < 0.f)
 		{
-			this->sprite.setOrigin(258.f, 0.f);
+			this->sprite.setOrigin(0.f, 0.f);
 			// Flip sprite
-			this->sprite.setScale(-1.f, 1.f);
+			this->sprite.setScale(1.f, 1.f);
 		}
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().x, this->movementComponent->getMaximumVelocity());
 	}
 	else if (this->movementComponent->checkMoveType(WALK_LEFT))
 	{
-		if (this->sprite.getScale().x < 0.f)
+		if (this->sprite.getScale().x > 0.f)
 		{
-			this->sprite.setOrigin(0.f, 0.f);
+			this->sprite.setOrigin(129.f, 0.f);
 			// Flip sprite
-			this->sprite.setScale(1.f, 1.f);
+			this->sprite.setScale(-1.f, 1.f);
 		}
 
 		this->animationComponent->playAnimation("MOVE", deltaTime,
@@ -112,8 +113,8 @@ void Knight::update(const float & deltaTime)
 {
 	this->attributeComponent->update();
 	// REMOVE LATER
-	system("cls");
-	std::cout << this->attributeComponent->debugPrint() << "\n";
+	//system("cls");
+	//std::cout << this->attributeComponent->debugPrint() << "\n";
 	// This cout and cls shit super lags everything. If you don't remove it the game will feel like trash
 
 	this->movementComponent->updateMovement(deltaTime);

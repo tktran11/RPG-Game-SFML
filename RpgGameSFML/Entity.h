@@ -19,7 +19,7 @@ private:
 	void initializeVariables();
 protected:
 	sf::Sprite sprite;
-	
+
 	// Components that entities can choose to have (ie. player will likely have all of them, enemy wont move)
 	MovementComponent* movementComponent;
 	AnimationComponent* animationComponent;
@@ -28,9 +28,12 @@ public:
 
 	// Constructor
 	Entity();
-
 	virtual void update(const float& deltaTime) = 0;
 	virtual void renderEntity(sf::RenderTarget& target);
+
+	//Assessors
+	float getXPosition();
+	float getYPosition();
 
 	// Sprite Management
 	virtual void setPosition(const float xPos, const float yPos);

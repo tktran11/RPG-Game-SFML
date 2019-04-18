@@ -75,45 +75,53 @@ void GameState::initializePauseMenu()
 {
 	this->pauseMenu = new PauseMenu(*this->window);
 	this->pauseMenu->createButton((this->window->getSize().y * 0.694f),
-		(this->window->getSize().x * 0.132f),(this->window->getSize().y * 0.111f),
+		(this->window->getSize().x * 0.132f), (this->window->getSize().y * 0.111f),
 		"MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
 }
 
 // Creates a new player, setting its texture and position
 void GameState::initializePlayer()
 {
+	float startingPos = this->window->getSize().y * 0.722f;
+	if (this->stateInfo->graphicsSettings->isFullScreen)
+	{
+		startingPos = 1280 * 0.69f;
+	}
 	if (this->chosenCharacter == "knight")
 	{
-		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, 0);
+		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos);
 	}
 	else
 		if (this->chosenCharacter == "mage")
 		{
-			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, 0);
+			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos);
 		}
 }
 
 // Updates input for the player movement by polling the keyboard for any input and moving the player based on that
 void GameState::updatePlayerInput(const float& deltaTime)
 {
+	// Movement is soft limited to the bounds of where the screen is. The player can still technically fall off screen, but can't continue moving that way
+	// Up and downward movement limited to actual ground
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_UP"))))
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT")))) && (this->player->getXPosition() >= this->window->getSize().x * 0.039f))
 	{
-		this->player->move(deltaTime, 0.f, -1.f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT"))))
-	{
-		this->player->move(deltaTime, -1.f, 0.f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_DOWN"))))
-	{
-		this->player->move(deltaTime, 0.f, 1.f);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_RIGHT"))))
-	{
-		this->player->move(deltaTime, 1.f, 0.f);
+		this->player->move(deltaTime, -0.8f, 0.f);
 	}
 
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_RIGHT")))) && (this->player->getXPosition() <= this->window->getSize().x * 0.9f))
+	{
+		this->player->move(deltaTime, 0.8f, 0.f);
+	}
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_DOWN")))) && (this->player->getYPosition() <= this->player->getStartPosY() + 14.f))
+	{
+		this->player->move(deltaTime, 0.f, 0.5f);
+	}
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_UP")))) && (this->player->getYPosition() >= this->player->getStartPosY() - 14.f))
+	{
+
+		this->player->move(deltaTime, 0.f, -0.5f);
+	}
 }
 
 // Updates the pause menu buttons
@@ -121,14 +129,14 @@ void GameState::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
 	{
-		
+
 		this->states->push(new MainMenuState(this->stateInfo));
 	}
 }
 
 // Updates input on the state, specifically the pause menu
 void GameState::updateInput(const float & deltaTime)
-{	
+{
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("PAUSE"))) && this->getKeyboardTimer())
 	{
 		if (!this->isPaused)

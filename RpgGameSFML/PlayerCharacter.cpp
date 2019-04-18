@@ -15,6 +15,8 @@ enum attackKey {
 /* Constructor for the player character*/
 PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY)
 {
+	this->startPositionX = startPointX;
+	this->startPositionY = startPointY;
 	this->initializeComponents(spriteTextureSheet);
 	this->initializeVariables();
 	this->setPosition(startPointX, startPointY);
@@ -23,6 +25,18 @@ PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPoi
 	this->animationComponent->addAnimation("MOVE", 5.f, 0, 1, 11, 1, 192, 192);
 	this->animationComponent->addAnimation("IDLE", 15.f, 0, 2, 13, 2, 192, 192);
 	this->animationComponent->addAnimation("SWING", 5.f, 0, 4, 13, 4, 384, 192);
+}
+
+// Returns the starting position of the player character in the X axis
+float PlayerCharacter::getStartPosX()
+{
+	return this->startPositionX;
+}
+
+// Returns the starting position of the player character in the Y axis
+float PlayerCharacter::getStartPosY()
+{
+	return this->startPositionY;
 }
 
 // Initializes the components used by the player character

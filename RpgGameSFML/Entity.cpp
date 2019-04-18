@@ -27,6 +27,16 @@ void Entity::renderEntity(sf::RenderTarget& target)
 {
 		target.draw(this->sprite);
 }
+// Returns the x position of the sprite
+float Entity::getXPosition()
+{
+	return this->sprite.getPosition().x;
+}
+// Returns the y position of the sprite
+float Entity::getYPosition()
+{
+	return this->sprite.getPosition().y;
+}
 
 // Sets the sprite's position on the screen
 void Entity::setPosition(const float xPos, const float yPos)
