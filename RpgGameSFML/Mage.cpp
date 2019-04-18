@@ -61,7 +61,7 @@ void Mage::updateAnimation(const float & deltaTime)
 			}
 		}
 	}
-	if (this->isPoweringUp)
+	if (this->isPoweringUp && !this->isAttacking)
 	{
 		// facing rightside
 		if (this->sprite.getScale().x > 0.f)
