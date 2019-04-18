@@ -10,7 +10,7 @@ class PlayerCharacter :
 {
 private:
 	// Initialization Functions
-	void initializeComponents();
+	void initializeComponents(sf::Texture& spriteTextureSheet);
 	void initializeVariables();
 
 	bool isAttacking;
@@ -19,7 +19,7 @@ public:
 	// Constructor
 	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY);
 	
-	void updateAnimation(const float& deltaTime);
+	virtual void updateAnimation(const float& deltaTime) = 0;
 	void checkForAttackAnimation();
 	virtual void update(const float& deltaTime);
 };

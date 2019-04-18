@@ -22,7 +22,6 @@ void MainMenuState::initializeBackground()
 			sf::Vector2f
 			(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
-
 		if (!this->backgroundTexture.loadFromFile("MenuTextures/MainMenu/MenuArt.png"))
 		{
 			throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
@@ -85,7 +84,6 @@ void MainMenuState::updateButtons()
 	if (this->buttons["SETTINGS"]->isPressed())
 	{
 		this->states->push(new SettingsMenuState(this->stateInfo));
-		
 	}
 	if (this->buttons["CREDITS"]->isPressed())
 	{

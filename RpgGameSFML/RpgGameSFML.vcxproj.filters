@@ -103,6 +103,9 @@
     <ClCompile Include="Mage.cpp">
       <Filter>Entity Files</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterAttributes.cpp">
+      <Filter>State Headers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="Mage.h">
       <Filter>Entity Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterAttributes.h">
+      <Filter>Component Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
