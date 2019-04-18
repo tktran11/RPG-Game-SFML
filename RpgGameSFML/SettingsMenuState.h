@@ -2,10 +2,15 @@
 #include "State.h"
 #include "gui.h"
 #include "Game.h"
+
+/* SettingsMenu.h is the header file for the settings menu, which houses options for the player to choose from
+including screen size, video mode, and even frame rate options. 
+*/
 class SettingsMenuState :
 	public State
 {
 private:
+	// Interface and background art handling
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 	std::map<std::string, gui::DropDownMenu*> dropDown;
@@ -24,14 +29,18 @@ private:
 	void initializeKeybinds();
 	void initializeGUI();
 public:
+	// Constructor
 	SettingsMenuState(StateData* stateInfo);
-	virtual ~SettingsMenuState();
 
-	// Virtual Functions
+	// State Updating
 	void updateButtons();
 	void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);
+
+	// State Rendering
 	void renderGUI(sf::RenderTarget* target);
 	void renderState(sf::RenderTarget* target = nullptr);
+
+	virtual ~SettingsMenuState();
 };
 

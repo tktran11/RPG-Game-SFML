@@ -1,7 +1,12 @@
 #include "stdafx.h"
 #include "GraphicsSettings.h"
 
+/* GraphicsSettings.cpp is the body file for the graphics settings container. This stores all 
+the graphic elements to be passed from state to state to ensure that the game's playability and
+window remain constant even after changing things via the Settings Menu
+*/
 
+// Constructor
 GraphicsSettings::GraphicsSettings()
 {
 	this->gameTitle = "";
@@ -14,7 +19,7 @@ GraphicsSettings::GraphicsSettings()
 
 }
 
-
+// Saves settings to a file
 void GraphicsSettings::saveSettingsToFile(const std::string filePath)
 {
 	std::ofstream outstream(filePath);
@@ -32,6 +37,7 @@ void GraphicsSettings::saveSettingsToFile(const std::string filePath)
 	outstream.close();
 }
 
+// Loads default settings from a file
 void GraphicsSettings::loadSettingsFromFile(const std::string filePath)
 {
 	std::ifstream fileReader(filePath);

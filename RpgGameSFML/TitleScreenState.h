@@ -25,8 +25,11 @@ public:
 	// Constructor
 	TitleScreenState(StateData* stateInfo);
 
+	// State Updating
 	void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);
+
+	// State Rendering
 	void renderButtons(sf::RenderTarget* target);
 	void renderState(sf::RenderTarget* target = nullptr);
 	

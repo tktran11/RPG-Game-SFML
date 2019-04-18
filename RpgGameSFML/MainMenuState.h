@@ -24,10 +24,12 @@ public:
 	// Constructor
 	MainMenuState(StateData* stateData);
 
-	// Virtual Functions
+	// State Updating
 	void updateButtons();
 	void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);
+
+	// State Rendering
 	void renderButtons(sf::RenderTarget* target);
 	void renderState(sf::RenderTarget* target = nullptr);
 

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SettingsMenuState.h"
 
+// Constructor
 SettingsMenuState::SettingsMenuState(StateData* stateInfo)
 	: State(stateInfo)
 {
@@ -15,7 +16,7 @@ SettingsMenuState::SettingsMenuState(StateData* stateInfo)
 	this->initializeGUI();
 }
 
-
+// Initializes the varying choices for the settings menu, including arrays that hold resolution options and such
 void SettingsMenuState::initializeVariables()
 {
 	int choices = 3;
@@ -34,6 +35,8 @@ void SettingsMenuState::initializeVariables()
 	}
 
 }
+
+// Creates the background by setting size and texture
 void SettingsMenuState::initializeBackground()
 {
 	this->background.setSize(
@@ -49,6 +52,7 @@ void SettingsMenuState::initializeBackground()
 	this->background.setTexture(&this->backgroundTexture);
 }
 
+// Initializes the availible keybinds for the state
 void SettingsMenuState::initializeKeybinds()
 {
 	std::ifstream readKeybinds("Config/SettingsStateKeybinds.ini");
@@ -64,6 +68,7 @@ void SettingsMenuState::initializeKeybinds()
 	readKeybinds.close();
 }
 
+// Creates the GUI for the Settings state, including all its buttons and drop down menus
 void SettingsMenuState::initializeGUI()
 {
 
@@ -104,7 +109,7 @@ void SettingsMenuState::initializeGUI()
 
 
 }
-
+// Updates the buttons for the settings menu
 void SettingsMenuState::updateButtons()
 {
 	for (auto &iterator : this->buttons)
@@ -176,17 +181,20 @@ void SettingsMenuState::updateButtons()
 	}
 }
 
+// Updates any input on the state
 void SettingsMenuState::updateInput(const float & deltaTime)
 {
+	this->updateButtons();
 }
 
+// Updates the state based on mouse movement and input
 void SettingsMenuState::updateState(const float & deltaTime)
 {
-	this->updateButtons();
 	this->updateMousePositions();
 	this->updateInput(deltaTime);
 }
 
+// Renders GUI elements to the state
 void SettingsMenuState::renderGUI(sf::RenderTarget * target)
 {
 	for (auto &iterator : this->buttons)
@@ -199,6 +207,7 @@ void SettingsMenuState::renderGUI(sf::RenderTarget * target)
 	}
 }
 
+// Renders the entire state with the background to the window
 void SettingsMenuState::renderState(sf::RenderTarget * target)
 {
 	if (!target)
@@ -209,6 +218,8 @@ void SettingsMenuState::renderState(sf::RenderTarget * target)
 	this->renderGUI(target);
 
 }
+
+// Destructor
 SettingsMenuState::~SettingsMenuState()
 {
 	// Clean Buttons

@@ -29,6 +29,5 @@ public:
 	// Movement Handling
 	void move(const float& deltaTime, const float xAmount, const float yAmount);
 	void updateMovement(const float& deltaTime);
-	virtual ~MovementComponent();
 };
 

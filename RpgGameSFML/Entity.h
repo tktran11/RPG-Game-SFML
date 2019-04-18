@@ -20,6 +20,7 @@ private:
 protected:
 	sf::Sprite sprite;
 	
+	// Components that entities can choose to have (ie. player will likely have all of them, enemy wont move)
 	MovementComponent* movementComponent;
 	AnimationComponent* animationComponent;
 	CharacterAttributes* attributeComponent;
@@ -28,8 +29,7 @@ public:
 	// Constructor
 	Entity();
 
-	virtual void move(const float& deltaTime, const float x, const float y);
-	virtual void updateEntity(const float& deltaTime);
+	virtual void update(const float& deltaTime) = 0;
 	virtual void renderEntity(sf::RenderTarget& target);
 
 	// Sprite Management

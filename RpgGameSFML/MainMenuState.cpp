@@ -96,15 +96,15 @@ void MainMenuState::updateButtons()
 	}
 }
 
-// Needed for virtual. Updates any keypresses in the state (so none)
+// Updates any keypresses in the state (so none) and the buttons
 void MainMenuState::updateInput(const float & deltaTime) 
 {
+	this->updateButtons();
 }
 
 // Updates happenings on the state
 void MainMenuState::updateState(const float & deltaTime) 
 {
-	this->updateButtons();
 	this->updateMousePositions();
 	this->updateInput(deltaTime);
 

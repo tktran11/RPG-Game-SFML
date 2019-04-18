@@ -2,6 +2,12 @@
 #include "AnimationComponent.h"
 #include "AnimationComponent.h"
 
+/* AnimationComponent.cpp is the body for the AnimationComponent class, which handles
+   the animating of the sprites in the game. It houses two classes: the animation class, which handles
+   a single animation and the actual AnimationComponent, which houses all animations and controls
+   things like animation priority
+*/
+
 // Constructor for the Animation Component, with an initialization list
 AnimationComponent::AnimationComponent(sf::Sprite & sprite, sf::Texture & spriteSheet)
 	:sprite(sprite), spriteSheet(spriteSheet), lastPlayedAnimation(NULL), priorityAnimation(NULL)
@@ -136,7 +142,7 @@ const bool & AnimationComponent::Animation::getIsFinished()
 	return this->isFinished;
 }
 
-// Plays an animation with a speed based on deltatime. 
+// Plays an animation with a speed based on deltatime, returns if animation is finished playing
 const bool& AnimationComponent::Animation::play(const float & deltaTime)
 {
 	this->isFinished = false;
@@ -164,7 +170,7 @@ const bool& AnimationComponent::Animation::play(const float & deltaTime)
 	return this->isFinished;
 }
 
-// Plays animation based on delta time but modified by player speed mostly for movement animations
+// Plays animation based on delta time but modified by player speed mostly for movement animations, returns if animation is finished playing
 const bool& AnimationComponent::Animation::play(const float & deltaTime, float playSpeedPercent)
 {
 	this->isFinished = false;

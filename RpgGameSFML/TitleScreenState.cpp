@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TitleScreenState.h"
+
 /* TitleScreenState.cpp is the body file for the title screen. Here the player
    has the option of hitting the ENTER key on their keyboard to open the main menu 
 */

@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "CharacterAttributes.h"
 
+/* CharacterAttributes.cpp is the body for the Character Attributes class, which controls the stats of the player
+   and enemy characters. It holds information for the current state of the player such as their health or mana,
+   and also handles level progression
+*/
 
 CharacterAttributes::CharacterAttributes(unsigned characterLevel)
 {
