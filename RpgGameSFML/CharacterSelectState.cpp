@@ -11,24 +11,20 @@ CharacterSelectState::CharacterSelectState(StateData* stateInfo)
 	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
 	this->window->setView(properScreenView);
 
-	this->initializeVariables();
 	this->initializeBackground();
 	this->initializeKeybinds();
 	this->initializeButtons();
 }
 
-/* getCharacterChoice() is an assessor function that returns the character's chosen model */
+// Assessor function that returns the character's chosen model */
 std::string CharacterSelectState::getCharacterChoice()
 {
 	return this->characterChoice;
 }
 
-void CharacterSelectState::initializeVariables()
-{
-
-}
-/* initializeBackground() sets the backround for the window by loading the
-   appropriate texture */
+/* Sets the backround for the window by loading the
+   appropriate texture
+*/
 void CharacterSelectState::initializeBackground()
 {
 	this->background.setSize(
@@ -44,7 +40,7 @@ void CharacterSelectState::initializeBackground()
 	this->background.setTexture(&this->backgroundTexture);
 }
 
-/* initializeKeybinds() reads the keybind config file to determine what
+/* Reads the keybind config file to determine what
    keys out of the game's supported keys are binded to actions for this
 	screen
 */
@@ -63,7 +59,8 @@ void CharacterSelectState::initializeKeybinds()
 	readKeybinds.close();
 
 }
-/* initializeButtons() creates the buttons */
+
+// Creates the buttons for the state
 void CharacterSelectState::initializeButtons()
 {
 	this->buttons["CHOOSE_KNIGHT"] = new gui::Button((this->window->getSize().x * 0.265f),
@@ -76,7 +73,7 @@ void CharacterSelectState::initializeButtons()
 		"MenuTextures/CharSelect/MagePort.png");
 }
 
-/* updateButtons() checks to see the state of the buttons and selects the appropriate action */
+// Checks to see what's happening with the buttons
 void CharacterSelectState::updateButtons()
 {
 	for (auto &iterator : this->buttons)
@@ -98,17 +95,21 @@ void CharacterSelectState::updateButtons()
 
 }
 
+// Updates any input on the state
 void CharacterSelectState::updateInput(const float & deltaTime)
 {
+	this->updateButtons();
 }
+
+// Updates the state
 void CharacterSelectState::updateState(const float & deltaTime)
 {
-	this->updateButtons();
+
 	this->updateMousePositions();
 	this->updateInput(deltaTime);
 
 }
-
+// Renders the buttons to the state
 void CharacterSelectState::renderButtons(sf::RenderTarget* target)
 {
 	for (auto &iterator : this->buttons)
@@ -117,6 +118,7 @@ void CharacterSelectState::renderButtons(sf::RenderTarget* target)
 	}
 }
 
+// Renders the state to the window
 void CharacterSelectState::renderState(sf::RenderTarget* target)
 {
 	if (!target)
@@ -127,7 +129,7 @@ void CharacterSelectState::renderState(sf::RenderTarget* target)
 	this->renderButtons(target);
 
 }
-
+// Destructor
 CharacterSelectState::~CharacterSelectState()
 {
 	auto iterator = this->buttons.begin();

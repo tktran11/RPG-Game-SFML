@@ -6,60 +6,52 @@ other entities.
 It stores information and will house components for entities to make use of.
 */
 
-
+// Constructor
 Entity::Entity()
 {
 	this->initializeVariables();
 
 }
 
-
+// Set initial values to null to avoid garbage before component creation
 void Entity::initializeVariables()
 {
 	this->movementComponent = nullptr;
+	this->animationComponent = nullptr;
+	this->attributeComponent = nullptr;
 }
 
-
-void Entity::move(const float& deltaTime, const float directionX, const float directionY)
-{
-	if (this->movementComponent)
-	{
-		this->movementComponent->move(deltaTime, directionX, directionY);
-	}
-}
-
-void Entity::updateEntity(const float & deltaTime)
-{
-
-}
-
-
+// Renders entity to the target
 void Entity::renderEntity(sf::RenderTarget& target)
 {
 		target.draw(this->sprite);
 }
 
+// Sets the sprite's position on the screen
 void Entity::setPosition(const float xPos, const float yPos)
 {
 		this->sprite.setPosition(xPos, yPos);
 }
 
-
+// Sets the texture of the sprite to the given texture sheet 
 void Entity::setSpriteTexture(sf::Texture& spriteTexture)
 {
 	this->sprite.setTexture(spriteTexture);
 }
 
+// Creates a movement component for the entity, with values for realistic movement physics
 void Entity::makeMovementComponent(const float maximumVelocity, const float accel, const float decel)
 {
 	this->movementComponent = new MovementComponent(this->sprite, maximumVelocity, accel, decel);
 }
 
+// Creates an animation component for the entity with a given texture sheet to go through and animate from
 void Entity::makeAnimationComponent(sf::Texture & spriteTextureSheet)
 {
 	this->animationComponent = new AnimationComponent(this->sprite, spriteTextureSheet);
 }
 
+// Creates an attribute component to hold the attributes of an entity
 void Entity::makeAttributeComponent(const unsigned level)
 {
 	this->attributeComponent = new CharacterAttributes(level);

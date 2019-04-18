@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "EndGameScreen.h"
 
+/* EndGameScreen.cpp is the body file for the end game screen. This screen represents
+the victory or death screen for the player depending on the outcome of the game
+*/
+
+// Constructor
 EndGameScreen::EndGameScreen(StateData* stateInfo, bool wonGame)
 	: State(stateInfo)
 {
@@ -15,6 +20,7 @@ EndGameScreen::EndGameScreen(StateData* stateInfo, bool wonGame)
 	this->initializeButtons();
 }
 
+// Creates the background for the state by settings its texture and size
 void EndGameScreen::initializeBackground()
 {
 	this->background.setSize(
@@ -23,6 +29,7 @@ void EndGameScreen::initializeBackground()
 			static_cast<float>(this->window->getSize().y * 0.55f)));
 	this->background.setOrigin(this->window->getSize().x * -0.2f, this->window->getSize().y * -0.25f);
 
+	// Choose which texture to load based on condition
 	if (this->wonGame)
 	{
 		if (!this->backgroundTexture.loadFromFile("MenuTextures/EndScreen/Victory.png"))
@@ -42,6 +49,7 @@ void EndGameScreen::initializeBackground()
 	this->background.setTexture(&this->backgroundTexture);
 }
 
+// Initialize keybinds for the state
 void EndGameScreen::initializeKeybinds()
 {
 	std::ifstream readKeybinds("Config/endGameKeybinds.ini");
@@ -58,6 +66,7 @@ void EndGameScreen::initializeKeybinds()
 
 }
 
+// Initialize buttons for the state
 void EndGameScreen::initializeButtons()
 {
 	this->mainMenuButton = new gui::Button((this->window->getSize().x * 0.898f),
@@ -65,6 +74,7 @@ void EndGameScreen::initializeButtons()
 		(this->window->getSize().y * 0.111f), "MenuTextures/Back.png");
 }
 
+// Updates button input on the state
 void EndGameScreen::updateInput(const float & deltaTime)
 {
 	this->mainMenuButton->updateButton(this->mousPositView);
@@ -74,12 +84,7 @@ void EndGameScreen::updateInput(const float & deltaTime)
 	}
 }
 
-void EndGameScreen::updateState(const float & deltaTime)
-{
-	this->updateMousePositions();
-	this->updateInput(deltaTime);
-}
-
+// Updates the button on the state
 void EndGameScreen::updateButtons()
 {
 	this->mainMenuButton->updateButton(this->mousPositView);
@@ -90,11 +95,20 @@ void EndGameScreen::updateButtons()
 	}
 }
 
+// Updates the state including mouse position and button pressing
+void EndGameScreen::updateState(const float & deltaTime)
+{
+	this->updateMousePositions();
+	this->updateInput(deltaTime);
+}
+
+// Renders the buttons to the state
 void EndGameScreen::renderButtons(sf::RenderTarget * target)
 {
 	this->mainMenuButton->renderButton(*target);
 }
 
+// Renders the state to the window
 void EndGameScreen::renderState(sf::RenderTarget * target)
 {
 	if (!target)
@@ -105,7 +119,7 @@ void EndGameScreen::renderState(sf::RenderTarget * target)
 	this->renderButtons(target);
 }
 
-
+// Destructor
 EndGameScreen::~EndGameScreen()
 {
 	delete this->mainMenuButton;

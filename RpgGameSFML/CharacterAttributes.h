@@ -1,4 +1,8 @@
 #pragma once
+/* CharacterAttributes.h is the header for the Character Attributes class, which controls the stats of the player
+   and enemy characters. It holds information for the current state of the player such as their health or mana, 
+   and also handles level progression
+*/
 class CharacterAttributes
 {
 public:

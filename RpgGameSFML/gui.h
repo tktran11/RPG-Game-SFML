@@ -30,10 +30,12 @@ namespace gui
 		const bool isPressed() const;
 		const std::string getTexture() const;
 		const short unsigned& getButtonID() const;
-		// Button Management
 
-		void changeTexture(std::string textureName);
-		void changeID(const short unsigned newID);
+		// Mutators
+		void setTexture(std::string textureName);
+		void setID(const short unsigned newID);
+
+		// Button Management
 		void updateButton(const sf::Vector2f mousePosition);
 		void renderButton(sf::RenderTarget& target);
 
@@ -48,6 +50,7 @@ namespace gui
 		DropDownMenu(float xPos, float yPos, float width, float height,
 			std::string list[], unsigned numOfElements, unsigned defaultIndex = 0);
 		// Accessor
+
 		const unsigned short& getActiveElementID() const;
 		std::vector<gui::Button*> dropDownElements;
 		void updateDropDown(const sf::Vector2f mousePosition);

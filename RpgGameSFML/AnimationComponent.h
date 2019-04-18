@@ -1,7 +1,15 @@
 #pragma once
+
+/* AnimationComponent.h is the header for the AnimationComponent class, which handles
+   the animating of the sprites in the game. It houses two classes: the animation class, which handles
+   a single animation and the actual AnimationComponent, which houses all animations and controls
+   things like animation priority
+*/
+
 class AnimationComponent
 {
 private:
+	// Animation class to control a single animation
 	class Animation
 	{
 	private:
@@ -33,14 +41,20 @@ private:
 		const bool& play(const float& deltaTime, float playSpeedPercent);
 	};
 
+	// Animation map (name of animation) to the actual animation
 	std::map<std::string, Animation*> animationSet;
+
+	// Checks to see what the animation playing is to set correct functionality (ie. two animations can't play at once, or direction changing)
 	Animation* lastPlayedAnimation;
 	Animation* priorityAnimation;
+
+	// Texture to animate
 	sf::Sprite& sprite;
 	sf::Texture& spriteSheet;
 public:
+
 	AnimationComponent(sf::Sprite& sprite, sf::Texture& spriteSheet);
-	// Add animation to   component
+	// Add animation to component
 	void addAnimation(const std::string animationKey,
 		float timer, int startFrameX, int startFrameY, int frameX, int frameY,
 		int width, int height);
@@ -48,6 +62,7 @@ public:
 	// Accessor
 	const bool& isAnimationFinished(const std::string animationKey);
 
+	// Play functions
 	const bool& playAnimation(const std::string animationKey, const float& deltaTime, const bool isPriority = false);
 	const bool& playAnimation(const std::string animationKey, const float& deltaTime, const float& playSpeed,
 		const float& maxPlaySpeed, const bool isPriority = false);

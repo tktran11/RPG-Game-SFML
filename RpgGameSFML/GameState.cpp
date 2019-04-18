@@ -100,6 +100,7 @@ void GameState::updatePlayerInput(const float& deltaTime)
 
 }
 
+// Updates the pause menu buttons
 void GameState::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
@@ -109,6 +110,7 @@ void GameState::updatePauseMenuButtons()
 	}
 }
 
+// Updates input on the state, specifically the pause menu
 void GameState::updateInput(const float & deltaTime)
 {	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("PAUSE"))) && this->getKeyboardTimer())

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
+// Constructor
 Game::Game()
 {
 	this->initializeVariables();
@@ -11,7 +12,7 @@ Game::Game()
 	this->startStates();
 
 }
-
+// Creates the window that the game is played on based on default settings 
 void Game::startWindow()
 {
 	if (this->graphicsSettings.isFullScreen)
@@ -31,11 +32,13 @@ void Game::startWindow()
 	this->gameWindow->setView(properScreenView);
 }
 
+// Begins the state engine that runs the game
 void Game::startStates()
 {
 	this->states.push(new TitleScreenState(&this->stateData));
 }
 
+// Initializes state data to be passed from state to state
 void Game::initializeStateData()
 {
 	this->stateData.gameWindow = this->gameWindow;
@@ -44,17 +47,22 @@ void Game::initializeStateData()
 	this->stateData.states = &this->states;
 }
 
+// Initializes graphics settings to be passed from state to state
 void Game::initializeGraphicsSettings()
 {
 	this->graphicsSettings.loadSettingsFromFile("Config/graphicsSettings.ini");
 }
 
+// Sets starting values for the game to avoid garbage
 void Game::initializeVariables()
 {
 	this->gameWindow = nullptr;
 	this->deltaTime = 0.f;
 }
 
+/* Initializes the list of supported keys for the entire game. Each state has the opportunity to assign any of these 
+   keys to specific functionality within the state itself 
+*/
 void Game::initializeKeyboard()
 {
 	std::ifstream readKeys("Config/supportedKeys.ini");
@@ -70,12 +78,17 @@ void Game::initializeKeyboard()
 	readKeys.close();
 }
 
+/* updates DeltaTime to the time it took to render one frame of our game. Needed for
+   less hardware dependant playability 
+*/
 void Game::updateDeltaTime()
 {
-	// updates DeltaTime to the time it took to render one frame of our game. 
 	this->deltaTime = this->deltaClock.restart().asSeconds();
 }
 
+/* Polls game window for SFML events, specifically if the game is still running or not. Closes and destroys
+   window when applicable 
+ */
 void Game::updateEvents()
 {
 	while (this->gameWindow->pollEvent(this->event))
@@ -87,6 +100,7 @@ void Game::updateEvents()
 	}
 }
 
+// Updates the game by checking the top of the state stack and updating that single state
 void Game::updateGame()
 {
 	this->updateEvents();
@@ -96,7 +110,6 @@ void Game::updateGame()
 		if (this->states.top()->getQuit())
 		{
 			this->states.top()->endState();
-			delete this->states.top();
 			this->states.pop();
 		}
 	}
@@ -106,6 +119,7 @@ void Game::updateGame()
 	}
 }
 
+// Renders the game to the window, by clearing it and rendering the top state
 void Game::renderToWindow()
 {
 	this->gameWindow->clear();
@@ -113,9 +127,11 @@ void Game::renderToWindow()
 	if (!this->states.empty()) {
 		this->states.top()->renderState();
 	}
+	// Displays everything to the game window
 	this->gameWindow->display();
 }
 
+// Runs the game
 void Game::runGame()
 {
 	while (this->gameWindow->isOpen())
@@ -126,6 +142,7 @@ void Game::runGame()
 	}
 }
 
+// Destructor
 Game::~Game()
 {
 	delete this->gameWindow;

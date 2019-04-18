@@ -25,14 +25,18 @@ private:
 public:
 	// Constructor
 	GameState(StateData* stateInfo, std::string playerType);
-	// Destructor
-	virtual ~GameState();
 
-	// Virtual Functions
+	// State Updating
 	void updatePlayerInput(const float& deltaTime);
 	void updatePauseMenuButtons();
 	void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);
+
+	// State Rendering
 	void renderState(sf::RenderTarget* target = nullptr);
+
+	// Destructor
+	virtual ~GameState();
+
 };
 

@@ -104,7 +104,7 @@
       <Filter>Entity Files</Filter>
     </ClCompile>
     <ClCompile Include="CharacterAttributes.cpp">
-      <Filter>State Headers</Filter>
+      <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

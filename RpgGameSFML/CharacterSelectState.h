@@ -18,7 +18,6 @@ private:
 
 	// Initialization for the Character Select
 	void initializeBackground();
-	void initializeVariables();
 	void initializeKeybinds();
 	void initializeButtons();
 public:

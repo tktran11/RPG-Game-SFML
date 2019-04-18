@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "CreditScreenState.h"
 
+
+/* CreditScreenState.cpp is the body file for the credit screen state, which
+houses a simple picture of the contributors to this project, including the programmers
+and our artist friend
+*/
+
+// Constructor
 CreditScreenState::CreditScreenState(StateData* stateInfo)
 	: State(stateInfo)
 {
@@ -13,6 +20,7 @@ CreditScreenState::CreditScreenState(StateData* stateInfo)
 	this->initializeButtons();
 }
 
+// Creates the background and sets the texture for the background
 void CreditScreenState::initializeBackground()
 {
 	this->background.setSize(
@@ -28,6 +36,7 @@ void CreditScreenState::initializeBackground()
 	this->background.setTexture(&this->backgroundTexture);
 }
 
+// Inializes keybinds for the state
 void CreditScreenState::initializeKeybinds()
 {
 	std::ifstream readKeybinds("Config/creditScreenKeybinds.ini");
@@ -44,6 +53,7 @@ void CreditScreenState::initializeKeybinds()
 
 }
 
+// Creates the buttons for the state
 void CreditScreenState::initializeButtons()
 {
 	this->backButton = new gui::Button((this->window->getSize().x * 0.898f), 
@@ -52,6 +62,7 @@ void CreditScreenState::initializeButtons()
 		"MenuTextures/Back.png");
 }
 
+// Updates input on the state, specifically for the single button the state has
 void CreditScreenState::updateInput(const float & deltaTime)
 {
 
@@ -63,17 +74,20 @@ void CreditScreenState::updateInput(const float & deltaTime)
 
 }
 
+// Updates the state including mouse position and the buttons
 void CreditScreenState::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
 	this->updateInput(deltaTime);
 }
 
+// Draws the button
 void CreditScreenState::renderButtons(sf::RenderTarget * target)
 {
 	this->backButton->renderButton(*target);
 }
 
+// Renders the state to the window
 void CreditScreenState::renderState(sf::RenderTarget * target)
 {
 	if (!target)
@@ -84,7 +98,7 @@ void CreditScreenState::renderState(sf::RenderTarget * target)
 	this->renderButtons(target);
 }
 
-
+// Destructor
 CreditScreenState::~CreditScreenState()
 {
 	delete this->backButton;
