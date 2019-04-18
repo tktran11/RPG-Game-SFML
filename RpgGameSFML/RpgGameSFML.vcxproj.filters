@@ -97,9 +97,6 @@
     <ClCompile Include="EndGameScreen.cpp">
       <Filter>Menu Files</Filter>
     </ClCompile>
-    <ClCompile Include="Knight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CharacterAttributes.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
@@ -156,7 +153,6 @@
     <ClInclude Include="EndGameScreen.h">
       <Filter>Menu Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Knight.h" />
     <ClInclude Include="CharacterAttributes.h">
       <Filter>Component Headers</Filter>
     </ClInclude>
