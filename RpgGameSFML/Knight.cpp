@@ -13,11 +13,10 @@ Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPo
 	this->initializeVariables();
 	this->setPosition(startPointX, startPointY);
 	this->makeAnimationComponent(spriteTextureSheet);
-
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("MOVE", 5.f, 0, 0, 11, 0, 192, 192);
 	this->animationComponent->addAnimation("IDLE", 15.f, 0, 3, 13, 3, 192, 192);
-	this->animationComponent->addAnimation("SWING", 5.f, 0, 4, 13, 4, 384, 192);
+	this->animationComponent->addAnimation("SWING", 5.f, 0, 5, 13, 5, 384, 192);
 }
 
 void Knight::initializeComponents()
@@ -37,13 +36,14 @@ void Knight::updateAnimation(const float & deltaTime)
 		// facing rightside
 		if (this->sprite.getScale().x > 0.f)
 		{
-			this->sprite.setOrigin(354.f, 0.f);
+		
+			this->sprite.setOrigin(96.f, 0.f);
 		}
 		// facing leftside
 		else
 		{
 	
-			this->sprite.setOrigin(354.f, 0.f);
+		this->sprite.setOrigin(450.f, 0.f);
 		}
 		// animate attack and set end of attack animation
 		if (this->animationComponent->playAnimation("SWING", deltaTime, true))
@@ -54,10 +54,10 @@ void Knight::updateAnimation(const float & deltaTime)
 			{
 				this->sprite.setOrigin(0.f, 0.f);
 			}
-			// facing rightside
+			// facing leftside
 			else
 			{
-				this->sprite.setOrigin(258.f, 0.f);
+				this->sprite.setOrigin(354.f, 0.f);
 			}
 		}
 	}
@@ -80,7 +80,7 @@ void Knight::updateAnimation(const float & deltaTime)
 	{
 		if (this->sprite.getScale().x > 0.f)
 		{
-			this->sprite.setOrigin(129.f, 0.f);
+			this->sprite.setOrigin(169.f, 0.f);
 			// Flip sprite
 			this->sprite.setScale(-1.f, 1.f);
 		}
@@ -112,11 +112,6 @@ void Knight::checkForAttackAnimation()
 void Knight::update(const float & deltaTime)
 {
 	this->attributeComponent->update();
-	// REMOVE LATER
-	//system("cls");
-	//std::cout << this->attributeComponent->debugPrint() << "\n";
-	// This cout and cls shit super lags everything. If you don't remove it the game will feel like trash
-
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);

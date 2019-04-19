@@ -145,11 +145,6 @@ void Mage::checkForAttackAnimation()
 void Mage::update(const float & deltaTime)
 {
 	this->attributeComponent->update();
-	// REMOVE LATER
-	system("cls");
-	std::cout << this->attributeComponent->debugPrint() << "\n";
-	// This cout and cls shit super lags everything. If you don't remove it the game will feel like trash
-
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
