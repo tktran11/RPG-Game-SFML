@@ -5,12 +5,12 @@ enum attackKey {
 	K = 10,	L = 11
 };
 
-Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY) :
-	PlayerCharacter(spriteTextureSheet, startPointX, startPointY)
+Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale) :
+	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, fullScreenScale)
 {
-	this->initializeComponents();
 	this->initializeVariables();
 	this->setPosition(startPointX, startPointY);
+	this->sprite.setScale(this->scale, this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
 
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
@@ -18,11 +18,6 @@ Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY
 	this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 9, 0, 192, 192);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 3, 16, 3, 384, 192);
 	this->animationComponent->addAnimation("POWER_UP", 5.f, 0, 2, 16, 2, 192, 192);
-}
-
-void Mage::initializeComponents()
-{
-	this->makeMovementComponent(300.f, 12.f, 3.f);
 }
 
 void Mage::initializeVariables()
@@ -57,7 +52,7 @@ void Mage::updateAnimation(const float & deltaTime)
 			// facing rightside
 			else
 			{
-				this->sprite.setOrigin(258.f, 0.f);
+				this->sprite.setOrigin(140.f, 0.f);
 			}
 		}
 	}
@@ -99,7 +94,7 @@ void Mage::updateAnimation(const float & deltaTime)
 		{
 			this->sprite.setOrigin(172.f, 0.f);
 			// Flip sprite
-			this->sprite.setScale(-1.f, 1.f);
+			this->sprite.setScale(-1.f * this->scale, 1.f * this->scale);
 		}
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().x, this->movementComponent->getMaximumVelocity());
@@ -110,7 +105,7 @@ void Mage::updateAnimation(const float & deltaTime)
 		{
 			this->sprite.setOrigin(0.f, 0.f);
 			// Flip sprite
-			this->sprite.setScale(1.f, 1.f);
+			this->sprite.setScale(1.f * this->scale, 1.f * this->scale);
 		}
 
 		this->animationComponent->playAnimation("MOVE", deltaTime,
@@ -129,13 +124,8 @@ void Mage::updateAnimation(const float & deltaTime)
 
 }
 
-void Mage::checkForAttackAnimation()
+void Mage::checkForPowerUpAnimation()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(K)))
-	{
-		this->isAttacking = true;
-	}
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(L)))
 	{
 		this->isPoweringUp = true;
@@ -147,10 +137,6 @@ void Mage::update(const float & deltaTime)
 	this->attributeComponent->update();
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
+	this->checkForPowerUpAnimation();
 	this->updateAnimation(deltaTime);
-}
-
-
-Mage::~Mage()
-{
 }

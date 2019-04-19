@@ -13,18 +13,13 @@ enum attackKey {
 };
 
 /* Constructor for the player character*/
-PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY)
+PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale)
 {
 	this->startPositionX = startPointX;
 	this->startPositionY = startPointY;
 	this->initializeComponents(spriteTextureSheet);
-	this->initializeVariables();
+	this->initializeVariables(fullScreenScale);
 	this->setPosition(startPointX, startPointY);
-
-	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
-	this->animationComponent->addAnimation("MOVE", 5.f, 0, 1, 11, 1, 192, 192);
-	this->animationComponent->addAnimation("IDLE", 15.f, 0, 2, 13, 2, 192, 192);
-	this->animationComponent->addAnimation("SWING", 5.f, 0, 4, 13, 4, 384, 192);
 }
 
 // Returns the starting position of the player character in the X axis
@@ -39,6 +34,18 @@ float PlayerCharacter::getStartPosY()
 	return this->startPositionY;
 }
 
+void PlayerCharacter::setSpriteScale(bool fullScreenScale)
+{
+	if (fullScreenScale)
+	{
+		this->scale = 1.5f;
+	} 
+	else
+	{
+		this->scale = 1.f;
+	}
+}
+
 // Initializes the components used by the player character
 void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet)
 {
@@ -48,11 +55,11 @@ void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet)
 }
 
 // Sets starting variables for the player
-void PlayerCharacter::initializeVariables()
+void PlayerCharacter::initializeVariables(bool fullScreenScale)
 {
 	this->isAttacking = false;
+	this->setSpriteScale(fullScreenScale);
 }
-
 
 // Moves the player character based on frame rate, x direction, and y direction
 void PlayerCharacter::move(const float & deltaTime, const float x, const float y)
@@ -62,7 +69,6 @@ void PlayerCharacter::move(const float & deltaTime, const float x, const float y
 		this->movementComponent->move(deltaTime, x, y);
 	}
 }
-
 // Checks to see if the player is currently attacking (so that no other animation plays while attacking)
 void PlayerCharacter::checkForAttackAnimation()
 {
@@ -71,21 +77,4 @@ void PlayerCharacter::checkForAttackAnimation()
 		this->isAttacking = true;
 	}
 }
-
-// Updates what is happening to the player character (ie. change in stats, movement, animation)
-void PlayerCharacter::update(const float & deltaTime)
-{
-	this->attributeComponent->update();
-	// REMOVE LATER
-	system("cls");
-	std::cout << this->attributeComponent->debugPrint() << "\n";
-	// This cout and cls shit super lags everything. If you don't remove it the game will feel like trash
-
-
-
-	this->movementComponent->updateMovement(deltaTime);
-	this->checkForAttackAnimation();
-	this->updateAnimation(deltaTime);
-}
-
 

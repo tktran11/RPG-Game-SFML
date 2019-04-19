@@ -82,19 +82,20 @@ void GameState::initializePauseMenu()
 // Creates a new player, setting its texture and position
 void GameState::initializePlayer()
 {
-	float startingPos = this->window->getSize().y * 0.722f;
-	if (this->stateInfo->graphicsSettings->isFullScreen)
+	float startingPos = this->window->getSize().y * 0.72f;
+	bool fullScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	if (fullScreen)
 	{
-		startingPos = 1280 * 0.69f;
+		startingPos = 1280 * 0.62f;
 	}
 	if (this->chosenCharacter == "knight")
 	{
-		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos);
+		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, fullScreen);
 	}
 	else
 		if (this->chosenCharacter == "mage")
 		{
-			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos);
+			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, fullScreen);
 		}
 }
 

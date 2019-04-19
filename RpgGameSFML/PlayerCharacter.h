@@ -12,24 +12,28 @@ class PlayerCharacter :
 	public Entity
 {
 private:
-	// Initialization Functions
 	void initializeComponents(sf::Texture& spriteTextureSheet);
-	void initializeVariables();
+	void initializeVariables(bool fullScreenScale);
+	// Initialization Functions
 	float startPositionX;
 	float startPositionY;
+protected:
+	float scale;
 	bool isAttacking;
-
 public:
 	// Constructor
-	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY);
+	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale);
 
 	// Assessors
 	float getStartPosX();
 	float getStartPosY();
 
+	// Mutators
+	void setSpriteScale(bool fullScreenScale);
+
 	virtual void updateAnimation(const float& deltaTime) = 0;
+	virtual void update(const float& deltaTime) = 0;
 	virtual void move(const float& deltaTime, const float x, const float y);
 	void checkForAttackAnimation();
-	virtual void update(const float& deltaTime);
 };
 

@@ -6,27 +6,16 @@ enum attackKey {
 };
 
 
-Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY) :
-	PlayerCharacter(spriteTextureSheet, startPointX, startPointY)
+Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale) :
+	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, fullScreenScale)
 {
-	this->initializeComponents();
-	this->initializeVariables();
 	this->setPosition(startPointX, startPointY);
+	this->sprite.setScale(this->scale, this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("MOVE", 5.f, 0, 0, 11, 0, 192, 192);
 	this->animationComponent->addAnimation("IDLE", 15.f, 0, 3, 13, 3, 192, 192);
 	this->animationComponent->addAnimation("SWING", 5.f, 0, 5, 13, 5, 384, 192);
-}
-
-void Knight::initializeComponents()
-{
-	this->makeMovementComponent(300.f, 12.f, 3.f);
-}
-
-void Knight::initializeVariables()
-{
-	this->isAttacking = false;
 }
 
 void Knight::updateAnimation(const float & deltaTime)
@@ -36,14 +25,12 @@ void Knight::updateAnimation(const float & deltaTime)
 		// facing rightside
 		if (this->sprite.getScale().x > 0.f)
 		{
-		
 			this->sprite.setOrigin(96.f, 0.f);
 		}
 		// facing leftside
 		else
 		{
-	
-		this->sprite.setOrigin(450.f, 0.f);
+		this->sprite.setOrigin(265.f, 0.f);
 		}
 		// animate attack and set end of attack animation
 		if (this->animationComponent->playAnimation("SWING", deltaTime, true))
@@ -57,7 +44,8 @@ void Knight::updateAnimation(const float & deltaTime)
 			// facing leftside
 			else
 			{
-				this->sprite.setOrigin(354.f, 0.f);
+		
+				this->sprite.setOrigin(169.f, 0.f);
 			}
 		}
 	}
@@ -71,7 +59,7 @@ void Knight::updateAnimation(const float & deltaTime)
 		{
 			this->sprite.setOrigin(0.f, 0.f);
 			// Flip sprite
-			this->sprite.setScale(1.f, 1.f);
+			this->sprite.setScale(1.f * this->scale, 1.f * this->scale);
 		}
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().x, this->movementComponent->getMaximumVelocity());
@@ -82,7 +70,7 @@ void Knight::updateAnimation(const float & deltaTime)
 		{
 			this->sprite.setOrigin(169.f, 0.f);
 			// Flip sprite
-			this->sprite.setScale(-1.f, 1.f);
+			this->sprite.setScale(-1.f * this->scale, 1.f * this->scale);
 		}
 
 		this->animationComponent->playAnimation("MOVE", deltaTime,
@@ -101,23 +89,10 @@ void Knight::updateAnimation(const float & deltaTime)
 
 }
 
-void Knight::checkForAttackAnimation()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(K)))
-	{
-		this->isAttacking = true;
-	}
-}
-
 void Knight::update(const float & deltaTime)
 {
 	this->attributeComponent->update();
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
-}
-
-
-Knight::~Knight()
-{
 }

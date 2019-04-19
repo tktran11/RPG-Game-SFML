@@ -5,17 +5,13 @@ class Mage :
 {
 private:
 	// Initialization Functions
-	void initializeComponents();
 	void initializeVariables();
-
-	bool isAttacking;
 	bool isPoweringUp;
 public:
-	Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY);
+	Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale = false);
 
 	void updateAnimation(const float& deltaTime);
-	void checkForAttackAnimation();
+	void checkForPowerUpAnimation();
 	void update(const float& deltaTime);
-	~Mage();
 };
 
