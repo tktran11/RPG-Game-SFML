@@ -83,19 +83,19 @@ void GameState::initializePauseMenu()
 void GameState::initializePlayer()
 {
 	float startingPos = this->window->getSize().y * 0.72f;
-	bool fullScreen = this->stateInfo->graphicsSettings->isFullScreen;
-	if (fullScreen)
+	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	if (scaleScreen)
 	{
 		startingPos = 1280 * 0.62f;
 	}
 	if (this->chosenCharacter == "knight")
 	{
-		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, fullScreen);
+		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, scaleScreen);
 	}
 	else
 		if (this->chosenCharacter == "mage")
 		{
-			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, fullScreen);
+			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, scaleScreen);
 		}
 }
 
@@ -118,7 +118,7 @@ void GameState::updatePlayerInput(const float& deltaTime)
 	{
 		this->player->move(deltaTime, 0.f, 0.5f);
 	}
-	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_UP")))) && (this->player->getYPosition() >= this->player->getStartPosY() - 14.f))
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_UP")))) && (this->player->getYPosition() >= this->player->getStartPosY() - 10.f))
 	{
 
 		this->player->move(deltaTime, 0.f, -0.5f);

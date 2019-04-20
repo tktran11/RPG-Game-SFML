@@ -8,7 +8,7 @@ private:
 	void initializeVariables();
 	bool isPoweringUp;
 public:
-	Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale = false);
+	Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool scaleScreen = false);
 
 	void updateAnimation(const float& deltaTime);
 	void checkForPowerUpAnimation();

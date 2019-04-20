@@ -5,8 +5,8 @@ enum attackKey {
 	K = 10,	L = 11
 };
 
-Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale) :
-	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, fullScreenScale)
+Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool scaleScreen) :
+	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, scaleScreen)
 {
 	this->initializeVariables();
 	this->setPosition(startPointX, startPointY);

@@ -71,6 +71,10 @@ void CharacterSelectState::initializeButtons()
 		(this->window->getSize().y * 0.542f),
 		(this->window->getSize().x * 0.195f), (this->window->getSize().y * 0.347f), 
 		"MenuTextures/CharSelect/MagePort.png");
+	this->buttons["BACK"] = new gui::Button((this->window->getSize().x * 0.898f),
+		(this->window->getSize().y * 0.902f), (this->window->getSize().x * 0.156f),
+		(this->window->getSize().y * 0.111f), "MenuTextures/Back.png");
+
 }
 
 // Checks to see what's happening with the buttons
@@ -80,7 +84,10 @@ void CharacterSelectState::updateButtons()
 	{
 		iterator.second->updateButton(this->mousPositView);
 	}
-
+	if (this->buttons["BACK"]->isPressed())
+	{
+		this->endState();
+	}
 	if (this->buttons["CHOOSE_KNIGHT"]->isPressed())
 	{
 		this->characterChoice = "knight";
