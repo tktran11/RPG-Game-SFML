@@ -10,10 +10,11 @@ CharacterAttributes::CharacterAttributes(unsigned characterLevel)
 {
 	this->level = characterLevel;
 	this->experience = 0;
-	this->expToNextLevel = calculateExpToNext(characterLevel);
+	this->expToNextLevel = 0;
 	this->attributePoints = 0;
 	this->intelligence = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
 	this->vitality = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
+	this->updateLevel();
 	this->updateAttributes(true);
 }
 
@@ -22,13 +23,13 @@ std::string CharacterAttributes::debugPrint() const
 	std::stringstream ss;
 
 	ss << "Level: " << this->level << "\n"
-	 << "Exp: " << this->experience << "\n"
-	 << "Experience to Next: " << this->expToNextLevel << "\n"
-	 << "Attribute Points: " << this->attributePoints << "\n"
-	 << "Health: " << this->currentHP << "\n"
-	 << "Health Max: " << this->maxHP << "\n"
-	 << "Mana: " << this->currentMana << "\n"
-	 << "Max Mana: " << this->maxMana << "\n" << "\n";
+		<< "Exp: " << this->experience << "\n"
+		<< "Experience to Next: " << this->expToNextLevel << "\n"
+		<< "Attribute Points: " << this->attributePoints << "\n"
+		<< "Health: " << this->currentHP << "\n"
+		<< "Health Max: " << this->maxHP << "\n"
+		<< "Mana: " << this->currentMana << "\n"
+		<< "Max Mana: " << this->maxMana << "\n" << "\n";
 
 	return ss.str();
 }
@@ -36,7 +37,7 @@ std::string CharacterAttributes::debugPrint() const
 int CharacterAttributes::calculateExpToNext(unsigned characterLevel)
 {
 	int neededExp = 0;
-	if (characterLevel >= 2)
+	if (characterLevel <= 2)
 	{
 		neededExp = 100;
 	}
@@ -45,6 +46,11 @@ int CharacterAttributes::calculateExpToNext(unsigned characterLevel)
 		neededExp = (characterLevel * 50);
 	}
 	return neededExp;
+}
+
+void CharacterAttributes::ganXP(const unsigned experience)
+{
+	this->experience += experience;
 }
 
 void CharacterAttributes::updateAttributes(const bool resetOnLevel)
@@ -66,10 +72,9 @@ void CharacterAttributes::updateLevel()
 {
 	while (this->experience >= this->expToNextLevel)
 	{
-		++this->level;
 		// level up 
-		this->experience = this->expToNextLevel;
-		this->expToNextLevel = calculateExpToNext(this->level);
+		this->experience -= this->expToNextLevel;
+		this->expToNextLevel = calculateExpToNext(++this->level);
 		// this->attributePoints++
 		// NOTE: --------------------------------
 		// Either manually update the stats by letting user choose or simply ++ to all the stats, which instead of having
@@ -77,12 +82,8 @@ void CharacterAttributes::updateLevel()
 	}
 }
 
-void CharacterAttributes::update()
+void CharacterAttributes::update(const unsigned experience)
 {
+	this->ganXP(experience);
 	this->updateLevel();
-}
-
-
-CharacterAttributes::~CharacterAttributes()
-{
 }

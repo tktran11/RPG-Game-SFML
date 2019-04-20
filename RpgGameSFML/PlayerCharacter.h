@@ -25,6 +25,7 @@ public:
 	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale);
 
 	// Assessors
+	CharacterAttributes* getAttributeComponent();
 	float getStartPosX();
 	float getStartPosY();
 

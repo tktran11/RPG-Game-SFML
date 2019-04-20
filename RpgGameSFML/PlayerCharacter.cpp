@@ -22,6 +22,11 @@ PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPoi
 	this->setPosition(startPointX, startPointY);
 }
 
+CharacterAttributes * PlayerCharacter::getAttributeComponent()
+{
+	return this->attributeComponent;
+}
+
 // Returns the starting position of the player character in the X axis
 float PlayerCharacter::getStartPosX()
 {
@@ -51,7 +56,7 @@ void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet)
 {
 	this->makeMovementComponent(300.f, 12.f, 3.f);
 	this->makeAnimationComponent(spriteTextureSheet);
-	this->makeAttributeComponent(1); // first level is level 1
+	this->makeAttributeComponent(0);
 }
 
 // Sets starting variables for the player

@@ -134,7 +134,6 @@ void Mage::checkForPowerUpAnimation()
 
 void Mage::update(const float & deltaTime)
 {
-	this->attributeComponent->update();
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
 	this->checkForPowerUpAnimation();

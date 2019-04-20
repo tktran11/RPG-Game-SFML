@@ -35,12 +35,12 @@ public:
 	// REMOVE LATER
 	std::string debugPrint() const;
 
-
+	
 	int calculateExpToNext(unsigned characterLevel);
+	void ganXP(const unsigned experience);
 	void updateAttributes(const bool resetOnLevel);
 	void updateLevel();
-	void update();
-	// Destructor
-	virtual ~CharacterAttributes();
+	void update(const unsigned experience);
+
 };
 

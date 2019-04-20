@@ -133,6 +133,9 @@
     <ClCompile Include="CharacterAttributes.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterGUI.cpp">
+      <Filter>GUI Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="CombatState.h">
       <Filter>State Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterGUI.h">
+      <Filter>GUI Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

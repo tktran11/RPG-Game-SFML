@@ -19,6 +19,7 @@ GameState::GameState(StateData* stateInfo, std::string playerType)
 	this->initializeBackground();
 	this->initializePauseMenu();
 	this->initializePlayer();
+	this->initializePlayerGUI();
 }
 
 // Reads keybinds from a specified .ini file and creates a map from keybind to binded value
@@ -99,6 +100,11 @@ void GameState::initializePlayer()
 		}
 }
 
+void GameState::initializePlayerGUI()
+{
+	this->playerGUI = new CharacterGUI(this->player);
+}
+
 // Updates input for the player movement by polling the keyboard for any input and moving the player based on that
 void GameState::updatePlayerInput(const float& deltaTime)
 {
@@ -123,6 +129,11 @@ void GameState::updatePlayerInput(const float& deltaTime)
 
 		this->player->move(deltaTime, 0.f, -0.5f);
 	}
+}
+
+void GameState::updatePlayerGUI(const float & deltaTime)
+{
+	this->playerGUI->updateUI(deltaTime);
 }
 
 // Updates the pause menu buttons
@@ -162,6 +173,7 @@ void GameState::updateState(const float& deltaTime)
 	if (!this->isPaused) {
 		this->updatePlayerInput(deltaTime);
 		this->player->update(deltaTime);
+		this->playerGUI->updateUI(deltaTime);
 	}
 	else
 	{
@@ -179,6 +191,7 @@ void GameState::renderState(sf::RenderTarget* target)
 	}
 	target->draw(this->background);
 	this->player->renderEntity(*target);
+	this->playerGUI->renderUI(*target);
 
 	// Render pause menu
 	if (this->isPaused)
@@ -191,5 +204,6 @@ void GameState::renderState(sf::RenderTarget* target)
 GameState::~GameState()
 {
 	delete this->player;
+	delete this->playerGUI;
 	delete this->pauseMenu;
 }
