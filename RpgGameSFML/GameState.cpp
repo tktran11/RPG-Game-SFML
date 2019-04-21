@@ -102,7 +102,7 @@ void GameState::initializePlayer()
 
 void GameState::initializePlayerGUI()
 {
-	this->playerGUI = new CharacterGUI(this->player);
+	this->playerGUI = new CharacterGUI(this->player, this->chosenCharacter);
 }
 
 // Updates input for the player movement by polling the keyboard for any input and moving the player based on that

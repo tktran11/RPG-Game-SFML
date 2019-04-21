@@ -8,20 +8,29 @@ class CharacterGUI
 {
 private:
 	PlayerCharacter* player;
+	std::string playerType;
 
 	sf::Font font;
+	sf::RectangleShape portrait;
+	sf::RectangleShape portraitPic;
 	sf::RectangleShape guiDock;
-	sf::RectangleShape hpBarFull;
-	sf::RectangleShape hpBarPercent;
+	sf::RectangleShape hpBar;
+	sf::RectangleShape manaBar;
 
+	std::vector<std::string> textureFiles;
+	std::vector<sf::Texture> uiTextures;
+	sf::Texture texture;
+
+	void initializeTextures();
 	void initializeFont();
+	void initializePortrait();
 	void initializeStatDock();
 	void initializeHPBar();
 	void initializeManaBar();
 
 public:
 	// Constructor
-	CharacterGUI(PlayerCharacter* player);
+	CharacterGUI(PlayerCharacter* player, std::string playerType);
 
 	void updateHPBar();
 	void updateManaBar();

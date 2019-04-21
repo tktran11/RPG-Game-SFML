@@ -1,0 +1,6 @@
+AttributeUI/dockForUI.png
+AttributeUI/portraitPanel.png
+AttributeUI/KnightPort.png
+AttributeUI/MagePort.png
+AttributeUI/health.png
+AttributeUI/mana.png
