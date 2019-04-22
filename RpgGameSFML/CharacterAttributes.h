@@ -6,11 +6,11 @@
 class CharacterAttributes
 {
 public:
-	// Leveling (for Player) and Level Management (all entities)
-	unsigned level;
-	unsigned experience;
-	unsigned expToNextLevel;
-	unsigned attributePoints;
+	// Leveling (for Player) and Level Management (all entities) 
+	int level;
+	int experience;
+	int expToNextLevel;
+	int attributePoints;
 	
 	// Attributes (Consider putting all of the stats in a container (array, vector, map, something) for ease of either hard coding
 	// or file reading
@@ -28,7 +28,7 @@ public:
 	int maxMana;
 
 	// Constructor
-	CharacterAttributes(unsigned characterLevel);
+	CharacterAttributes(int characterLevel);
 
 	// Functions
 
@@ -36,11 +36,11 @@ public:
 	std::string debugPrint() const;
 
 	
-	int calculateExpToNext(unsigned characterLevel);
-	void ganXP(const unsigned experience);
+	int calculateExpToNext(int characterLevel);
+	void ganXP(const int experience);
 	void updateAttributes(const bool resetOnLevel);
 	void updateLevel();
-	void update(const unsigned experience);
+	void update(const int experience);
 
 };
 

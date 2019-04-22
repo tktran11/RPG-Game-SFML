@@ -28,6 +28,7 @@ public:
 	CharacterAttributes* getAttributeComponent();
 	float getStartPosX();
 	float getStartPosY();
+	float getSpriteScale();
 
 	// Mutators
 	void setSpriteScale(bool fullScreenScale);

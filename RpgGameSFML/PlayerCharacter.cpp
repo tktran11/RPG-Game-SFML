@@ -39,6 +39,11 @@ float PlayerCharacter::getStartPosY()
 	return this->startPositionY;
 }
 
+float PlayerCharacter::getSpriteScale()
+{
+	return this->scale;
+}
+
 void PlayerCharacter::setSpriteScale(bool fullScreenScale)
 {
 	if (fullScreenScale)

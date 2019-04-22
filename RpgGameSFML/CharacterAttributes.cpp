@@ -6,7 +6,7 @@
    and also handles level progression
 */
 
-CharacterAttributes::CharacterAttributes(unsigned characterLevel)
+CharacterAttributes::CharacterAttributes(int characterLevel)
 {
 	this->level = characterLevel;
 	this->experience = 0;
@@ -34,7 +34,7 @@ std::string CharacterAttributes::debugPrint() const
 	return ss.str();
 }
 
-int CharacterAttributes::calculateExpToNext(unsigned characterLevel)
+int CharacterAttributes::calculateExpToNext(int characterLevel)
 {
 	int neededExp = 0;
 	if (characterLevel <= 2)
@@ -48,7 +48,7 @@ int CharacterAttributes::calculateExpToNext(unsigned characterLevel)
 	return neededExp;
 }
 
-void CharacterAttributes::ganXP(const unsigned experience)
+void CharacterAttributes::ganXP(const int experience)
 {
 	this->experience += experience;
 }
@@ -79,7 +79,7 @@ void CharacterAttributes::updateLevel()
 	}
 }
 
-void CharacterAttributes::update(const unsigned experience)
+void CharacterAttributes::update(const int experience)
 {
 	this->ganXP(experience);
 	this->updateLevel();

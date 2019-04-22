@@ -5,7 +5,7 @@ CharacterGUI::CharacterGUI(PlayerCharacter* player, std::string playerType)
 {
 	this->player = player;
 	this->playerType = playerType;
-	this->barHeight = 10.f;
+	this->barHeight = 10.f * this->player->getSpriteScale();
 	this->initializeTextures();
 	this->initializeFont();
 	this->initializePortrait();
@@ -43,26 +43,26 @@ void CharacterGUI::initializeTextDisplays()
 	this->levelText.setFont(this->font);
 	this->levelText.setPosition(this->guiDock.getSize().x / 2.5f,
 		this->portrait.getSize().y * 0.8f);
-	this->levelText.setCharacterSize(20);
+	this->levelText.setCharacterSize(20 * this->player->getSpriteScale());
 }
 
 void CharacterGUI::initializePortrait()
 {
-	this->portrait.setSize(sf::Vector2f(69.6f, 81.6f));
+	this->portrait.setSize(sf::Vector2f(69.6f * this->player->getSpriteScale(), 81.6f * this->player->getSpriteScale()));
 	this->portrait.setPosition(0.f, 0.f);
 	this->portrait.setTexture(&this->uiTextures[1]);
 
 
 	if (this->playerType == "mage")
 	{
-		this->portraitPic.setPosition(-10.f, 5.f);
-		this->portraitPic.setSize(sf::Vector2f(80.f, 70.6f));
+		this->portraitPic.setPosition(-10.5f * this->player->getSpriteScale(), 5.f * this->player->getSpriteScale());
+		this->portraitPic.setSize(sf::Vector2f(80.f * this->player->getSpriteScale(), 70.6f * this->player->getSpriteScale()));
 		this->portraitPic.setTexture(&this->uiTextures[3]);
 	}
 	else
 	{
-		this->portraitPic.setPosition(6.f, 5.f);
-		this->portraitPic.setSize(sf::Vector2f(60.f, 70.6f));
+		this->portraitPic.setPosition(6.f  * this->player->getSpriteScale()	, 5.f  * this->player->getSpriteScale());
+		this->portraitPic.setSize(sf::Vector2f(60.f * this->player->getSpriteScale(), 70.6f  * this->player->getSpriteScale()));
 		this->portraitPic.setTexture(&this->uiTextures[2]);
 	}
 
@@ -70,37 +70,39 @@ void CharacterGUI::initializePortrait()
 
 void CharacterGUI::initializeStatDock()
 {
-	this->guiDock.setSize(sf::Vector2f(252.6f, 81.6f));
+	this->guiDock.setSize(sf::Vector2f(252.6f * this->player->getSpriteScale(), 81.6f  * this->player->getSpriteScale()));
 	this->guiDock.setPosition(this->portrait.getSize().x, 0.f);
 	this->guiDock.setTexture(&this->uiTextures[0]);
 }
 
 void CharacterGUI::initializeHPBar()
 {
-	float width = 202.f;
+	float width = 202.f * this->player->getSpriteScale();
+	float offset = 17.f * this->player->getSpriteScale();
 	this->hpBarMax = width;
 
 	this->hpBar.setSize(sf::Vector2f(width, this->barHeight));
-	this->hpBar.setPosition(this->guiDock.getPosition().x + 17, 17);
+	this->hpBar.setPosition(this->guiDock.getPosition().x + offset, offset);
 	this->hpBar.setTexture(&this->uiTextures[4]);
 
 	this->hpBarText.setFont(this->font);
-	this->hpBarText.setPosition(this->hpBar.getPosition().x + (width / 3), this->hpBar.getPosition().y - 5);
-	this->hpBarText.setCharacterSize(17);
+	this->hpBarText.setPosition(this->hpBar.getPosition().x + (width / 3), this->hpBar.getPosition().y - (5 * this->player->getSpriteScale()));
+	this->hpBarText.setCharacterSize(offset);
 }
 
 void CharacterGUI::initializeManaBar()
 {
-	float width = 115.f;
+	float width = 115.f * this->player->getSpriteScale();
+	float offset = 17.f  * this->player->getSpriteScale();
 	this->manaBarMax = width;
 
 	this->manaBar.setSize(sf::Vector2f(width, this->barHeight));
-	this->manaBar.setPosition(this->guiDock.getPosition().x + 17, 37);
+	this->manaBar.setPosition(this->guiDock.getPosition().x + offset, offset + (20.f * this->player->getSpriteScale()));
 	this->manaBar.setTexture(&this->uiTextures[5]);
 
 	this->manaBarText.setFont(this->font);
-	this->manaBarText.setPosition(this->manaBar.getPosition().x + (width / 4), this->manaBar.getPosition().y - 5);
-	this->manaBarText.setCharacterSize(17);
+	this->manaBarText.setPosition(this->manaBar.getPosition().x + (width / 4), this->manaBar.getPosition().y - (5 * this->player->getSpriteScale()));
+	this->manaBarText.setCharacterSize(offset);
 
 }
 
@@ -120,7 +122,7 @@ void CharacterGUI::updateHPBar()
 
 	this->hpBarString = std::to_string(this->player->getAttributeComponent()->currentHP) + " / "
 		+ std::to_string((this->player->getAttributeComponent()->maxHP));
-		this->hpBarText.setString(this->hpBarString);
+	this->hpBarText.setString(this->hpBarString);
 }
 
 void CharacterGUI::updateManaBar()
@@ -136,7 +138,7 @@ void CharacterGUI::updateManaBar()
 
 void CharacterGUI::updateTextDisplay()
 {
-	this->levelString =("Level: " + std::to_string(this->player->getAttributeComponent()->level) + "\n" +
+	this->levelString = ("Level: " + std::to_string(this->player->getAttributeComponent()->level) + "\n" +
 		std::to_string(this->player->getAttributeComponent()->experience) + " EXP / " +
 		std::to_string(this->player->getAttributeComponent()->expToNextLevel) + " EXP");
 	this->levelText.setString(this->levelString);
