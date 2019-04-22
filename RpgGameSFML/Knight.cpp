@@ -91,6 +91,7 @@ void Knight::updateAnimation(const float & deltaTime)
 
 void Knight::update(const float & deltaTime)
 {
+	this->attributeComponent->update(deltaTime);
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);

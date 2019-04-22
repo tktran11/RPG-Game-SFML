@@ -5,12 +5,14 @@ CharacterGUI::CharacterGUI(PlayerCharacter* player, std::string playerType)
 {
 	this->player = player;
 	this->playerType = playerType;
+	this->barHeight = 10.f;
 	this->initializeTextures();
 	this->initializeFont();
 	this->initializePortrait();
 	this->initializeStatDock();
 	this->initializeHPBar();
 	this->initializeManaBar();
+	this->initializeTextDisplays();
 }
 
 void CharacterGUI::initializeTextures()
@@ -27,7 +29,7 @@ void CharacterGUI::initializeTextures()
 				throw "ERROR:GAME_STATE::MISSING_PLAYER_UI_TEXTURE";
 			}
 			this->uiTextures.push_back(this->texture);
-		}	
+		}
 	}
 }
 
@@ -36,20 +38,31 @@ void CharacterGUI::initializeFont()
 	this->font.loadFromFile("Fonts/MorrisRoman-Black.ttf");
 }
 
+void CharacterGUI::initializeTextDisplays()
+{
+	this->levelText.setFont(this->font);
+	this->levelText.setPosition(this->guiDock.getSize().x / 2.5f,
+		this->portrait.getSize().y * 0.8f);
+	this->levelText.setCharacterSize(20);
+}
+
 void CharacterGUI::initializePortrait()
 {
 	this->portrait.setSize(sf::Vector2f(69.6f, 81.6f));
 	this->portrait.setPosition(0.f, 0.f);
 	this->portrait.setTexture(&this->uiTextures[1]);
 
-	this->portraitPic.setSize(sf::Vector2f(60.f, 70.6f));
-	this->portraitPic.setPosition(6.f, 5.f);
+
 	if (this->playerType == "mage")
 	{
+		this->portraitPic.setPosition(-10.f, 5.f);
+		this->portraitPic.setSize(sf::Vector2f(80.f, 70.6f));
 		this->portraitPic.setTexture(&this->uiTextures[3]);
-	} 
+	}
 	else
 	{
+		this->portraitPic.setPosition(6.f, 5.f);
+		this->portraitPic.setSize(sf::Vector2f(60.f, 70.6f));
 		this->portraitPic.setTexture(&this->uiTextures[2]);
 	}
 
@@ -64,48 +77,94 @@ void CharacterGUI::initializeStatDock()
 
 void CharacterGUI::initializeHPBar()
 {
-	this->hpBar.setSize(sf::Vector2f(202.f, 10.f));
+	float width = 202.f;
+	this->hpBarMax = width;
+
+	this->hpBar.setSize(sf::Vector2f(width, this->barHeight));
 	this->hpBar.setPosition(this->guiDock.getPosition().x + 17, 17);
 	this->hpBar.setTexture(&this->uiTextures[4]);
+
+	this->hpBarText.setFont(this->font);
+	this->hpBarText.setPosition(this->hpBar.getPosition().x + (width / 3), this->hpBar.getPosition().y - 5);
+	this->hpBarText.setCharacterSize(17);
 }
 
 void CharacterGUI::initializeManaBar()
 {
-	this->manaBar.setSize(sf::Vector2f(115.f, 10.f));
+	float width = 115.f;
+	this->manaBarMax = width;
+
+	this->manaBar.setSize(sf::Vector2f(width, this->barHeight));
 	this->manaBar.setPosition(this->guiDock.getPosition().x + 17, 37);
 	this->manaBar.setTexture(&this->uiTextures[5]);
+
+	this->manaBarText.setFont(this->font);
+	this->manaBarText.setPosition(this->manaBar.getPosition().x + (width / 4), this->manaBar.getPosition().y - 5);
+	this->manaBarText.setCharacterSize(17);
+
 }
 
 void CharacterGUI::updateUI(const float & deltaTime)
 {
+	this->updateHPBar();
+	this->updateManaBar();
+	this->updateTextDisplay();
 }
 void CharacterGUI::updateHPBar()
 {
+	float percent = static_cast<float>(this->player->getAttributeComponent()->currentHP) /
+		static_cast<float>(this->player->getAttributeComponent()->maxHP);
+
+
+	this->hpBar.setSize(sf::Vector2f(static_cast<float>(std::floor(this->hpBarMax * percent)), this->barHeight));
+
+	this->hpBarString = std::to_string(this->player->getAttributeComponent()->currentHP) + " / "
+		+ std::to_string((this->player->getAttributeComponent()->maxHP));
+		this->hpBarText.setString(this->hpBarString);
 }
 
 void CharacterGUI::updateManaBar()
 {
+	float percent = static_cast<float>(this->player->getAttributeComponent()->currentMana) /
+		static_cast<float>(this->player->getAttributeComponent()->maxMana);
+
+	this->manaBar.setSize(sf::Vector2f(static_cast<float>(std::floor(this->manaBarMax * percent)), this->barHeight));
+	this->manaBarString = std::to_string(this->player->getAttributeComponent()->currentMana) + " / "
+		+ std::to_string((this->player->getAttributeComponent()->maxMana));
+	this->manaBarText.setString(this->manaBarString);
 }
 
+void CharacterGUI::updateTextDisplay()
+{
+	this->levelString =("Level: " + std::to_string(this->player->getAttributeComponent()->level) + "\n" +
+		std::to_string(this->player->getAttributeComponent()->experience) + " EXP / " +
+		std::to_string(this->player->getAttributeComponent()->expToNextLevel) + " EXP");
+	this->levelText.setString(this->levelString);
+}
 
 void CharacterGUI::renderUI(sf::RenderTarget & target)
 {
 	target.draw(this->portrait);
 	target.draw(this->portraitPic);
 	target.draw(this->guiDock);
+	this->renderHPBar(target);
+	this->renderManaBar(target);
+	this->renderTextDisplay(target);
+}
+
+void CharacterGUI::renderHPBar(sf::RenderTarget & target)
+{
 	target.draw(this->hpBar);
+	target.draw(this->hpBarText);
+}
+
+void CharacterGUI::renderManaBar(sf::RenderTarget & target)
+{
 	target.draw(this->manaBar);
+	target.draw(this->manaBarText);
 }
 
-void CharacterGUI::renderHPBar()
+void CharacterGUI::renderTextDisplay(sf::RenderTarget & target)
 {
-}
-
-void CharacterGUI::renderManaBar()
-{
-}
-
-
-CharacterGUI::~CharacterGUI()
-{
+	target.draw(this->levelText);
 }

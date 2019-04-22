@@ -10,7 +10,7 @@ CharacterAttributes::CharacterAttributes(unsigned characterLevel)
 {
 	this->level = characterLevel;
 	this->experience = 0;
-	this->expToNextLevel = 0;
+	this->expToNextLevel = calculateExpToNext(this->level);
 	this->attributePoints = 0;
 	this->intelligence = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
 	this->vitality = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
@@ -75,10 +75,7 @@ void CharacterAttributes::updateLevel()
 		// level up 
 		this->experience -= this->expToNextLevel;
 		this->expToNextLevel = calculateExpToNext(++this->level);
-		// this->attributePoints++
-		// NOTE: --------------------------------
-		// Either manually update the stats by letting user choose or simply ++ to all the stats, which instead of having
-		// individually you can make in a map or array or something
+		this->updateAttributes(true);
 	}
 }
 

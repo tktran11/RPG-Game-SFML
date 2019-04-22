@@ -32,6 +32,17 @@ public:
 	// Mutators
 	void setSpriteScale(bool fullScreenScale);
 
+	// Combat Modifications
+	void loseHP(const int hpLost);
+	void gainHP(const int hpGain);
+
+	void loseMana(const int manaLost);
+	void gainMana(const int manaGain);
+
+	void gainEXP(const unsigned xpGain);
+	
+
+
 	virtual void updateAnimation(const float& deltaTime) = 0;
 	virtual void update(const float& deltaTime) = 0;
 	virtual void move(const float& deltaTime, const float x, const float y);

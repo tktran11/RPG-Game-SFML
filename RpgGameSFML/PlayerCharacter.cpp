@@ -51,12 +51,57 @@ void PlayerCharacter::setSpriteScale(bool fullScreenScale)
 	}
 }
 
+void PlayerCharacter::loseHP(const int hpLost)
+{
+	this->attributeComponent->currentHP -= hpLost;
+
+	if (this->attributeComponent->currentHP < 0)
+	{
+		this->attributeComponent->currentHP = 0;
+	}
+}
+
+void PlayerCharacter::gainHP(const int hpGain)
+{
+	this->attributeComponent->currentHP += hpGain;
+
+	if (this->attributeComponent->currentHP > this->attributeComponent->maxHP)
+	{
+		this->attributeComponent->currentHP = this->attributeComponent->maxHP;
+	}
+}
+
+void PlayerCharacter::loseMana(const int manaLost)
+{
+	this->attributeComponent->currentMana -= manaLost;
+
+	if (this->attributeComponent->currentMana < 0)
+	{
+		this->attributeComponent->currentMana = 0;
+	}
+}
+
+void PlayerCharacter::gainMana(const int manaGain)
+{
+	this->attributeComponent->currentMana += manaGain;
+
+	if (this->attributeComponent->currentMana > this->attributeComponent->maxMana)
+	{
+		this->attributeComponent->currentMana = this->attributeComponent->maxMana;
+	}
+}
+
+void PlayerCharacter::gainEXP(const unsigned xpGain)
+{
+	this->attributeComponent->ganXP(xpGain);
+}
+
 // Initializes the components used by the player character
 void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet)
 {
 	this->makeMovementComponent(300.f, 12.f, 3.f);
 	this->makeAnimationComponent(spriteTextureSheet);
-	this->makeAttributeComponent(0);
+	this->makeAttributeComponent(1);
 }
 
 // Sets starting variables for the player
