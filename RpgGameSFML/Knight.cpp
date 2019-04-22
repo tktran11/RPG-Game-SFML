@@ -5,7 +5,7 @@ enum attackKey {
 	K = 10
 };
 
-
+// Constructor
 Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale) :
 	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, fullScreenScale)
 {
@@ -18,6 +18,7 @@ Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPo
 	this->animationComponent->addAnimation("SWING", 5.f, 0, 5, 13, 5, 384, 192);
 }
 
+// Updates the animation for the knight, deciding what way it faces and if its attacking
 void Knight::updateAnimation(const float & deltaTime)
 {
 	if (this->isAttacking)
@@ -89,6 +90,7 @@ void Knight::updateAnimation(const float & deltaTime)
 
 }
 
+// Updates all features of the knight including checking movement, animation, and stats
 void Knight::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);

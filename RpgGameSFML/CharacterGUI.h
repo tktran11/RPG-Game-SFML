@@ -7,14 +7,17 @@ class PlayerCharacter;
 class CharacterGUI
 {
 private:
+	// Player Loading for the UI
 	PlayerCharacter* player;
 	std::string playerType;
 
+	// Font for stats displaying
 	sf::Font font;
+
+	// GUI Dock for the player UI
 	sf::RectangleShape portrait;
 	sf::RectangleShape portraitPic;
 	sf::RectangleShape guiDock;
-
 
 	// Player Stat Bars
 	float barHeight;
@@ -36,10 +39,12 @@ private:
 	sf::String levelString;
 
 
+	// Texture loading for the various components of the Player UI
 	std::vector<std::string> textureFiles;
 	std::vector<sf::Texture> uiTextures;
 	sf::Texture texture;
 
+	// Initialization
 	void initializeTextures();
 	void initializeFont();
 	void initializeTextDisplays();
@@ -53,17 +58,16 @@ public:
 	CharacterGUI(PlayerCharacter* player, std::string playerType);
 
 	// Updating
+	void updateUI(const float& deltaTime);
 	void updateHPBar();
 	void updateManaBar();
 	void updateTextDisplay();
-	void updateUI(const float& deltaTime);
 
 	// Render
+	void renderUI(sf::RenderTarget& target);
 	void renderHPBar(sf::RenderTarget& target);
 	void renderManaBar(sf::RenderTarget& target);
 	void renderTextDisplay(sf::RenderTarget& target);
-	void renderUI(sf::RenderTarget& target);
-	// Destructor
 };
 
 

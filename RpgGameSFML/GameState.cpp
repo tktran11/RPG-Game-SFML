@@ -57,6 +57,7 @@ void GameState::initializeTextures()
 	}
 }
 
+// Initializes the texture of the background and sets its texture
 void GameState::initializeBackground()
 {
 	this->background.setSize(
@@ -72,6 +73,7 @@ void GameState::initializeBackground()
 	this->background.setTexture(&this->backgroundTexture);
 }
 
+// Creates the pause menu 
 void GameState::initializePauseMenu()
 {
 	this->pauseMenu = new PauseMenu(*this->window);
@@ -98,8 +100,9 @@ void GameState::initializePlayer()
 		{
 			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, scaleScreen);
 		}
-}
 
+}
+// Creates the player interface for relevant stats like health and mana, experience, and level
 void GameState::initializePlayerGUI()
 {
 	this->playerGUI = new CharacterGUI(this->player, this->chosenCharacter);
@@ -133,6 +136,7 @@ void GameState::updatePlayerInput(const float& deltaTime)
 	}
 }
 
+// Updates the player interface for relevant stats
 void GameState::updatePlayerGUI(const float & deltaTime)
 {
 	this->playerGUI->updateUI(deltaTime);

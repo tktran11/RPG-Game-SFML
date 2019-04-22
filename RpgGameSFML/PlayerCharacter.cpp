@@ -22,6 +22,7 @@ PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPoi
 	this->setPosition(startPointX, startPointY);
 }
 
+// Assessor for the attribute component
 CharacterAttributes * PlayerCharacter::getAttributeComponent()
 {
 	return this->attributeComponent;
@@ -39,11 +40,13 @@ float PlayerCharacter::getStartPosY()
 	return this->startPositionY;
 }
 
+// Assessor for sprite scale
 float PlayerCharacter::getSpriteScale()
 {
 	return this->scale;
 }
 
+// Scales the sprite for fullscreen applications if necessary
 void PlayerCharacter::setSpriteScale(bool fullScreenScale)
 {
 	if (fullScreenScale)
@@ -56,6 +59,7 @@ void PlayerCharacter::setSpriteScale(bool fullScreenScale)
 	}
 }
 
+// Subtracts HP from the player based on damage taken
 void PlayerCharacter::loseHP(const int hpLost)
 {
 	this->attributeComponent->currentHP -= hpLost;
@@ -65,7 +69,7 @@ void PlayerCharacter::loseHP(const int hpLost)
 		this->attributeComponent->currentHP = 0;
 	}
 }
-
+// Adds HP to the player based on amount gained
 void PlayerCharacter::gainHP(const int hpGain)
 {
 	this->attributeComponent->currentHP += hpGain;
@@ -76,6 +80,7 @@ void PlayerCharacter::gainHP(const int hpGain)
 	}
 }
 
+// Subtracts mana from the player based on the amount spent
 void PlayerCharacter::loseMana(const int manaLost)
 {
 	this->attributeComponent->currentMana -= manaLost;
@@ -86,6 +91,7 @@ void PlayerCharacter::loseMana(const int manaLost)
 	}
 }
 
+// Returns mana to the player and changes the mana if it goes over cap
 void PlayerCharacter::gainMana(const int manaGain)
 {
 	this->attributeComponent->currentMana += manaGain;
@@ -96,15 +102,16 @@ void PlayerCharacter::gainMana(const int manaGain)
 	}
 }
 
+// Allows the player to gain experience
 void PlayerCharacter::gainEXP(const unsigned xpGain)
 {
-	this->attributeComponent->ganXP(xpGain);
+	this->attributeComponent->gainXP(xpGain);
 }
 
 // Initializes the components used by the player character
 void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet)
 {
-	this->makeMovementComponent(300.f, 12.f, 3.f);
+	this->makeMovementComponent(300.f, 10.f, 3.5f);
 	this->makeAnimationComponent(spriteTextureSheet);
 	this->makeAttributeComponent(1);
 }

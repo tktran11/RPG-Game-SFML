@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CharacterGUI.h"
 
+// Constructor
 CharacterGUI::CharacterGUI(PlayerCharacter* player, std::string playerType)
 {
 	this->player = player;
@@ -15,6 +16,7 @@ CharacterGUI::CharacterGUI(PlayerCharacter* player, std::string playerType)
 	this->initializeTextDisplays();
 }
 
+// Loads the textures for use in the Player UI from a file 
 void CharacterGUI::initializeTextures()
 {
 	std::ifstream readTextures("Config/uiTextures.txt");
@@ -33,11 +35,13 @@ void CharacterGUI::initializeTextures()
 	}
 }
 
+// Loads the font needed for text display
 void CharacterGUI::initializeFont()
 {
 	this->font.loadFromFile("Fonts/MorrisRoman-Black.ttf");
 }
 
+// Sets up the text display for level and experience
 void CharacterGUI::initializeTextDisplays()
 {
 	this->levelText.setFont(this->font);
@@ -46,6 +50,7 @@ void CharacterGUI::initializeTextDisplays()
 	this->levelText.setCharacterSize(20 * this->player->getSpriteScale());
 }
 
+// Initializes the character portrait with relavent resizing based on the specs of the pictures loaded
 void CharacterGUI::initializePortrait()
 {
 	this->portrait.setSize(sf::Vector2f(69.6f * this->player->getSpriteScale(), 81.6f * this->player->getSpriteScale()));
@@ -68,6 +73,7 @@ void CharacterGUI::initializePortrait()
 
 }
 
+// Initializes the stat dock 
 void CharacterGUI::initializeStatDock()
 {
 	this->guiDock.setSize(sf::Vector2f(252.6f * this->player->getSpriteScale(), 81.6f  * this->player->getSpriteScale()));
@@ -75,6 +81,7 @@ void CharacterGUI::initializeStatDock()
 	this->guiDock.setTexture(&this->uiTextures[0]);
 }
 
+// Initializes the HP bar with text display for clarity
 void CharacterGUI::initializeHPBar()
 {
 	float width = 202.f * this->player->getSpriteScale();
@@ -90,6 +97,7 @@ void CharacterGUI::initializeHPBar()
 	this->hpBarText.setCharacterSize(offset);
 }
 
+// Initializes the Mana bar with text display for clarity
 void CharacterGUI::initializeManaBar()
 {
 	float width = 115.f * this->player->getSpriteScale();
@@ -106,12 +114,15 @@ void CharacterGUI::initializeManaBar()
 
 }
 
+// Updates the bars on the UI and the text 
 void CharacterGUI::updateUI(const float & deltaTime)
 {
 	this->updateHPBar();
 	this->updateManaBar();
 	this->updateTextDisplay();
 }
+
+// Updates calculation for the HP displayed
 void CharacterGUI::updateHPBar()
 {
 	float percent = static_cast<float>(this->player->getAttributeComponent()->currentHP) /
@@ -125,6 +136,7 @@ void CharacterGUI::updateHPBar()
 	this->hpBarText.setString(this->hpBarString);
 }
 
+// Updates calculation for the Mana displayed
 void CharacterGUI::updateManaBar()
 {
 	float percent = static_cast<float>(this->player->getAttributeComponent()->currentMana) /
@@ -136,6 +148,7 @@ void CharacterGUI::updateManaBar()
 	this->manaBarText.setString(this->manaBarString);
 }
 
+// Updates the shown level and calculation for experience displayed
 void CharacterGUI::updateTextDisplay()
 {
 	this->levelString = ("Level: " + std::to_string(this->player->getAttributeComponent()->level) + "\n" +
@@ -144,6 +157,7 @@ void CharacterGUI::updateTextDisplay()
 	this->levelText.setString(this->levelString);
 }
 
+// Draws all objects to target (which is the state window)
 void CharacterGUI::renderUI(sf::RenderTarget & target)
 {
 	target.draw(this->portrait);
@@ -154,18 +168,21 @@ void CharacterGUI::renderUI(sf::RenderTarget & target)
 	this->renderTextDisplay(target);
 }
 
+// Draws the HP bar and text in the correct rendering order
 void CharacterGUI::renderHPBar(sf::RenderTarget & target)
 {
 	target.draw(this->hpBar);
 	target.draw(this->hpBarText);
 }
 
+// Draws the Mana bar and text in the correct rendering order
 void CharacterGUI::renderManaBar(sf::RenderTarget & target)
 {
 	target.draw(this->manaBar);
 	target.draw(this->manaBarText);
 }
 
+// Draws the level and experience text
 void CharacterGUI::renderTextDisplay(sf::RenderTarget & target)
 {
 	target.draw(this->levelText);

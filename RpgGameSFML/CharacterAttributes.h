@@ -10,7 +10,6 @@ public:
 	int level;
 	int experience;
 	int expToNextLevel;
-	int attributePoints;
 	
 	// Attributes (Consider putting all of the stats in a container (array, vector, map, something) for ease of either hard coding
 	// or file reading
@@ -22,6 +21,7 @@ public:
 	int vitality;
 	int intelligence;
 
+	// Character Attributes (current vs max values)
 	int currentHP;
 	int maxHP;
 	int currentMana;
@@ -30,14 +30,9 @@ public:
 	// Constructor
 	CharacterAttributes(int characterLevel);
 
-	// Functions
-
-	// REMOVE LATER
-	std::string debugPrint() const;
-
-	
+	// Attribute Calculations and Updating
 	int calculateExpToNext(int characterLevel);
-	void ganXP(const int experience);
+	void gainXP(const int experience);
 	void updateAttributes(const bool resetOnLevel);
 	void updateLevel();
 	void update(const int experience);

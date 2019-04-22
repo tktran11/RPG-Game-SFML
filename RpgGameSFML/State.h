@@ -1,7 +1,9 @@
 #pragma once
 #include "PlayerCharacter.h"
+#include "Enemy.h"
 #include "Knight.h"
 #include "Mage.h"
+#include "Slime.h"
 #include "GraphicsSettings.h"
 /*
 State.h is the header for the state class, which handles the resources for
@@ -38,7 +40,6 @@ protected:
 	StateData* stateInfo;
 
 	// Variables for single state management 
-	
 	bool askedForQuit;
 	bool isPaused;
 	float keyboardTimer;
@@ -46,13 +47,11 @@ protected:
 	sf::RenderWindow* window;
 
 	// Storage for input and visual features
-
 	std::map<std::string, int>* supportedKeys;
 	std::map<std::string, int> keyBinds;
 	std::map<std::string, sf::Texture> stateTextures;
 
 	// SFML Mouse Monitoring
-
 	sf::Vector2i mousePositScreen;
 	sf::Vector2i mousePositWindow;
 	sf::Vector2f mousPositView;
@@ -68,6 +67,7 @@ public:
 	const bool& getQuit() const;
 	const bool getKeyboardTimer();
 	
+	// State Handling
 	void pauseState();
 	void unPauseState();
 	void endState();

@@ -6,34 +6,19 @@
    and also handles level progression
 */
 
+// Constructor
 CharacterAttributes::CharacterAttributes(int characterLevel)
 {
 	this->level = characterLevel;
 	this->experience = 0;
 	this->expToNextLevel = calculateExpToNext(this->level);
-	this->attributePoints = 0;
 	this->intelligence = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
 	this->vitality = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
 	this->updateLevel();
 	this->updateAttributes(true);
 }
 
-std::string CharacterAttributes::debugPrint() const
-{
-	std::stringstream ss;
-
-	ss << "Level: " << this->level << "\n"
-		<< "Exp: " << this->experience << "\n"
-		<< "Experience to Next: " << this->expToNextLevel << "\n"
-		<< "Attribute Points: " << this->attributePoints << "\n"
-		<< "Health: " << this->currentHP << "\n"
-		<< "Health Max: " << this->maxHP << "\n"
-		<< "Mana: " << this->currentMana << "\n"
-		<< "Max Mana: " << this->maxMana << "\n" << "\n";
-
-	return ss.str();
-}
-
+// Calculates the experience needed to reach the next level
 int CharacterAttributes::calculateExpToNext(int characterLevel)
 {
 	int neededExp = 0;
@@ -48,11 +33,13 @@ int CharacterAttributes::calculateExpToNext(int characterLevel)
 	return neededExp;
 }
 
-void CharacterAttributes::ganXP(const int experience)
+// Mutator for experience, adds given experience to user stat for experience
+void CharacterAttributes::gainXP(const int experience)
 {
 	this->experience += experience;
 }
 
+// Updates the character's relevent stats upon level update
 void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 {
 
@@ -68,6 +55,7 @@ void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 
 }
 
+// Updates the character's level, changing relevant stats, and resets the experience afterwards
 void CharacterAttributes::updateLevel()
 {
 	while (this->experience >= this->expToNextLevel)
@@ -79,8 +67,9 @@ void CharacterAttributes::updateLevel()
 	}
 }
 
+// Update function to check for experience gain and the need for level updating
 void CharacterAttributes::update(const int experience)
 {
-	this->ganXP(experience);
+	this->gainXP(experience);
 	this->updateLevel();
 }
