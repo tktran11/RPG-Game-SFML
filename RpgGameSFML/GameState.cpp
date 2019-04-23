@@ -19,6 +19,7 @@ GameState::GameState(StateData* stateInfo, std::string playerType)
 	this->initializeBackground();
 	this->initializePauseMenu();
 	this->initializePlayer();
+	this->initializeEnemy();
 	this->initializePlayerGUI();
 }
 
@@ -40,7 +41,7 @@ void GameState::initializeKeybinds()
 }
 
 // Initializes the texture of the background and player character based on chosen character from
-// the character selection screen (choices are mage and knight
+// the character selection screen (choices are mage and knight)
 void GameState::initializeTextures()
 {
 	if (this->chosenCharacter == "mage") {
@@ -54,6 +55,10 @@ void GameState::initializeTextures()
 		{
 			throw "ERROR:GAME_STATE::MISSING_PLAYER_TEXTURE";
 		}
+	}
+	if (!this->stateTextures["ENEMY_SPRITE"].loadFromFile("Sprites/slimeSheet.png"))
+	{
+		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
 	}
 }
 
@@ -102,6 +107,20 @@ void GameState::initializePlayer()
 		}
 
 }
+
+void GameState::initializeEnemy()
+{
+	float startingPos = this->window->getSize().y * 0.72f;
+	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	if (scaleScreen)
+	{
+		startingPos = 1280 * 0.62f;
+	}
+
+	this->enemy = new Slime(this->stateTextures["PLAYER_SPRITES"], 1000, startingPos, scaleScreen);
+
+}
+
 // Creates the player interface for relevant stats like health and mana, experience, and level
 void GameState::initializePlayerGUI()
 {

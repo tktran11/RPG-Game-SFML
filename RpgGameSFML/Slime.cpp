@@ -1,12 +1,64 @@
-#include "stdafx.h"
 #include "Slime.h"
 
-enum attackKey {
+	enum attackKey {
 	M = 12
 };
 
-Slime::Slime(sf::Texture& spriteTextureSheet, float startPointX, float startPointY) :
-	Enemy(spriteTextureSheet, startPointX, startPointY)
+
+
+	Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale)
+	{
+		this->setPosition(startPointX, startPointY);
+		this->sprite.setScale(this->scale, this->scale);
+		this->makeAnimationComponent(spriteTextureSheet);
+		// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
+		this->animationComponent->addAnimation("ATTACK", 5.f, 0, 4, 13, 4, 384, 192);
+		this->animationComponent->addAnimation("IDLE", 15.f, 0, 3, 13, 3, 192, 192);
+	}
+
+	void Slime::updateAnimation(const float & deltaTime)
+{
+	if (this->isAttacking)
+	{
+		// facing rightside
+		if (this->sprite.getScale().x > 0.f)
+		{
+			this->sprite.setOrigin(96.f, 0.f);
+		}
+		// facing leftside
+		else
+		{
+			this->sprite.setOrigin(354.f, 0.f);
+		}
+		// animate attack and set end of attack animation
+		if (this->animationComponent->playAnimation("ATTACK", deltaTime, true))
+		{
+			this->isAttacking = false;
+			// reset position after animation for attacking finished
+			if (this->sprite.getScale().x > 0.f)
+			{
+				this->sprite.setOrigin(0.f, 0.f);
+			}
+			// facing rightside
+			else
+			{
+				this->sprite.setOrigin(258.f, 0.f);
+			}
+		}
+	}
+	if (this->movementComponent->checkMoveType(IDLE))
+	{
+		this->animationComponent->playAnimation("IDLE", deltaTime);
+	}
+}
+
+void Slime::update(const float & deltaTime)
+{
+	this->attributeComponent->update(deltaTime);
+	this->movementComponent->updateMovement(deltaTime);
+	this->checkForAttackAnimation();
+	this->updateAnimation(deltaTime);
+}
 {
 	this->initializeComponents();
 	this->initializeVariables();

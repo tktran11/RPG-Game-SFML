@@ -25,6 +25,7 @@ private:
 	void initializeBackground();
 	void initializePauseMenu();
 	void initializePlayer();
+	void initializeEnemy();
 public:
 	// Constructor
 	CombatState(StateData* stateInfo, std::string playerType);

@@ -76,6 +76,11 @@ void CombatState::initializePlayer()
 	this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, 0);
 }
 
+void CombatState::initializeEnemy()
+{
+	this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 100, 100);
+}
+
 void CombatState::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
