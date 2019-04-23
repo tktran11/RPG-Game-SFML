@@ -114,7 +114,7 @@ void GameState::updatePlayerInput(const float& deltaTime)
 	// Movement is soft limited to the bounds of where the screen is. The player can still technically fall off screen, but can't continue moving that way
 	// Up and downward movement limited to actual ground
 
-	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT")))) && (this->player->getXPosition() >= this->window->getSize().x * 0.039f))
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT")))) && (this->player->getXPosition() >= 0.f))
 	{
 		this->player->move(deltaTime, -0.8f, 0.f);
 	}
