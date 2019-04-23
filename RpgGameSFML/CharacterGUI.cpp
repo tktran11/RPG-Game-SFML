@@ -67,7 +67,7 @@ void CharacterGUI::initializePortrait()
 	else
 	{
 		this->portraitPic.setPosition(6.f  * this->player->getSpriteScale()	, 5.f  * this->player->getSpriteScale());
-		this->portraitPic.setSize(sf::Vector2f(59.f * this->player->getSpriteScale(), 70.6f  * this->player->getSpriteScale()));
+		this->portraitPic.setSize(sf::Vector2f(60.f * this->player->getSpriteScale(), 70.6f  * this->player->getSpriteScale()));
 		this->portraitPic.setTexture(&this->uiTextures[2]);
 	}
 
@@ -84,7 +84,7 @@ void CharacterGUI::initializeStatDock()
 // Initializes the HP bar with text display for clarity
 void CharacterGUI::initializeHPBar()
 {
-	float width = 202.8f * this->player->getSpriteScale();
+	float width = 202.f * this->player->getSpriteScale();
 	float offset = 17.f * this->player->getSpriteScale();
 	this->hpBarMax = width;
 
@@ -100,7 +100,7 @@ void CharacterGUI::initializeHPBar()
 // Initializes the Mana bar with text display for clarity
 void CharacterGUI::initializeManaBar()
 {
-	float width = 115.9f * this->player->getSpriteScale();
+	float width = 115.f * this->player->getSpriteScale();
 	float offset = 17.f  * this->player->getSpriteScale();
 	this->manaBarMax = width;
 
