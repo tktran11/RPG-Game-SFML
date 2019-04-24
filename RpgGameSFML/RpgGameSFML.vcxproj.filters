@@ -124,9 +124,6 @@
     <ClCompile Include="Mage.cpp">
       <Filter>Entity Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Slime.cpp">
-      <Filter>Entity Files\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="CombatState.cpp">
       <Filter>State Files</Filter>
     </ClCompile>
@@ -135,6 +132,12 @@
     </ClCompile>
     <ClCompile Include="CharacterGUI.cpp">
       <Filter>GUI Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shade.cpp">
+      <Filter>Entity Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Entity Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,14 +204,17 @@
     <ClInclude Include="Mage.h">
       <Filter>Entity Headers\Player Character</Filter>
     </ClInclude>
-    <ClInclude Include="Slime.h">
-      <Filter>Entity Headers\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="CombatState.h">
       <Filter>State Headers</Filter>
     </ClInclude>
     <ClInclude Include="CharacterGUI.h">
       <Filter>GUI Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Shade.h">
+      <Filter>Entity Headers\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Entity Headers\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

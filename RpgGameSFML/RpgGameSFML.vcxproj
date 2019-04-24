@@ -198,6 +198,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="SettingsMenuState.cpp" />
+    <ClCompile Include="Shade.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="State.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
@@ -237,6 +238,7 @@
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="SettingsMenuState.h" />
+    <ClInclude Include="Shade.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />

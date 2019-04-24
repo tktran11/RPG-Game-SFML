@@ -8,7 +8,7 @@ use of(Most notably the exclusion of movement).
 */
 
 enum attackKey {
-	K = 10
+	M = 12
 };
 
 /* Constructor for the player character*/
@@ -50,11 +50,11 @@ void Enemy::setSpriteScale(bool fullScreenScale)
 {
 	if (fullScreenScale)
 	{
-		this->scale = 1.5f;
+		this->scale = 5.f;
 	}
 	else
 	{
-		this->scale = 1.f;
+		this->scale = 3.f;
 	}
 }
 
@@ -68,6 +68,7 @@ void Enemy::loseHP(const int hpLost)
 		this->attributeComponent->currentHP = 0;
 	}
 }
+
 // Adds HP to the player based on amount gained
 void Enemy::gainHP(const int hpGain)
 {
@@ -79,38 +80,9 @@ void Enemy::gainHP(const int hpGain)
 	}
 }
 
-// Subtracts mana from the player based on the amount spent
-void Enemy::loseMana(const int manaLost)
-{
-	this->attributeComponent->currentMana -= manaLost;
-
-	if (this->attributeComponent->currentMana < 0)
-	{
-		this->attributeComponent->currentMana = 0;
-	}
-}
-
-// Returns mana to the player and changes the mana if it goes over cap
-void Enemy::gainMana(const int manaGain)
-{
-	this->attributeComponent->currentMana += manaGain;
-
-	if (this->attributeComponent->currentMana > this->attributeComponent->maxMana)
-	{
-		this->attributeComponent->currentMana = this->attributeComponent->maxMana;
-	}
-}
-
-// Allows the player to gain experience
-void Enemy::gainEXP(const unsigned xpGain)
-{
-	this->attributeComponent->gainXP(xpGain);
-}
-
 // Initializes the components used by the player character
 void Enemy::initializeComponents(sf::Texture& spriteTextureSheet)
 {
-	this->makeMovementComponent(300.f, 10.f, 3.5f);
 	this->makeAnimationComponent(spriteTextureSheet);
 	this->makeAttributeComponent(1);
 }
@@ -122,18 +94,10 @@ void Enemy::initializeVariables(bool fullScreenScale)
 	this->setSpriteScale(fullScreenScale);
 }
 
-// Moves the player character based on frame rate, x direction, and y direction
-void Enemy::move(const float& deltaTime, const float x, const float y)
-{
-	if (this->movementComponent)
-	{
-		this->movementComponent->move(deltaTime, x, y);
-	}
-}
 // Checks to see if the player is currently attacking (so that no other animation plays while attacking)
 void Enemy::checkForAttackAnimation()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(K)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(M)))
 	{
 		this->isAttacking = true;
 	}

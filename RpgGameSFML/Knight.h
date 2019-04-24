@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerCharacter.h"
+
 class Knight :
 	public PlayerCharacter
 {

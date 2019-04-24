@@ -19,8 +19,8 @@ GameState::GameState(StateData* stateInfo, std::string playerType)
 	this->initializeBackground();
 	this->initializePauseMenu();
 	this->initializePlayer();
-	this->initializeEnemy();
 	this->initializePlayerGUI();
+	this->initializeShade();
 }
 
 // Reads keybinds from a specified .ini file and creates a map from keybind to binded value
@@ -56,7 +56,13 @@ void GameState::initializeTextures()
 			throw "ERROR:GAME_STATE::MISSING_PLAYER_TEXTURE";
 		}
 	}
-	if (!this->stateTextures["ENEMY_SPRITE"].loadFromFile("Sprites/slimeSheet.png"))
+
+	if (!this->stateTextures["SHADE_SPRITE"].loadFromFile("Sprites/shadeSheet.png"))
+	{
+		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
+	}
+
+	if (!this->stateTextures["SLIME_SPRITE"].loadFromFile("Sprites/slimeSheet.png"))
 	{
 		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
 	}
@@ -108,7 +114,7 @@ void GameState::initializePlayer()
 
 }
 
-void GameState::initializeEnemy()
+void GameState::initializeShade()
 {
 	float startingPos = this->window->getSize().y * 0.72f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
@@ -117,8 +123,19 @@ void GameState::initializeEnemy()
 		startingPos = 1280 * 0.62f;
 	}
 
-	this->enemy = new Slime(this->stateTextures["PLAYER_SPRITES"], 1000, startingPos, scaleScreen);
+	this->enemy1 = new Shade(this->stateTextures["SHADE_SPRITE"], 1000, startingPos, scaleScreen);
+}
 
+void GameState::initializeSlime()
+{
+	float startingPos = this->window->getSize().y * 0.72f;
+	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	if (scaleScreen)
+	{
+		startingPos = 1280 * 0.62f;
+	}
+
+	this->enemy2 = new Slime(this->stateTextures["SLIME_SPRITE"], 1200, startingPos, scaleScreen);
 }
 
 // Creates the player interface for relevant stats like health and mana, experience, and level
@@ -196,9 +213,14 @@ void GameState::updateState(const float& deltaTime)
 
 	// Update state while unpaused
 	if (!this->isPaused) {
+		// Updated player related functions on the state
 		this->updatePlayerInput(deltaTime);
 		this->player->update(deltaTime);
 		this->playerGUI->updateUI(deltaTime);
+
+		// Updates enemies on the state
+		this->enemy1->update(deltaTime);
+		//this->enemy2->update(deltaTime);
 	}
 	else
 	{
@@ -215,8 +237,14 @@ void GameState::renderState(sf::RenderTarget* target)
 		target = this->window;
 	}
 	target->draw(this->background);
+
+	//Render player and player UI to the screen
 	this->player->renderEntity(*target);
 	this->playerGUI->renderUI(*target);
+
+	//Renders level 1 enemies (Slime + Shade)
+	this->enemy1->renderEntity(*target);
+	//this->enemy2->renderEntity(*target);
 
 	// Render pause menu
 	if (this->isPaused)

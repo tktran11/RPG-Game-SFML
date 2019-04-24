@@ -22,7 +22,8 @@ private:
 	std::string chosenCharacter;
 	// Player character knight or mage
 	PlayerCharacter* player;
-	Enemy* enemy;
+	Enemy* enemy1;
+	Enemy* enemy2;
 	CharacterGUI* playerGUI;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
@@ -34,7 +35,8 @@ private:
 	void initializeBackground();
 	void initializePauseMenu();
 	void initializePlayer();
-	void initializeEnemy();
+	void initializeShade();
+	void initializeSlime();
 	void initializePlayerGUI();
 public:
 	// Constructor
