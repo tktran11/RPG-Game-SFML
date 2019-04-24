@@ -26,12 +26,12 @@
 		// facing rightside
 		if (this->sprite.getScale().x > 0.f)
 		{
-			this->sprite.setOrigin(96.f, 0.f);
+			this->sprite.setOrigin(0.f, 0.f);
 		}
 		// facing leftside
 		else
 		{
-			this->sprite.setOrigin(354.f, 0.f);
+			this->sprite.setOrigin(0.f, 0.f);
 		}
 		// animate attack and set end of attack animation
 		if (this->animationComponent->playAnimation("ATTACK", deltaTime, true))
@@ -41,11 +41,6 @@
 			if (this->sprite.getScale().x > 0.f)
 			{
 				this->sprite.setOrigin(0.f, 0.f);
-			}
-			// facing rightside
-			else
-			{
-				this->sprite.setOrigin(258.f, 0.f);
 			}
 		}
 	}

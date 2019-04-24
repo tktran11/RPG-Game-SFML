@@ -21,6 +21,7 @@ GameState::GameState(StateData* stateInfo, std::string playerType)
 	this->initializePlayer();
 	this->initializePlayerGUI();
 	this->initializeShade();
+	this->initializeSlime();
 }
 
 // Reads keybinds from a specified .ini file and creates a map from keybind to binded value
@@ -93,7 +94,7 @@ void GameState::initializePauseMenu()
 		"MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
 }
 
-// Creates a new player, setting its texture and position
+// Creates a new player, setting its texture and position on the screen
 void GameState::initializePlayer()
 {
 	float startingPos = this->window->getSize().y * 0.72f;
@@ -102,10 +103,12 @@ void GameState::initializePlayer()
 	{
 		startingPos = 1280 * 0.62f;
 	}
+	// If knight, loads knight texture sheet
 	if (this->chosenCharacter == "knight")
 	{
 		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, scaleScreen);
 	}
+	// Otherwise load mage texture sheet
 	else
 		if (this->chosenCharacter == "mage")
 		{
@@ -114,28 +117,38 @@ void GameState::initializePlayer()
 
 }
 
+// Creates a new shade enemy, setting its texture and position on the screen
 void GameState::initializeShade()
 {
-	float startingPos = this->window->getSize().y * 0.72f;
+	// Sets starting positions in windowed mode
+	float startingPosX = 1100;
+	float startingPosY = this->window->getSize().y * 0.75f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	// Sets starting positions in fullscreen mode
 	if (scaleScreen)
 	{
-		startingPos = 1280 * 0.62f;
+		startingPosX = 1100 * 1.45f;
+		startingPosY = 1280 * 0.62f;
 	}
 
-	this->enemy1 = new Shade(this->stateTextures["SHADE_SPRITE"], 1000, startingPos, scaleScreen);
+	this->enemy1 = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, scaleScreen);
 }
 
+//Creates a new slime enemy, setting its texture and position on the screen
 void GameState::initializeSlime()
 {
-	float startingPos = this->window->getSize().y * 0.72f;
+	// Sets starting positions in windowed mode
+	float startingPosX = 1075;
+	float startingPosY = this->window->getSize().y * 0.85f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	// Sets starting positions in fullscreen mode
 	if (scaleScreen)
 	{
-		startingPos = 1280 * 0.62f;
+		startingPosX = 1075 * 1.45f;
+		startingPosY = 1280 * 0.72f;
 	}
 
-	this->enemy2 = new Slime(this->stateTextures["SLIME_SPRITE"], 1200, startingPos, scaleScreen);
+	this->enemy2 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, scaleScreen);
 }
 
 // Creates the player interface for relevant stats like health and mana, experience, and level
@@ -218,9 +231,9 @@ void GameState::updateState(const float& deltaTime)
 		this->player->update(deltaTime);
 		this->playerGUI->updateUI(deltaTime);
 
-		// Updates enemies on the state
+		// Updates level 1 enemies on the state
 		this->enemy1->update(deltaTime);
-		//this->enemy2->update(deltaTime);
+		this->enemy2->update(deltaTime);
 	}
 	else
 	{
@@ -244,7 +257,7 @@ void GameState::renderState(sf::RenderTarget* target)
 
 	//Renders level 1 enemies (Slime + Shade)
 	this->enemy1->renderEntity(*target);
-	//this->enemy2->renderEntity(*target);
+	this->enemy2->renderEntity(*target);
 
 	// Render pause menu
 	if (this->isPaused)
