@@ -71,6 +71,12 @@
     <Filter Include="Entity Headers\Enemies\Level 2">
       <UniqueIdentifier>{82f146a8-74d9-4f4e-97d5-8daee25bdf16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="State Headers\GameState Headers">
+      <UniqueIdentifier>{956f6ed6-83f6-496c-8179-b978b2bf1dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State Files\GameState Files">
+      <UniqueIdentifier>{99e3507d-5f18-4cf9-8451-f50ccc685527}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,9 +87,6 @@
     </ClCompile>
     <ClCompile Include="CharacterSelectState.cpp">
       <Filter>Menu Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>State Files</Filter>
     </ClCompile>
     <ClCompile Include="gui.cpp">
       <Filter>GUI Files</Filter>
@@ -157,6 +160,12 @@
     <ClCompile Include="IceGolem.cpp">
       <Filter>Entity Files\Enemies\Level 2</Filter>
     </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>State Files\GameState Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SlimeLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -164,9 +173,6 @@
     </ClInclude>
     <ClInclude Include="CharacterSelectState.h">
       <Filter>Menu Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>State Headers</Filter>
     </ClInclude>
     <ClInclude Include="gui.h">
       <Filter>GUI Headers</Filter>
@@ -240,5 +246,9 @@
     <ClInclude Include="IceGolem.h">
       <Filter>Entity Headers\Enemies\Level 2</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>State Headers\GameState Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SlimeLevel.h" />
   </ItemGroup>
 </Project>

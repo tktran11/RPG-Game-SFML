@@ -201,6 +201,7 @@
     <ClCompile Include="SettingsMenuState.cpp" />
     <ClCompile Include="Shade.cpp" />
     <ClCompile Include="Slime.cpp" />
+    <ClCompile Include="SlimeLevel.cpp" />
     <ClCompile Include="State.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
@@ -243,6 +244,7 @@
     <ClInclude Include="SettingsMenuState.h" />
     <ClInclude Include="Shade.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="SlimeLevel.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StoneGolem.h" />
