@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Knight.h"
 #include "Mage.h"
+#include "Shade.h"
 #include "Slime.h"
 #include "GraphicsSettings.h"
 /*

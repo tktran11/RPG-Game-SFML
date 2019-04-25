@@ -14,16 +14,32 @@ class Enemy :
 {
 private:
 	void initializeComponents(sf::Texture& spriteTextureSheet);
-	void initializeVariables();
-
+	void initializeVariables(bool fullScreenScale);
+	// Initialization Functions
+	float startPositionX;
+	float startPositionY;
+protected:
+	float scale;
 	bool isAttacking;
 public:
-	//Constructor
-	Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY);
+	// Constructor
+	Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale);
 
-	virtual void updateAnimation(const float deltaTime) = 0;
+	// Assessors
+	CharacterAttributes* getAttributeComponent();
+	float getStartPosX();
+	float getStartPosY();
+	float getSpriteScale();
+
+	// Mutators
+	void setSpriteScale(bool fullScreenScale);
+
+	// Combat Modifications
+	void loseHP(const int hpLost);
+	void gainHP(const int hpGain);
+
+	// Updates data specific to the enemy
+	virtual void updateAnimation(const float& deltaTime) = 0;
+	virtual void update(const float& deltaTime) = 0;
 	void checkForAttackAnimation();
-	virtual void update(const float& deltaTime);
-
 };
-

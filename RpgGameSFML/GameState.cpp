@@ -8,18 +8,21 @@ the game.
 */
 
 // Constructor, calls initialization features
-GameState::GameState(StateData* stateInfo, std::string playerType)
-	: State(stateInfo)
+GameState::GameState(StateData* stateInfo, std::string playerType, std::string backgroundFile) :
+	State(stateInfo)
 {
 	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
 	this->window->setView(properScreenView);
+	this->backgroundFile = backgroundFile;
 	this->chosenCharacter = playerType;
 	this->initializeKeybinds();
 	this->initializeTextures();
-	this->initializeBackground();
+	this->initializeBackground(backgroundFile);
 	this->initializePauseMenu();
 	this->initializePlayer();
 	this->initializePlayerGUI();
+	this->initializeShade();
+	this->initializeSlime();
 }
 
 // Reads keybinds from a specified .ini file and creates a map from keybind to binded value
@@ -40,7 +43,7 @@ void GameState::initializeKeybinds()
 }
 
 // Initializes the texture of the background and player character based on chosen character from
-// the character selection screen (choices are mage and knight
+// the character selection screen (choices are mage and knight)
 void GameState::initializeTextures()
 {
 	if (this->chosenCharacter == "mage") {
@@ -55,17 +58,27 @@ void GameState::initializeTextures()
 			throw "ERROR:GAME_STATE::MISSING_PLAYER_TEXTURE";
 		}
 	}
+
+	if (!this->stateTextures["SHADE_SPRITE"].loadFromFile("Sprites/shadeSheet.png"))
+	{
+		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
+	}
+
+	if (!this->stateTextures["SLIME_SPRITE"].loadFromFile("Sprites/slimeSheet.png"))
+	{
+		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
+	}
 }
 
 // Initializes the texture of the background and sets its texture
-void GameState::initializeBackground()
+void GameState::initializeBackground(std::string backgroundFile)
 {
 	this->background.setSize(
 		sf::Vector2f
 		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
 
-	if (!this->backgroundTexture.loadFromFile("MenuTextures/GameBackground/Map1.png"))
+	if (!this->backgroundTexture.loadFromFile(backgroundFile))
 	{
 		throw "ERROR::GAME_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -82,7 +95,7 @@ void GameState::initializePauseMenu()
 		"MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
 }
 
-// Creates a new player, setting its texture and position
+// Creates a new player, setting its texture and position on the screen
 void GameState::initializePlayer()
 {
 	float startingPos = this->window->getSize().y * 0.72f;
@@ -91,10 +104,12 @@ void GameState::initializePlayer()
 	{
 		startingPos = 1280 * 0.62f;
 	}
+	// If knight, loads knight texture sheet
 	if (this->chosenCharacter == "knight")
 	{
 		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, scaleScreen);
 	}
+	// Otherwise load mage texture sheet
 	else
 		if (this->chosenCharacter == "mage")
 		{
@@ -102,6 +117,42 @@ void GameState::initializePlayer()
 		}
 
 }
+
+// Creates a new shade enemy, setting its texture and position on the screen
+void GameState::initializeShade()
+{
+	// Sets starting positions in windowed mode
+	float startingPosX = 1100;
+	float startingPosY = this->window->getSize().y * 0.75f;
+	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	// Sets starting positions in fullscreen mode
+	if (scaleScreen)
+	{
+		startingPosX = 1100 * 1.45f;
+		startingPosY = 1280 * 0.62f;
+	}
+
+	this->enemy1 = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, scaleScreen);
+}
+
+//Creates a new slime enemy, setting its texture and position on the screen
+void GameState::initializeSlime()
+{
+	// Sets starting positions in windowed mode
+	float startingPosX = 1075;
+	float startingPosY = this->window->getSize().y * 0.85f;
+	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	// Sets starting positions in fullscreen mode
+	if (scaleScreen)
+	{
+		startingPosX = 1075 * 1.45f;
+		startingPosY = 1280 * 0.72f;
+	}
+
+	this->enemy2 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, scaleScreen);
+	this->enemy3 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX-100, startingPosY, scaleScreen);
+}
+
 // Creates the player interface for relevant stats like health and mana, experience, and level
 void GameState::initializePlayerGUI()
 {
@@ -177,9 +228,15 @@ void GameState::updateState(const float& deltaTime)
 
 	// Update state while unpaused
 	if (!this->isPaused) {
+		// Updated player related functions on the state
 		this->updatePlayerInput(deltaTime);
 		this->player->update(deltaTime);
 		this->playerGUI->updateUI(deltaTime);
+
+		// Updates level 1 enemies on the state
+		this->enemy1->update(deltaTime);
+		this->enemy2->update(deltaTime);
+		this->enemy3->update(deltaTime);
 	}
 	else
 	{
@@ -196,8 +253,15 @@ void GameState::renderState(sf::RenderTarget* target)
 		target = this->window;
 	}
 	target->draw(this->background);
+
+	//Render player and player UI to the screen
 	this->player->renderEntity(*target);
 	this->playerGUI->renderUI(*target);
+
+	//Renders level 1 enemies (Slime + Shade)
+	this->enemy1->renderEntity(*target);
+	this->enemy2->renderEntity(*target);
+	this->enemy3->renderEntity(*target);
 
 	// Render pause menu
 	if (this->isPaused)
