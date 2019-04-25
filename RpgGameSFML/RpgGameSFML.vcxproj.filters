@@ -77,6 +77,12 @@
     <Filter Include="State Files\GameState Files">
       <UniqueIdentifier>{99e3507d-5f18-4cf9-8451-f50ccc685527}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity Files\Enemies\Final Level">
+      <UniqueIdentifier>{a1da80ec-b12f-467e-b391-486a2d90d68a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Headers\Enemies\Final Level">
+      <UniqueIdentifier>{e94f642d-101a-4391-83be-2494726948b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -163,8 +169,17 @@
     <ClCompile Include="GameState.cpp">
       <Filter>State Files\GameState Files</Filter>
     </ClCompile>
+    <ClCompile Include="Minotaur.cpp">
+      <Filter>Entity Files\Enemies\Final Level</Filter>
+    </ClCompile>
     <ClCompile Include="SlimeLevel.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>State Files\GameState Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemLevel.cpp">
+      <Filter>State Files\GameState Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BossLevel.cpp">
+      <Filter>State Files\GameState Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +264,17 @@
     <ClInclude Include="GameState.h">
       <Filter>State Headers\GameState Headers</Filter>
     </ClInclude>
-    <ClInclude Include="SlimeLevel.h" />
+    <ClInclude Include="Minotaur.h">
+      <Filter>Entity Headers\Enemies\Final Level</Filter>
+    </ClInclude>
+    <ClInclude Include="SlimeLevel.h">
+      <Filter>State Headers\GameState Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemLevel.h">
+      <Filter>State Headers\GameState Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="BossLevel.h">
+      <Filter>State Headers\GameState Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

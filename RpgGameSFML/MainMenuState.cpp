@@ -11,7 +11,7 @@ MainMenuState::MainMenuState(StateData* stateInfo)
 	this->window->setView(properScreenView);
 
 	this->initializeBackground();
-	this->initializeKeybinds();
+	this->initializeKeybinds("Config/mainMenuStateKeybinds.ini");
 	this->initializeButtons();
 }
 
@@ -31,9 +31,9 @@ void MainMenuState::initializeBackground()
 	}
 
 // Sets keybinds for the main menu
-void MainMenuState::initializeKeybinds()
+void MainMenuState::initializeKeybinds(std::string configFile)
 {
-	std::ifstream readKeybinds("Config/mainMenuStateKeybinds.ini");
+	std::ifstream readKeybinds(configFile);
 	if (readKeybinds.is_open()) {
 		std::string keybind = "";
 		std::string bindedValue = "";

@@ -12,7 +12,7 @@ SettingsMenuState::SettingsMenuState(StateData* stateInfo)
 
 	this->initializeVariables();
 	this->initializeBackground();
-	this->initializeKeybinds();
+	this->initializeKeybinds("Config/SettingsStateKeybinds.ini");
 	this->initializeGUI();
 }
 
@@ -53,9 +53,9 @@ void SettingsMenuState::initializeBackground()
 }
 
 // Initializes the availible keybinds for the state
-void SettingsMenuState::initializeKeybinds()
+void SettingsMenuState::initializeKeybinds(std::string configFile)
 {
-	std::ifstream readKeybinds("Config/SettingsStateKeybinds.ini");
+	std::ifstream readKeybinds(configFile);
 	if (readKeybinds.is_open()) {
 		std::string keybind = "";
 		std::string bindedValue = "";

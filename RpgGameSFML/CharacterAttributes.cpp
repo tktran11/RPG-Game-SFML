@@ -52,21 +52,6 @@ void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 		this->currentHP = this->maxHP;
 		this->currentMana = this->maxMana;
 	}
-
-	std::ifstream readStats("Config/KnightStats.txt");
-	if (readStats.is_open()) {
-		std::string statType = "";
-		int statValue;
-
-		while (readStats >> statType >> statValue)
-		{
-			this->stats[statType] = this->stats->at(statValue);
-		}
-	}
-	readStats.close();
-	std::cout << stats << std::endl;
-
-
 }
 
 // Updates the character's level, changing relevant stats, and resets the experience afterwards

@@ -20,8 +20,8 @@ Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY
 	this->makeAnimationComponent(spriteTextureSheet);
 
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
-	this->animationComponent->addAnimation("MOVE", 5.f, 0, 1, 7, 1, 192, 192);
-	this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 9, 0, 192, 192);
+	this->animationComponent->addAnimation("MOVE", 7.f, 0, 1, 7, 1, 192, 192);
+	this->animationComponent->addAnimation("IDLE", 17.f, 0, 0, 9, 0, 192, 192);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 3, 16, 3, 384, 192);
 	this->animationComponent->addAnimation("POWER_UP", 5.f, 0, 2, 16, 2, 192, 192);
 }

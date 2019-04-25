@@ -1,6 +1,8 @@
 #pragma once
 #include "gui.h"
 #include "SlimeLevel.h"
+#include "GolemLevel.h"
+#include "BossLevel.h"
 
 class GameState;
 class SlimeLevel;
@@ -19,7 +21,7 @@ private:
 
 	// Initialization for the Character Select
 	void initializeBackground();
-	void initializeKeybinds();
+	void initializeKeybinds(std::string configFile);
 	void initializeButtons();
 public:
 	// Constructor

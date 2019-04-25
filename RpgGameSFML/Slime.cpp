@@ -19,7 +19,7 @@ Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPoi
 	this->makeAnimationComponent(spriteTextureSheet);
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("ATTACK", 7.f, 0, 1, 7, 1, 32, 25);
-	this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 7, 0, 32, 25);
+	this->animationComponent->addAnimation("IDLE", 17.f, 0, 0, 7, 0, 32, 25);
 	this->animationComponent->addAnimation("DEATH", 10.f, 0, 2, 5, 2, 32, 25);
 }
 

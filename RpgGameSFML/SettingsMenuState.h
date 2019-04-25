@@ -26,7 +26,7 @@ private:
 	// Initializes the keybinds for the Game State, overriden from State.
 	void initializeVariables();
 	void initializeBackground();
-	void initializeKeybinds();
+	void initializeKeybinds(std::string configFile);
 	void initializeGUI();
 public:
 	// Constructor

@@ -7,7 +7,7 @@ class CharacterAttributes
 {
 public:
 	// Map to bind stats to values
-	std::map<std::string, int>* stats;
+	std::map<std::string, int> stats;
 
 	// Leveling (for Player) and Level Management (all entities) 
 	int level;

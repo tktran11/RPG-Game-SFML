@@ -16,7 +16,7 @@ CreditScreenState::CreditScreenState(StateData* stateInfo)
 	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
 	this->window->setView(properScreenView);
 	this->initializeBackground();
-	this->initializeKeybinds();
+	this->initializeKeybinds("Config/creditScreenKeybinds.ini");
 	this->initializeButtons();
 }
 
@@ -37,9 +37,9 @@ void CreditScreenState::initializeBackground()
 }
 
 // Inializes keybinds for the state
-void CreditScreenState::initializeKeybinds()
+void CreditScreenState::initializeKeybinds(std::string configFile)
 {
-	std::ifstream readKeybinds("Config/creditScreenKeybinds.ini");
+	std::ifstream readKeybinds(configFile);
 	if (readKeybinds.is_open()) {
 		std::string keybind = "";
 		std::string bindedValue = "";

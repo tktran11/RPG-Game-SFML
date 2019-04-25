@@ -16,7 +16,7 @@ EndGameScreen::EndGameScreen(StateData* stateInfo, bool wonGame)
 
 	this->wonGame = wonGame;
 	this->initializeBackground();
-	this->initializeKeybinds();
+	this->initializeKeybinds("Config/endGameKeybinds.ini");
 	this->initializeButtons();
 }
 
@@ -50,9 +50,9 @@ void EndGameScreen::initializeBackground()
 }
 
 // Initialize keybinds for the state
-void EndGameScreen::initializeKeybinds()
+void EndGameScreen::initializeKeybinds(std::string configFile)
 {
-	std::ifstream readKeybinds("Config/endGameKeybinds.ini");
+	std::ifstream readKeybinds(configFile);
 	if (readKeybinds.is_open()) {
 		std::string keybind = "";
 		std::string bindedValue = "";

@@ -1,19 +1,15 @@
 #pragma once
 #include "GameState.h"
 #include "MainMenuState.h"
-
-class SlimeLevel :
+class BossLevel :
 	public GameState
 {
 private:
-	Enemy* minion1;
-	Enemy* minion2;
-public:
-	SlimeLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile = "MenuTextures/GameBackground/Map1.png");
-	
 	void initializeTextures();
 	void initializeBoss();
-	void initializeMinions();
+public:
+	BossLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, 
+		std::string backgroundFile = "MenuTextures/GameBackground/Map3.png");
 
 	void updatePauseMenuButtons();
 	void updatePlayerInput(const float& deltaTime);

@@ -19,7 +19,7 @@ private:
 
 	// Initializations
 	void initializeBackground();
-	void initializeKeybinds();
+	void initializeKeybinds(std::string configFile);
 	void initializeButtons();
 public:
 	// Constructor

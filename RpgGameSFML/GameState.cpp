@@ -21,6 +21,22 @@ GameState::GameState(StateData* stateInfo, std::string playerType, unsigned play
 	this->initializePlayerGUI();
 }
 
+// Reads keybinds from a specified .ini file and creates a map from keybind to binded value
+void GameState::initializeKeybinds(std::string configFile)
+{
+	std::ifstream readKeybinds(configFile);
+	if (readKeybinds.is_open()) {
+		std::string keybind = "";
+		std::string bindedValue = "";
+
+		while (readKeybinds >> keybind >> bindedValue)
+		{
+			this->keyBinds[keybind] = this->supportedKeys->at(bindedValue);
+		}
+	}
+	readKeybinds.close();
+
+}
 
 // Initializes the texture of the background and sets its texture
 void GameState::initializeBackground(std::string backgroundFile)

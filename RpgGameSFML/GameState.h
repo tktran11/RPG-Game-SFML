@@ -30,16 +30,17 @@ protected:
 
 	// Initialization Functions used to set default values and other important set ups for things like keybinds
 	// and visual images
-	virtual void initializeKeybinds() = 0;
+
 	virtual void initializeTextures() = 0;
 	virtual void initializeBoss() = 0;
+	void initializeKeybinds(std::string configFile);
 	void initializeBackground(std::string backgroundFile);
 	void initializePauseMenu();
 	void initializePlayer(unsigned playerLevel);
 	void initializePlayerGUI();
 public:
 	// Constructor
-	GameState(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile = "MenuTextures/GameBackground/Map1.png");
+	GameState(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile);
 
 	// State Updating
 	void updatePlayerGUI(const float& deltaTime);

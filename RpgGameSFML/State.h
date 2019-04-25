@@ -62,7 +62,7 @@ protected:
 	sf::Vector2f mousPositView;
 
 	// Needed to initialize keybinds
-	virtual void initializeKeybinds() = 0;
+	virtual void initializeKeybinds(std::string configFile) = 0;
 
 public:
 	// Constructor

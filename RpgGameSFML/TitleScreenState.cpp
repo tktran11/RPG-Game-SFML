@@ -11,7 +11,7 @@ TitleScreenState::TitleScreenState(StateData* stateInfo)
 	: State(stateInfo)
 {
 	this->initializeBackground();
-	this->initializeKeybinds();
+	this->initializeKeybinds("Config/titleScreenKeybinds.ini");
 	this->initializeButtons();
 }
 // Sets the backround for the window by loading the
@@ -35,9 +35,9 @@ void TitleScreenState::initializeBackground()
    keys out of the game's supported keys are binded to actions for this 
     screen 
 */
-void TitleScreenState::initializeKeybinds() 
+void TitleScreenState::initializeKeybinds(std::string configFile) 
 {
-	std::ifstream readKeybinds("Config/titleScreenKeybinds.ini");
+	std::ifstream readKeybinds(configFile);
 	if (readKeybinds.is_open()) {
 		std::string keybind = "";
 		std::string bindedValue = "";

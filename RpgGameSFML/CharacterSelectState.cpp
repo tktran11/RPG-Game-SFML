@@ -12,7 +12,7 @@ CharacterSelectState::CharacterSelectState(StateData* stateInfo)
 	this->window->setView(properScreenView);
 
 	this->initializeBackground();
-	this->initializeKeybinds();
+	this->initializeKeybinds("Config/charSelectStateKeybinds.ini");
 	this->initializeButtons();
 }
 
@@ -44,9 +44,9 @@ void CharacterSelectState::initializeBackground()
    keys out of the game's supported keys are binded to actions for this
 	screen
 */
-void CharacterSelectState::initializeKeybinds()
+void CharacterSelectState::initializeKeybinds(std::string configFile)
 {
-	std::ifstream readKeybinds("Config/charSelectStateKeybinds.ini");
+	std::ifstream readKeybinds(configFile);
 	if (readKeybinds.is_open()) {
 		std::string keybind = "";
 		std::string bindedValue = "";
@@ -91,12 +91,12 @@ void CharacterSelectState::updateButtons()
 	if (this->buttons["CHOOSE_KNIGHT"]->isPressed())
 	{
 		this->characterChoice = "knight";
-		this->states->push(new SlimeLevel(this->stateInfo, this->characterChoice, 1));
+		this->states->push(new BossLevel(this->stateInfo, this->characterChoice, 3));
 	}
 	else if (this->buttons["CHOOSE_MAGE"]->isPressed())
 	{
 		this->characterChoice = "mage";
-		this->states->push(new SlimeLevel(this->stateInfo, this->characterChoice, 1));
+		this->states->push(new GolemLevel(this->stateInfo, this->characterChoice, 2));
 	}
 
 
