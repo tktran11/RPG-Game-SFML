@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Knight.h"
 
+/*
+Knight.cpp is the .cpp for the knight class, which is a derived class of PlayerCharacter
+and has unique characteristics specifc to the knight (Stats, animations, and abilities)
+*/
+
 enum attackKey {
 	K = 10
 };
@@ -50,6 +55,7 @@ void Knight::updateAnimation(const float & deltaTime)
 			}
 		}
 	}
+	// checks for idle
 	if (this->movementComponent->checkMoveType(IDLE))
 	{
 		this->animationComponent->playAnimation("IDLE", deltaTime);

@@ -24,7 +24,10 @@ private:
 	PlayerCharacter* player;
 	Enemy* enemy1;
 	Enemy* enemy2;
+	Enemy* enemy3;
 	CharacterGUI* playerGUI;
+
+	std::string backgroundFile;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 
@@ -32,7 +35,7 @@ private:
 	// and visual images
 	void initializeKeybinds();
 	void initializeTextures();
-	void initializeBackground();
+	void initializeBackground(std::string backgroundFile);
 	void initializePauseMenu();
 	void initializePlayer();
 	void initializeShade();
@@ -40,7 +43,7 @@ private:
 	void initializePlayerGUI();
 public:
 	// Constructor
-	GameState(StateData* stateInfo, std::string playerType);
+	GameState(StateData* stateInfo, std::string playerType, std::string backgroundFile = "MenuTextures/GameBackground/Map1.png");
 
 	// State Updating
 	void updatePlayerInput(const float& deltaTime);

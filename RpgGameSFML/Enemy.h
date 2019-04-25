@@ -38,6 +38,7 @@ public:
 	void loseHP(const int hpLost);
 	void gainHP(const int hpGain);
 
+	// Updates data specific to the enemy
 	virtual void updateAnimation(const float& deltaTime) = 0;
 	virtual void update(const float& deltaTime) = 0;
 	void checkForAttackAnimation();

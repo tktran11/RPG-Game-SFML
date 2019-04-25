@@ -2,6 +2,7 @@
 #include "MovementComponent.h"
 #include "AnimationComponent.h"
 #include "CharacterAttributes.h"
+
 /*
 Enity.h is the header for the entity class, which is the base class for characters and
 other entities.

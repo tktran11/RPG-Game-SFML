@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Mage.h"
 
+/*
+Mage.h is the .cpp for the mage class, which is a derived class of PlayerCharacter
+and has unique characteristics specifc to the mage (Stats, animations, and abilities)
+*/
+
 enum attackKey {
 	K = 10,	L = 11
 };
@@ -59,6 +64,7 @@ void Mage::updateAnimation(const float & deltaTime)
 			}
 		}
 	}
+	// if powering up and not attacking
 	if (this->isPoweringUp && !this->isAttacking)
 	{
 		// facing rightside
@@ -87,6 +93,7 @@ void Mage::updateAnimation(const float & deltaTime)
 			}
 		}
 	}
+	// checks for idle
 	if (this->movementComponent->checkMoveType(IDLE))
 	{
 		this->animationComponent->playAnimation("IDLE", deltaTime);

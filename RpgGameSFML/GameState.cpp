@@ -8,15 +8,16 @@ the game.
 */
 
 // Constructor, calls initialization features
-GameState::GameState(StateData* stateInfo, std::string playerType)
-	: State(stateInfo)
+GameState::GameState(StateData* stateInfo, std::string playerType, std::string backgroundFile) :
+	State(stateInfo)
 {
 	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
 	this->window->setView(properScreenView);
+	this->backgroundFile = backgroundFile;
 	this->chosenCharacter = playerType;
 	this->initializeKeybinds();
 	this->initializeTextures();
-	this->initializeBackground();
+	this->initializeBackground(backgroundFile);
 	this->initializePauseMenu();
 	this->initializePlayer();
 	this->initializePlayerGUI();
@@ -70,14 +71,14 @@ void GameState::initializeTextures()
 }
 
 // Initializes the texture of the background and sets its texture
-void GameState::initializeBackground()
+void GameState::initializeBackground(std::string backgroundFile)
 {
 	this->background.setSize(
 		sf::Vector2f
 		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
 
-	if (!this->backgroundTexture.loadFromFile("MenuTextures/GameBackground/Map1.png"))
+	if (!this->backgroundTexture.loadFromFile(backgroundFile))
 	{
 		throw "ERROR::GAME_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -149,6 +150,7 @@ void GameState::initializeSlime()
 	}
 
 	this->enemy2 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, scaleScreen);
+	this->enemy3 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX-100, startingPosY, scaleScreen);
 }
 
 // Creates the player interface for relevant stats like health and mana, experience, and level
@@ -234,6 +236,7 @@ void GameState::updateState(const float& deltaTime)
 		// Updates level 1 enemies on the state
 		this->enemy1->update(deltaTime);
 		this->enemy2->update(deltaTime);
+		this->enemy3->update(deltaTime);
 	}
 	else
 	{
@@ -258,6 +261,7 @@ void GameState::renderState(sf::RenderTarget* target)
 	//Renders level 1 enemies (Slime + Shade)
 	this->enemy1->renderEntity(*target);
 	this->enemy2->renderEntity(*target);
+	this->enemy3->renderEntity(*target);
 
 	// Render pause menu
 	if (this->isPaused)

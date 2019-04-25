@@ -19,7 +19,7 @@ State::State(StateData* stateInfo)
 	this->isPaused = false;
 	this->askedForQuit = false;
 	this->keyboardTimer = 0.f;
-	this->maxKeyboardTime = 10.f;
+	this->maxKeyboardTime = 20.f;
 	
 }
 

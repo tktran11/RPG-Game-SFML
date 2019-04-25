@@ -59,6 +59,18 @@
     <Filter Include="Entity Headers\Enemies">
       <UniqueIdentifier>{da3e05a5-9193-4104-aced-1714c7bf6872}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity Files\Enemies\Level 1">
+      <UniqueIdentifier>{66e9de31-b02c-467f-a751-d88ab9421bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Files\Enemies\Level 2">
+      <UniqueIdentifier>{a49337e3-345c-41af-9156-3d037d444387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Headers\Enemies\Level 1">
+      <UniqueIdentifier>{420e8a04-a910-47f7-9edc-c58fd223e84b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Headers\Enemies\Level 2">
+      <UniqueIdentifier>{82f146a8-74d9-4f4e-97d5-8daee25bdf16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -134,10 +146,19 @@
       <Filter>GUI Files</Filter>
     </ClCompile>
     <ClCompile Include="Shade.cpp">
-      <Filter>Entity Files\Enemies</Filter>
+      <Filter>Entity Files\Enemies\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="Slime.cpp">
-      <Filter>Entity Files\Enemies</Filter>
+      <Filter>Entity Files\Enemies\Level 1</Filter>
+    </ClCompile>
+    <ClCompile Include="StoneGolem.cpp">
+      <Filter>Entity Files\Enemies\Level 2</Filter>
+    </ClCompile>
+    <ClCompile Include="FireGolem.cpp">
+      <Filter>Entity Files\Enemies\Level 2</Filter>
+    </ClCompile>
+    <ClCompile Include="IceGolem.cpp">
+      <Filter>Entity Files\Enemies\Level 2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,11 +231,20 @@
     <ClInclude Include="CharacterGUI.h">
       <Filter>GUI Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Shade.h">
-      <Filter>Entity Headers\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Slime.h">
-      <Filter>Entity Headers\Enemies</Filter>
+      <Filter>Entity Headers\Enemies\Level 1</Filter>
+    </ClInclude>
+    <ClInclude Include="Shade.h">
+      <Filter>Entity Headers\Enemies\Level 1</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneGolem.h">
+      <Filter>Entity Headers\Enemies\Level 2</Filter>
+    </ClInclude>
+    <ClInclude Include="FireGolem.h">
+      <Filter>Entity Headers\Enemies\Level 2</Filter>
+    </ClInclude>
+    <ClInclude Include="IceGolem.h">
+      <Filter>Entity Headers\Enemies\Level 2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

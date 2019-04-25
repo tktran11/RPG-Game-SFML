@@ -2,9 +2,9 @@
 #include "Enemy.h"
 
 /*
-Enemy.cpp is the header for the enemy class, which is the base class for enemy characters
+Enemy.cpp is the .cpp for the enemy class, which is the base class for enemy characters
 the player will face.It stores information and will house components for enemies to make
-use of(Most notably the exclusion of movement).
+use of (Most notably the exclusion of movement).
 */
 
 enum attackKey {
