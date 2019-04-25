@@ -8,7 +8,7 @@ the game.
 */
 
 // Constructor, calls initialization features
-GameState::GameState(StateData* stateInfo, std::string playerType, std::string backgroundFile) :
+GameState::GameState(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile) :
 	State(stateInfo)
 {
 	sf::View properScreenView((sf::FloatRect(0, 0, this->window->getSize().x, this->window->getSize().y)));
@@ -19,7 +19,7 @@ GameState::GameState(StateData* stateInfo, std::string playerType, std::string b
 	this->initializeTextures();
 	this->initializeBackground(backgroundFile);
 	this->initializePauseMenu();
-	this->initializePlayer();
+	this->initializePlayer(playerLevel);
 	this->initializePlayerGUI();
 	this->initializeShade();
 	this->initializeSlime();
@@ -96,7 +96,7 @@ void GameState::initializePauseMenu()
 }
 
 // Creates a new player, setting its texture and position on the screen
-void GameState::initializePlayer()
+void GameState::initializePlayer(unsigned playerLevel)
 {
 	float startingPos = this->window->getSize().y * 0.72f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
@@ -107,13 +107,13 @@ void GameState::initializePlayer()
 	// If knight, loads knight texture sheet
 	if (this->chosenCharacter == "knight")
 	{
-		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, scaleScreen);
+		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, scaleScreen);
 	}
 	// Otherwise load mage texture sheet
 	else
 		if (this->chosenCharacter == "mage")
 		{
-			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, scaleScreen);
+			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, scaleScreen);
 		}
 
 }

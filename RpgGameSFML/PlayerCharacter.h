@@ -12,8 +12,8 @@ class PlayerCharacter :
 	public Entity
 {
 private:
-	void initializeComponents(sf::Texture& spriteTextureSheet);
-	void initializeVariables(bool fullScreenScale);
+	void initializeComponents(sf::Texture& spriteTextureSheet, unsigned level);
+	void initializeVariables(bool scaleScreen);
 	// Initialization Functions
 	float startPositionX;
 	float startPositionY;
@@ -22,7 +22,7 @@ protected:
 	bool isAttacking;
 public:
 	// Constructor
-	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale);
+	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, bool scaleScreen);
 
 	// Assessors
 	CharacterAttributes* getAttributeComponent();
@@ -31,7 +31,7 @@ public:
 	float getSpriteScale();
 
 	// Mutators
-	void setSpriteScale(bool fullScreenScale);
+	void setSpriteScale(bool scaleScreen);
 
 	// Combat Modifications
 	void loseHP(const int hpLost);

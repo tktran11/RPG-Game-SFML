@@ -11,8 +11,8 @@ enum attackKey {
 };
 
 // Constructor
-Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale) :
-	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, fullScreenScale)
+Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, bool scaleScreen) :
+	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, level, scaleScreen)
 {
 	this->setPosition(startPointX, startPointY);
 	this->sprite.setScale(this->scale, this->scale);

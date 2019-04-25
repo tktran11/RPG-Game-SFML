@@ -13,12 +13,12 @@ enum attackKey {
 };
 
 /* Constructor for the player character*/
-PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale)
+PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, bool scaleScreen)
 {
 	this->startPositionX = startPointX;
 	this->startPositionY = startPointY;
-	this->initializeComponents(spriteTextureSheet);
-	this->initializeVariables(fullScreenScale);
+	this->initializeComponents(spriteTextureSheet, level);
+	this->initializeVariables(scaleScreen);
 	this->setPosition(startPointX, startPointY);
 }
 
@@ -47,9 +47,9 @@ float PlayerCharacter::getSpriteScale()
 }
 
 // Scales the sprite for fullscreen applications if necessary
-void PlayerCharacter::setSpriteScale(bool fullScreenScale)
+void PlayerCharacter::setSpriteScale(bool scaleScreen)
 {
-	if (fullScreenScale)
+	if (scaleScreen)
 	{
 		this->scale = 1.5f;
 	} 
@@ -109,11 +109,11 @@ void PlayerCharacter::gainEXP(const unsigned xpGain)
 }
 
 // Initializes the components used by the player character
-void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet)
+void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet, unsigned level)
 {
 	this->makeMovementComponent(300.f, 10.f, 3.5f);
 	this->makeAnimationComponent(spriteTextureSheet);
-	this->makeAttributeComponent(1);
+	this->makeAttributeComponent(level);
 }
 
 // Sets starting variables for the player

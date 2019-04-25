@@ -37,13 +37,13 @@ private:
 	void initializeTextures();
 	void initializeBackground(std::string backgroundFile);
 	void initializePauseMenu();
-	void initializePlayer();
+	void initializePlayer(unsigned playerLevel);
 	void initializeShade();
 	void initializeSlime();
 	void initializePlayerGUI();
 public:
 	// Constructor
-	GameState(StateData* stateInfo, std::string playerType, std::string backgroundFile = "MenuTextures/GameBackground/Map1.png");
+	GameState(StateData* stateInfo, std::string playerType, unsigned playerLevel,  std::string backgroundFile = "MenuTextures/GameBackground/Map1.png");
 
 	// State Updating
 	void updatePlayerInput(const float& deltaTime);

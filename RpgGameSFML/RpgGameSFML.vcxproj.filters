@@ -136,9 +136,6 @@
     <ClCompile Include="Mage.cpp">
       <Filter>Entity Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="CombatState.cpp">
-      <Filter>State Files</Filter>
-    </ClCompile>
     <ClCompile Include="CharacterAttributes.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
@@ -224,9 +221,6 @@
     </ClInclude>
     <ClInclude Include="Mage.h">
       <Filter>Entity Headers\Player Character</Filter>
-    </ClInclude>
-    <ClInclude Include="CombatState.h">
-      <Filter>State Headers</Filter>
     </ClInclude>
     <ClInclude Include="CharacterGUI.h">
       <Filter>GUI Headers</Filter>
