@@ -71,6 +71,12 @@
     <Filter Include="Entity Headers\Enemies\Level 2">
       <UniqueIdentifier>{82f146a8-74d9-4f4e-97d5-8daee25bdf16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity Headers\Enemies\Final Boss">
+      <UniqueIdentifier>{131ca15a-c012-489a-8f71-5e0ba1d71fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Files\Enemies\Final Boss">
+      <UniqueIdentifier>{774eee59-d1c9-4e76-87bf-2b7cb17f1503}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -160,6 +166,9 @@
     <ClCompile Include="IceGolem.cpp">
       <Filter>Entity Files\Enemies\Level 2</Filter>
     </ClCompile>
+    <ClCompile Include="Minotaur.cpp">
+      <Filter>Entity Files\Enemies\Final Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -245,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="IceGolem.h">
       <Filter>Entity Headers\Enemies\Level 2</Filter>
+    </ClInclude>
+    <ClInclude Include="Minotaur.h">
+      <Filter>Entity Headers\Enemies\Final Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

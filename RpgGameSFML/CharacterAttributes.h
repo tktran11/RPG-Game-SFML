@@ -6,16 +6,13 @@
 class CharacterAttributes
 {
 public:
+	// Map to bind stats to values
+	std::map<std::string, int>* stats;
+
 	// Leveling (for Player) and Level Management (all entities) 
 	int level;
 	int experience;
 	int expToNextLevel;
-	
-	// Attributes (Consider putting all of the stats in a container (array, vector, map, something) for ease of either hard coding
-	// or file reading
-	int attack;
-	int speed;
-	int defense;
 
 	// unchanging stats (base stats for calculation of HP and Mana), read in when player created, never changed
 	int vitality;
@@ -26,6 +23,7 @@ public:
 	int maxHP;
 	int currentMana;
 	int maxMana;
+	bool isDead = false;
 
 	// Constructor
 	CharacterAttributes(int characterLevel);

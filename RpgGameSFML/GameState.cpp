@@ -59,7 +59,7 @@ void GameState::initializeTextures()
 		}
 	}
 
-	if (!this->stateTextures["SHADE_SPRITE"].loadFromFile("Sprites/shadeSheet.png"))
+	if (!this->stateTextures["SHADE_SHEET"].loadFromFile("Sprites/shadeSheet.png"))
 	{
 		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
 	}
@@ -132,7 +132,7 @@ void GameState::initializeShade()
 		startingPosY = 1280 * 0.62f;
 	}
 
-	this->enemy1 = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, scaleScreen);
+	this->enemy1 = new Shade(this->stateTextures["SHADE_SHEET"], startingPosX, startingPosY, scaleScreen);
 }
 
 //Creates a new slime enemy, setting its texture and position on the screen
@@ -150,7 +150,7 @@ void GameState::initializeSlime()
 	}
 
 	this->enemy2 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, scaleScreen);
-	this->enemy3 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX-100, startingPosY, scaleScreen);
+	this->enemy3 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX-120, startingPosY, scaleScreen);
 }
 
 // Creates the player interface for relevant stats like health and mana, experience, and level

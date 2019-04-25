@@ -5,6 +5,10 @@
 #include "Mage.h"
 #include "Shade.h"
 #include "Slime.h"
+#include "IceGolem.h"
+#include "StoneGolem.h"
+#include "FireGolem.h"
+#include "Minotaur.h"
 #include "GraphicsSettings.h"
 /*
 State.h is the header for the state class, which handles the resources for

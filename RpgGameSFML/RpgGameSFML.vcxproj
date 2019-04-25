@@ -192,6 +192,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Minotaur.cpp" />
     <ClCompile Include="MovementComponent.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -239,6 +240,7 @@
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Mage.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="Minotaur.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="PlayerCharacter.h" />
