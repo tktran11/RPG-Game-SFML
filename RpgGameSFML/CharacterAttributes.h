@@ -7,7 +7,7 @@ class CharacterAttributes
 {
 public:
 	// Map to bind stats to values
-	std::map<std::string, int>* stats;
+	std::map<std::string, int> stats;
 
 	// Leveling (for Player) and Level Management (all entities) 
 	int level;
@@ -31,6 +31,7 @@ public:
 	// Attribute Calculations and Updating
 	int calculateExpToNext(int characterLevel);
 	void gainXP(const int experience);
+	void initializeStats();
 	void updateAttributes(const bool resetOnLevel);
 	void updateLevel();
 	void update(const int experience);

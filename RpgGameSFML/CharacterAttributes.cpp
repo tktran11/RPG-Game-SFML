@@ -18,6 +18,34 @@ CharacterAttributes::CharacterAttributes(int characterLevel)
 	this->updateAttributes(true);
 }
 
+void CharacterAttributes::initializeStats()
+{
+
+	std::ifstream readStats("Config/KnightStats.txt");
+	if (readStats.is_open())
+	{
+		std::string statType = " ";
+		int statValue;
+
+		while (readStats >> statType >> statValue)
+		{
+			this->stats[statType] = statValue;
+
+		}
+	}
+
+	// iterator to display the stats
+	auto i = this->stats.begin();
+	for (i; i != this->stats.end(); i++)
+	{
+		std::cout << i->first;
+		std::cout << " Mapped to " << i->second << std::endl;
+	}
+	system("cls");
+
+	readStats.close();
+}
+
 // Calculates the experience needed to reach the next level
 int CharacterAttributes::calculateExpToNext(int characterLevel)
 {
@@ -52,21 +80,6 @@ void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 		this->currentHP = this->maxHP;
 		this->currentMana = this->maxMana;
 	}
-
-	std::ifstream readStats("Config/KnightStats.txt");
-	if (readStats.is_open()) {
-		std::string statType = "";
-		int statValue;
-
-		while (readStats >> statType >> statValue)
-		{
-			this->stats[statType] = this->stats->at(statValue);
-		}
-	}
-	readStats.close();
-	std::cout << stats << std::endl;
-
-
 }
 
 // Updates the character's level, changing relevant stats, and resets the experience afterwards
@@ -86,4 +99,5 @@ void CharacterAttributes::update(const int experience)
 {
 	this->gainXP(experience);
 	this->updateLevel();
+	this->initializeStats();
 }
