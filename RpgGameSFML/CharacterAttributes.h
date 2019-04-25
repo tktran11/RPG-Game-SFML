@@ -31,6 +31,7 @@ public:
 	// Attribute Calculations and Updating
 	int calculateExpToNext(int characterLevel);
 	void gainXP(const int experience);
+	void initializeStats();
 	void updateAttributes(const bool resetOnLevel);
 	void updateLevel();
 	void update(const int experience);
