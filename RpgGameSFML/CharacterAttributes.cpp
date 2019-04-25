@@ -34,15 +34,6 @@ void CharacterAttributes::initializeStats()
 		}
 	}
 
-	// iterator to display the stats
-	auto i = this->stats.begin();
-	for (i; i != this->stats.end(); i++)
-	{
-		std::cout << i->first;
-		std::cout << " Mapped to " << i->second << std::endl;
-	}
-	system("cls");
-
 	readStats.close();
 }
 
