@@ -91,12 +91,12 @@ void CharacterSelectState::updateButtons()
 	if (this->buttons["CHOOSE_KNIGHT"]->isPressed())
 	{
 		this->characterChoice = "knight";
-		this->states->push(new GameState(this->stateInfo, this->characterChoice));
+		this->states->push(new SlimeLevel(this->stateInfo, this->characterChoice, 1));
 	}
 	else if (this->buttons["CHOOSE_MAGE"]->isPressed())
 	{
 		this->characterChoice = "mage";
-		this->states->push(new GameState(this->stateInfo, this->characterChoice));
+		this->states->push(new SlimeLevel(this->stateInfo, this->characterChoice, 1));
 	}
 
 

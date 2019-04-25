@@ -1,8 +1,9 @@
 #pragma once
 #include "gui.h"
-#include "State.h"
-#include "GameState.h"
+#include "SlimeLevel.h"
 
+class GameState;
+class SlimeLevel;
 /* CharacterSelectState.h is the header file for the Character Selection Menu. Here the player
    will select which of the two characters they would like to begin the game as */
 class CharacterSelectState :

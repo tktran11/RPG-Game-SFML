@@ -2,7 +2,6 @@
 #include"CharacterSelectState.h"
 #include "SettingsMenuState.h"
 #include "CreditScreenState.h"
-#include "EndGameScreen.h"
 #include "gui.h"
 /*
 MainMenuState.h is the header for the MainMenuState class, which handles the resources for

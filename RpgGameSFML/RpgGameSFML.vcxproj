@@ -161,7 +161,6 @@
     <ClCompile Include="CharacterAttributes.cpp" />
     <ClCompile Include="CharacterGUI.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
-    <ClCompile Include="CombatState.cpp" />
     <ClCompile Include="CreditScreenState.cpp" />
     <ClCompile Include="EndGameScreen.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -203,6 +202,7 @@
     <ClCompile Include="SettingsMenuState.cpp" />
     <ClCompile Include="Shade.cpp" />
     <ClCompile Include="Slime.cpp" />
+    <ClCompile Include="SlimeLevel.cpp" />
     <ClCompile Include="State.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
@@ -226,7 +226,6 @@
     <ClInclude Include="CharacterAttributes.h" />
     <ClInclude Include="CharacterGUI.h" />
     <ClInclude Include="CharacterSelectState.h" />
-    <ClInclude Include="CombatState.h" />
     <ClInclude Include="CreditScreenState.h" />
     <ClInclude Include="EndGameScreen.h" />
     <ClInclude Include="Enemy.h" />
@@ -247,6 +246,7 @@
     <ClInclude Include="SettingsMenuState.h" />
     <ClInclude Include="Shade.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="SlimeLevel.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StoneGolem.h" />
