@@ -41,7 +41,8 @@ gui::Button::Button(float x, float y, float width, float height, std::string fil
 	this->button.setTexture(&this->buttonTexture);
 
 	this->initializeFont();
-	this->initializeButtonText(buttonText, characterSize);
+	this->charSize = characterSize;
+	this->initializeButtonText(buttonText, this->charSize);
 	
 }
 
@@ -146,15 +147,15 @@ void gui::Button::updateTextButton(const sf::Vector2f mousePosition)
 	{
 	case BUTN_IDLE:
 		this->button.setScale(1, 1);
-		this->text.setScale(1, 1);
+		this->text.setCharacterSize(this->charSize);
 		break;
 	case BUTN_HOVER:
 		this->button.setScale(1.15, 1.15);
-		this->text.setScale(1.15, 1.15);
+		this->text.setCharacterSize(this->charSize * 1.15);
 		break;
 	case BUTN_PRESSED:
 		this->button.setScale(1.25, 1.25);
-		this->text.setScale(1.25, 1.25);
+		this->text.setCharacterSize(this->charSize * 1.25);
 		break;
 	default:
 		break;

@@ -24,6 +24,7 @@ namespace gui
 		// Text Based Button Alternatives
 		sf::Font font;
 		sf::Text text;
+		short unsigned charSize;
 		void initializeFont();
 		void initializeButtonText(std::string buttonText, short unsigned size);
 
