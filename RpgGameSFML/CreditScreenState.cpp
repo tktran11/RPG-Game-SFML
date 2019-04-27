@@ -56,7 +56,7 @@ void CreditScreenState::initializeKeybinds(std::string configFile)
 // Creates the buttons for the state
 void CreditScreenState::initializeButtons()
 {
-	this->backButton = new gui::Button((this->window->getSize().x * 0.898f), 
+	this->backButton = new gui::Button((this->window->getSize().x * 0.898f),
 		(this->window->getSize().y * 0.902f),
 		(this->window->getSize().x * 0.156f), (this->window->getSize().y * 0.111f),
 		"MenuTextures/Back.png");
@@ -71,6 +71,7 @@ void CreditScreenState::updateInput(const float & deltaTime)
 	{
 		this->askedForQuit = true;
 	}
+	
 
 }
 

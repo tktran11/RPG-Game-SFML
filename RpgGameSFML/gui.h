@@ -21,10 +21,20 @@ namespace gui
 		sf::Texture newTexture;
 		sf::RectangleShape button;
 
+		// Text Based Button Alternatives
+		sf::Font font;
+		sf::Text text;
+		void initializeFont();
+		void initializeButtonText(std::string buttonText, short unsigned size);
+
+		
+
 	public:
 		// Constructor
 		Button(float x, float y, float width, float height, 
 			std::string file, short unsigned buttonID = 0);
+		Button(float x, float y, float width, float height,
+			std::string file, std::string buttonText, short unsigned characterSize, short unsigned buttonID = 0);
 
 		// Assessors
 		const bool isPressed() const;
@@ -37,7 +47,10 @@ namespace gui
 
 		// Button Management
 		void updateButton(const sf::Vector2f mousePosition);
+		void updateTextButton(const sf::Vector2f mousePosition);
+
 		void renderButton(sf::RenderTarget& target);
+		void renderTextButton(sf::RenderTarget& target);
 
 	};
 

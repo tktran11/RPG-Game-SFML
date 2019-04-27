@@ -5,11 +5,11 @@
    the button, and houses functions that check if the user is hovering or
    clicking that button */
 
-   /* Constructor for the button class. It sets the initial state and position then
+/* Constructor for base buttons. It sets the initial state and position then
 	  loads the texture for that button */
 gui::Button::Button(float x, float y, float width, float height, std::string file, short unsigned buttonID)
 {
-	this->file = file;
+	this->file = file; // texture loading
 	this->buttonState = BUTN_IDLE;
 	this->buttonID = buttonID;
 	this->button.setPosition(sf::Vector2f(x, y));
@@ -23,6 +23,44 @@ gui::Button::Button(float x, float y, float width, float height, std::string fil
 	this->button.setTexture(&this->buttonTexture);
 }
 
+/* Alternative constructor for buttons with custom text, mostly for combat*/
+gui::Button::Button(float x, float y, float width, float height, std::string file,
+	std::string buttonText, short unsigned characterSize, short unsigned buttonID)
+{
+	this->file = file;
+	this->buttonState = BUTN_IDLE;
+	this->buttonID = buttonID;
+	this->button.setPosition(sf::Vector2f(x, y));
+	this->button.setSize(sf::Vector2f(width, height));
+	this->button.setOrigin(sf::Vector2f(width / 2, height / 2));
+	if (!this->buttonTexture.loadFromFile(this->file))
+	{
+		throw "ERROR:FAILED_TO_LOAD_BUTTON_TEXTURE";
+	}
+
+	this->button.setTexture(&this->buttonTexture);
+
+	this->initializeFont();
+	this->initializeButtonText(buttonText, characterSize);
+	
+}
+
+// Font initialization for text based buttons
+void gui::Button::initializeFont()
+{
+	this->font.loadFromFile("Fonts/MorrisRoman-Black.ttf");
+}
+void gui::Button::initializeButtonText(std::string buttonText, short unsigned size)
+{
+	this->text.setFont(this->font);
+	this->text.setString(buttonText);
+	this->text.setCharacterSize(size);
+	this->text.setPosition(
+		this->button.getPosition().x,
+		this->button.getPosition().y
+	);
+	this->text.setOrigin(this->text.getGlobalBounds().width / 2.f, this->text.getGlobalBounds().height / 2.f);
+}
 // Returns a boolean stating if the button is being pressed */
 const bool gui::Button::isPressed() const
 {
@@ -90,10 +128,50 @@ void gui::Button::updateButton(const sf::Vector2f mousePosition)
 	}
 }
 
-// Draws the button onto the screen*/
+// Updates buttons and button text for text buttons
+void gui::Button::updateTextButton(const sf::Vector2f mousePosition)
+{
+	this->buttonState = BUTN_IDLE;
+	if (this->button.getGlobalBounds().contains(mousePosition))
+	{
+		this->buttonState = BUTN_HOVER;
+
+		// While the button is being held down, set state to it being presed
+		while (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->buttonState = BUTN_PRESSED;
+		}
+	}
+	switch (this->buttonState)
+	{
+	case BUTN_IDLE:
+		this->button.setScale(1, 1);
+		this->text.setScale(1, 1);
+		break;
+	case BUTN_HOVER:
+		this->button.setScale(1.15, 1.15);
+		this->text.setScale(1.15, 1.15);
+		break;
+	case BUTN_PRESSED:
+		this->button.setScale(1.25, 1.25);
+		this->text.setScale(1.25, 1.25);
+		break;
+	default:
+		break;
+	}
+}
+
+// Draws the button onto the screen
 void gui::Button::renderButton(sf::RenderTarget& target)
 {
 	target.draw(this->button);
+}
+
+// Alternative button drawing with text
+void gui::Button::renderTextButton(sf::RenderTarget & target)
+{
+	this->renderButton(target);
+	target.draw(this->text);
 }
 
 
