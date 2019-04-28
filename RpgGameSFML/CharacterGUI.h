@@ -37,6 +37,8 @@ private:
 	// Experience and Level Displaying
 	sf::Text levelText;
 	sf::String levelString;
+	sf::Text statText;
+	sf::String statString;
 
 
 	// Texture loading for the various components of the Player UI

@@ -48,6 +48,11 @@ void CharacterGUI::initializeTextDisplays()
 	this->levelText.setPosition(this->guiDock.getSize().x / 2.5f,
 		this->portrait.getSize().y * 0.8f);
 	this->levelText.setCharacterSize(20 * this->player->getSpriteScale());
+
+
+	this->statText.setFont(this->font);
+	this->statText.setPosition(this->guiDock.getSize().x * 1.35f, 0.f);
+	this->statText.setCharacterSize(20 * this->player->getSpriteScale());
 }
 
 // Initializes the character portrait with relavent resizing based on the specs of the pictures loaded
@@ -155,6 +160,18 @@ void CharacterGUI::updateTextDisplay()
 		std::to_string(this->player->getAttributeComponent()->experience) + " EXP / " +
 		std::to_string(this->player->getAttributeComponent()->expToNextLevel) + " EXP");
 	this->levelText.setString(this->levelString);
+
+	this->statString = ("ATK: " + std::to_string(this->player->getAttributeComponent()->stats["ATK"]) 
+		+ "\n" + "DEF: " + std::to_string(this->player->getAttributeComponent()->stats["DEF"])
+			+ "\n" + "SPD: " + std::to_string(this->player->getAttributeComponent()->stats["SPD"]));
+	this->statText.setString(this->statString);
+}
+
+// Draws the level and experience text
+void CharacterGUI::renderTextDisplay(sf::RenderTarget & target)
+{
+	target.draw(this->levelText);
+	target.draw(this->statText);
 }
 
 // Draws all objects to target (which is the state window)
@@ -182,8 +199,3 @@ void CharacterGUI::renderManaBar(sf::RenderTarget & target)
 	target.draw(this->manaBarText);
 }
 
-// Draws the level and experience text
-void CharacterGUI::renderTextDisplay(sf::RenderTarget & target)
-{
-	target.draw(this->levelText);
-}

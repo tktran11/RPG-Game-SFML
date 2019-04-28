@@ -56,7 +56,7 @@ void GolemLevel::initializeBoss()
 		startingPosY = 1260 * 0.62f;
 	}
 
-	this->boss = new IceGolem(this->stateTextures["ICE_GOLEM"], startingPosX, startingPosY, "GolemStats.txt", scaleScreen);
+	this->boss = new IceGolem(this->stateTextures["ICE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", scaleScreen);
 }
 
 void GolemLevel::initializeMinions()
@@ -76,8 +76,8 @@ void GolemLevel::initializeMinions()
 		secondStartY *= 0.95f;
 	}
 
-	this->minion1 = new FireGolem(this->stateTextures["FIRE_GOLEM"], startingPosX, startingPosY, "GolemStats.txt", scaleScreen);
-	this->minion2 = new StoneGolem(this->stateTextures["STONE_GOLEM"], secondStartX, secondStartY, "GolemStats.txt", scaleScreen);
+	this->minion1 = new FireGolem(this->stateTextures["FIRE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", scaleScreen);
+	this->minion2 = new StoneGolem(this->stateTextures["STONE_GOLEM"], secondStartX, secondStartY, "Config/GolemStats.txt", scaleScreen);
 }
 
 void GolemLevel::updatePauseMenuButtons()

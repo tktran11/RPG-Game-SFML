@@ -53,7 +53,7 @@ void SlimeLevel::initializeBoss()
 		startingPosY = 1280 * 0.62f;
 	}
 
-	this->boss = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, "ShadeStats.txt",scaleScreen);
+	this->boss = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, "Config/ShadeStats.txt",scaleScreen);
 }
 
 //Creates a new slime enemy, setting its texture and position on the screen

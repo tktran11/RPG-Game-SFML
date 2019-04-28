@@ -7,34 +7,19 @@
 */
 
 // Constructor
-CharacterAttributes::CharacterAttributes(int characterLevel)
-{
-	this->level = characterLevel;
-	this->experience = 0;
-	this->expToNextLevel = calculateExpToNext(this->level);
-	this->intelligence = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
-	this->vitality = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
-	this->updateLevel();
-	this->updateAttributes(true);
-}
 CharacterAttributes::CharacterAttributes(int characterLevel, std::string statFile)
 {
 	this->level = characterLevel;
+	this->initializeStats(statFile);
 	this->experience = 0;
 	this->expToNextLevel = calculateExpToNext(this->level);
 	this->intelligence = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
 	this->vitality = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
 	this->updateLevel();
-	this->initializeStats(statFile);
 	this->updateAttributes(true);
 }
 
-/*
-void updateStat (std::string statName, int statChange)
-{
-	this->stat[statName] += statChange;
-}
-*/
+
 
 void CharacterAttributes::initializeStats(std::string statsFile)
 {
@@ -42,16 +27,14 @@ void CharacterAttributes::initializeStats(std::string statsFile)
 	std::ifstream readStats(statsFile);
 	if (readStats.is_open())
 	{
-		std::string statType = " ";
+		std::string statType = " ";   
 		int statValue;
 
 		while (readStats >> statType >> statValue)
 		{
 			this->stats[statType] = statValue;
-
 		}
 	}
-	std::cout << "Stats mapped" << std::endl;
 	readStats.close();
 }
 

@@ -26,7 +26,6 @@ public:
 	bool isDead = false;
 
 	// Constructor
-	CharacterAttributes(int characterLevel);
 	CharacterAttributes(int characterLevel, std::string statFile);
 
 	// Attribute Calculations and Updating

@@ -76,13 +76,13 @@ void GameState::initializePlayer(unsigned playerLevel)
 	// If knight, loads knight texture sheet
 	if (this->chosenCharacter == "knight")
 	{
-		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "KnightStats.txt", scaleScreen);
+		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "Config/KnightStats.txt", scaleScreen);
 	}
 	// Otherwise load mage texture sheet
 	else
 		if (this->chosenCharacter == "mage")
 		{
-			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "MageStats.txt", scaleScreen);
+			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "Config/MageStats.txt", scaleScreen);
 		}
 
 }

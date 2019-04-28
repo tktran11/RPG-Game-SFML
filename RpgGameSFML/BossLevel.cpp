@@ -43,7 +43,7 @@ void BossLevel::initializeBoss()
 		startingPosY = 1260 * 0.53f;
 	}
 
-	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, "MinotaurStats.txt", scaleScreen);
+	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, "Config/MinotaurStats.txt", scaleScreen);
 }
 
 void BossLevel::updatePauseMenuButtons()
