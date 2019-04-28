@@ -4,3 +4,9 @@ AttributeUI/KnightPort.png
 AttributeUI/MagePort.png
 AttributeUI/health.png
 AttributeUI/mana.png
+AttributeUI/minoPort.png
+AttributeUI/firePort.png
+AttributeUI/icePort.png
+AttributeUI/stonePort.png
+AttributeUI/shadePort.png
+AttributeUI/slimePort.png
