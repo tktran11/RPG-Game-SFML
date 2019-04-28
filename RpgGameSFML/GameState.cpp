@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameState.h"
 
+
 /*
 GameState.cpp is the body for the Gamestate class, which handles the resources for
 the specific state called GameState. It houses textures and such for the main portion of
@@ -75,13 +76,13 @@ void GameState::initializePlayer(unsigned playerLevel)
 	// If knight, loads knight texture sheet
 	if (this->chosenCharacter == "knight")
 	{
-		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, scaleScreen);
+		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "KnightStats.txt", scaleScreen);
 	}
 	// Otherwise load mage texture sheet
 	else
 		if (this->chosenCharacter == "mage")
 		{
-			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, scaleScreen);
+			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "MageStats.txt", scaleScreen);
 		}
 
 }

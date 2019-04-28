@@ -43,7 +43,7 @@ void BossLevel::initializeBoss()
 		startingPosY = 1260 * 0.53f;
 	}
 
-	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, scaleScreen);
+	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, "MinotaurStats.txt", scaleScreen);
 }
 
 void BossLevel::updatePauseMenuButtons()
@@ -83,6 +83,19 @@ void BossLevel::updateState(const float & deltaTime)
 	this->updateMousePositions();
 	this->updateKeyboardtime(deltaTime);
 	this->updateInput(deltaTime);
+
+	// If the player kills the minotaur push WIN endgame screen
+	if (this->boss->getAttributeComponent()->isDead)
+	{
+		this->states->push(new EndGameScreen(this->stateInfo, true));
+	}
+
+	// If the player dies pushes DEAD endgame screen
+	if (this->player->getAttributeComponent()->isDead)
+	{
+
+		this->states->push(new EndGameScreen(this->stateInfo, false));
+	}
 
 	// Update state while unpaused
 	if (!this->isPaused) {

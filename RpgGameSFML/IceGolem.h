@@ -11,7 +11,7 @@ class IceGolem :
 {
 public:
 	// Constructor
-	IceGolem(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale = false);
+	IceGolem(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string filePath, bool fullScreenScale = false);
 
 	// Updates animations and other characteristics
 	void updateAnimation(const float& deltaTime);

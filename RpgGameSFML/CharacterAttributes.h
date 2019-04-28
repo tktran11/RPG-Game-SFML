@@ -27,12 +27,14 @@ public:
 
 	// Constructor
 	CharacterAttributes(int characterLevel);
+	CharacterAttributes(int characterLevel, std::string statFile);
 
 	// Attribute Calculations and Updating
 	int calculateExpToNext(int characterLevel);
 	void gainXP(const int experience);
-	void initializeStats();
+	void initializeStats(std::string statsFile);
 	void updateAttributes(const bool resetOnLevel);
+	//void updateStats(std::string statName, int statChange);
 	void updateLevel();
 	void update(const int experience);
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "GameState.h"
 #include "MainMenuState.h"
+#include "EndGameScreen.h"
+
 class GolemLevel :
 	public GameState
 {

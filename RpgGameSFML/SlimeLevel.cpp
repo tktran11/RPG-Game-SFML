@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "SlimeLevel.h"
-#include "GameState.h"
-
 
 SlimeLevel::SlimeLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile)
 	: GameState(stateInfo, playerType, playerLevel, backgroundFile)
@@ -55,7 +53,7 @@ void SlimeLevel::initializeBoss()
 		startingPosY = 1280 * 0.62f;
 	}
 
-	this->boss = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, scaleScreen);
+	this->boss = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, "ShadeStats.txt",scaleScreen);
 }
 
 //Creates a new slime enemy, setting its texture and position on the screen
@@ -75,8 +73,8 @@ void SlimeLevel::initializeMinions()
 
 	}
 
-	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, scaleScreen);
-	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, scaleScreen);
+	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, "SlimeStats.txt", scaleScreen);
+	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, "SlimeStats.txt", scaleScreen);
 }
 
 void SlimeLevel::updatePauseMenuButtons()
@@ -120,6 +118,13 @@ void SlimeLevel::updateState(const float & deltaTime)
 	this->updateMousePositions();
 	this->updateKeyboardtime(deltaTime);
 	this->updateInput(deltaTime);
+
+	//If the player dies pushes DEAD endgame screen
+	if (this->player->getAttributeComponent()->isDead)
+	{
+	
+		this->states->push(new EndGameScreen(this->stateInfo, true));
+	}
 
 	// Update state while unpaused
 	if (!this->isPaused) {

@@ -11,7 +11,7 @@ class Shade :
 {
 public:
 	// Constructor
-	Shade(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale = false);
+	Shade(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string filePath, bool fullScreenScale = false);
 
 	// Updates animations and other characteristics
 	void updateAnimation(const float& deltaTime);

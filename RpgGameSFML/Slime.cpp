@@ -10,9 +10,8 @@ enum attackKey {
 	M = 12
 };
 
-Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale) :
-	Enemy(spriteTextureSheet, startPointX, startPointY, fullScreenScale)
-
+Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, bool fullScreenScale) :
+	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, fullScreenScale)
 {
 	this->setPosition(startPointX, startPointY);
 	this->sprite.setScale(this->scale, this->scale);

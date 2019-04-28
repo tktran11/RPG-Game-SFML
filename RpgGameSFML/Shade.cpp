@@ -10,8 +10,8 @@ enum attackKey {
 	M = 12
 };
 
-	Shade::Shade(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale) :
-		Enemy(spriteTextureSheet, startPointX, startPointY, fullScreenScale)
+	Shade::Shade(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, bool fullScreenScale) :
+		Enemy(spriteTextureSheet, startPointX, startPointY, filePath, fullScreenScale)
 
 	{
 		this->setPosition(startPointX, startPointY);

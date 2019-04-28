@@ -63,9 +63,9 @@ void Entity::makeAnimationComponent(sf::Texture & spriteTextureSheet)
 }
 
 // Creates an attribute component to hold the attributes of an entity
-void Entity::makeAttributeComponent(const unsigned level)
+void Entity::makeAttributeComponent(const unsigned level, std::string statFile)
 {
-	this->attributeComponent = new CharacterAttributes(level);
+	this->attributeComponent = new CharacterAttributes(level, statFile);
 }
 
 /* Destructor for the Entity Class*/

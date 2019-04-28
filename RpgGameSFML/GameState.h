@@ -2,6 +2,7 @@
 #include "State.h"
 #include "PauseMenu.h"
 #include "CharacterGUI.h"
+
 /*
 GameState.h is the header for the Gamestate class, which handles the resources for
 the specific state called GameState. It houses textures and such for the main portion of

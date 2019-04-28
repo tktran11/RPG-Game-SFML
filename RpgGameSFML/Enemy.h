@@ -13,7 +13,7 @@ class Enemy :
 	public Entity
 {
 private:
-	void initializeComponents(sf::Texture& spriteTextureSheet);
+	void initializeComponents(sf::Texture& spriteTextureSheet, std::string statFile);
 	void initializeVariables(bool fullScreenScale);
 	// Initialization Functions
 	float startPositionX;
@@ -23,7 +23,7 @@ protected:
 	bool isAttacking;
 public:
 	// Constructor
-	Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, bool fullScreenScale);
+	Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string statFile, bool fullScreenScale);
 
 	// Assessors
 	CharacterAttributes* getAttributeComponent();
