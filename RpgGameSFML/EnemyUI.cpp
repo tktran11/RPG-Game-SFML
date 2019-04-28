@@ -45,17 +45,9 @@ void EnemyUI::initializeTextDisplay(std::string enemyName)
 {
 	this->nameString = enemyName;
 	this->nameText.setFont(this->font);
-	if (this->scale > 1)
-	{
-		this->nameText.setPosition(this->hpBar.getPosition().x * 1.06f + (this->scale * 5), this->hpBar.getPosition().y * 0.95f);
-	}
-	else
-	{
-		this->nameText.setPosition(this->hpBar.getPosition().x * 1.06f, this->hpBar.getPosition().y * 0.95f);
-	}
 	this->nameText.setCharacterSize(20 * this->scale);
 	this->nameText.setString(this->nameString);
-
+	this->nameText.setPosition(this->hpBarText.getPosition().x - (this->nameText.getGlobalBounds().width /6.f), this->hpBar.getPosition().y * 0.95f);
 }
 
 void EnemyUI::updateUI(const float & deltaTime)
