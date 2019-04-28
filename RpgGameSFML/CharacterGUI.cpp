@@ -62,13 +62,14 @@ void CharacterGUI::initializePortrait()
 	this->portrait.setPosition(0.f, 0.f);
 	this->portrait.setTexture(&this->uiTextures[1]);
 
-
+	//If mage initialize Mage portrait
 	if (this->playerType == "mage")
 	{
 		this->portraitPic.setPosition(-10.5f * this->player->getSpriteScale(), 5.f * this->player->getSpriteScale());
 		this->portraitPic.setSize(sf::Vector2f(80.f * this->player->getSpriteScale(), 70.6f * this->player->getSpriteScale()));
 		this->portraitPic.setTexture(&this->uiTextures[3]);
 	}
+	// Otherwise load Knight portrait
 	else
 	{
 		this->portraitPic.setPosition(6.f  * this->player->getSpriteScale()	, 5.f  * this->player->getSpriteScale());
@@ -156,14 +157,16 @@ void CharacterGUI::updateManaBar()
 // Updates the shown level and calculation for experience displayed
 void CharacterGUI::updateTextDisplay()
 {
+	// Diaplays the level and XP of the main character
 	this->levelString = ("Level: " + std::to_string(this->player->getAttributeComponent()->level) + "\n" +
 		std::to_string(this->player->getAttributeComponent()->experience) + " EXP / " +
 		std::to_string(this->player->getAttributeComponent()->expToNextLevel) + " EXP");
 	this->levelText.setString(this->levelString);
 
+	// Displays the main character's statline (ATK, SPD, DEF)
 	this->statString = ("ATK: " + std::to_string(this->player->getAttributeComponent()->stats["ATK"]) 
 		+ "\n" + "DEF: " + std::to_string(this->player->getAttributeComponent()->stats["DEF"])
-			+ "\n" + "SPD: " + std::to_string(this->player->getAttributeComponent()->stats["SPD"]));
+			+ "\n" + "SPD: " + std::to_string((int)this->player->getAttributeComponent()->stats["SPD"]));
 	this->statText.setString(this->statString);
 }
 

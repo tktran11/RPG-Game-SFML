@@ -9,7 +9,8 @@ class SlimeLevel :
 {
 private:
 	EnemyUI* bossUI;
-	EnemyUI* minionUI;
+	EnemyUI* minionUI1;
+	EnemyUI* minionUI2;
 
 	Enemy* minion1;
 	Enemy* minion2;

@@ -10,8 +10,8 @@ enum attackKey {
 	M = 12
 };
 
-FireGolem::FireGolem(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, bool fullScreenScale) :
-	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, fullScreenScale)
+FireGolem::FireGolem(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
+	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
 
 {
 	this->setPosition(startPointX, startPointY);

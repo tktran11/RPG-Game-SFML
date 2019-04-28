@@ -12,11 +12,11 @@ enum attackKey {
 };
 
 /* Constructor for the player character*/
-Enemy::Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string statFile, bool fullScreenScale)
+Enemy::Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string statFile, std::string movesetFile, bool fullScreenScale)
 {
 	this->startPositionX = startPointX;
 	this->startPositionY = startPointY;
-	this->initializeComponents(spriteTextureSheet, statFile);
+	this->initializeComponents(spriteTextureSheet, statFile, movesetFile);
 	this->initializeVariables(fullScreenScale);
 	this->setPosition(startPointX, startPointY);
 }
@@ -82,10 +82,10 @@ void Enemy::gainHP(const int hpGain)
 }
 
 // Initializes the components used by the player character
-void Enemy::initializeComponents(sf::Texture& spriteTextureSheet, std::string statFile)
+void Enemy::initializeComponents(sf::Texture& spriteTextureSheet, std::string statFile, std::string movesetFile)
 {
 	this->makeAnimationComponent(spriteTextureSheet);
-	this->makeAttributeComponent(1, statFile);
+	this->makeAttributeComponent(1, statFile, movesetFile);
 }
 
 // Sets starting variables for the player

@@ -62,9 +62,6 @@
     <Filter Include="Entity Files\Enemies\Level 1">
       <UniqueIdentifier>{66e9de31-b02c-467f-a751-d88ab9421bc4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity Files\Enemies\Level 2">
-      <UniqueIdentifier>{a49337e3-345c-41af-9156-3d037d444387}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entity Headers\Enemies\Level 1">
       <UniqueIdentifier>{420e8a04-a910-47f7-9edc-c58fd223e84b}</UniqueIdentifier>
     </Filter>
@@ -82,6 +79,9 @@
     </Filter>
     <Filter Include="Entity Headers\Enemies\Final Level">
       <UniqueIdentifier>{e94f642d-101a-4391-83be-2494726948b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity Files\Enemies\Level 2">
+      <UniqueIdentifier>{a49337e3-345c-41af-9156-3d037d444387}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

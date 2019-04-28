@@ -11,7 +11,7 @@ class Knight :
 {
 public:
 	// Constructor
-	Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string filePath, bool scaleScreen = false);
+	Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string filePath, std::string movesetFilePath, bool scaleScreen = false);
 
 	// Updates animation and other characteristics
 	void updateAnimation(const float& deltaTime);

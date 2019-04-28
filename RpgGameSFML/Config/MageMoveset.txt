@@ -1,0 +1,4 @@
+Hexplosion 12
+DisciplinedThinking 5
+DarkIgnition 15
+ObsidianSweep 1.5

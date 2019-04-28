@@ -7,10 +7,11 @@
 */
 
 // Constructor
-CharacterAttributes::CharacterAttributes(int characterLevel, std::string statFile)
+CharacterAttributes::CharacterAttributes(int characterLevel, std::string statFile, std::string movesetFile)
 {
 	this->level = characterLevel;
 	this->initializeStats(statFile);
+	this->initializeMoveset(movesetFile);
 	this->experience = 0;
 	this->expToNextLevel = calculateExpToNext(this->level);
 	this->intelligence = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
@@ -19,11 +20,9 @@ CharacterAttributes::CharacterAttributes(int characterLevel, std::string statFil
 	this->updateAttributes(true);
 }
 
-
-
+// Maps a string to a value when read from a file for stat values
 void CharacterAttributes::initializeStats(std::string statsFile)
 {
-
 	std::ifstream readStats(statsFile);
 	if (readStats.is_open())
 	{
@@ -33,6 +32,23 @@ void CharacterAttributes::initializeStats(std::string statsFile)
 		while (readStats >> statType >> statValue)
 		{
 			this->stats[statType] = statValue;
+		}
+	}
+	readStats.close();
+}
+
+// Maps a string to a value when read from a file for moveset numbers and multipliers
+void CharacterAttributes::initializeMoveset(std::string movesetFile)
+{
+	std::ifstream readStats(movesetFile);
+	if (readStats.is_open())
+	{
+		std::string abilityName = " ";
+		float abilityValue;
+
+		while (readStats >> abilityName >> abilityValue)
+		{
+			this->moveset[abilityName] = abilityValue;
 		}
 	}
 	readStats.close();

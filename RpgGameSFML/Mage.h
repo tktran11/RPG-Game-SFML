@@ -15,7 +15,7 @@ private:
 	bool isPoweringUp;
 public:
 	// Constructor
-	Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string filePath, bool scaleScreen = false);
+	Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string filePath, std::string movesetFilePath, bool scaleScreen = false);
 
 	// Updates animations and other characteristics
 	void updateAnimation(const float& deltaTime);

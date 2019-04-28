@@ -11,7 +11,7 @@ class Slime :
 {
 public:
 	// Constructor
-	Slime(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string filePath, bool fullScreenScale = false);
+	Slime(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale = false);
 
 	// Updates animations and other characteristics
 	void updateAnimation(const float& deltaTime);

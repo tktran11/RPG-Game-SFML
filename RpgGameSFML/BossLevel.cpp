@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BossLevel.h"
 
-
+// Constructor
 BossLevel::BossLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile)
 	: GameState(stateInfo, playerType, playerLevel, backgroundFile)
 {
@@ -11,6 +11,8 @@ BossLevel::BossLevel(StateData* stateInfo, std::string playerType, unsigned play
 	this->initializeBossUI();
 }
 
+// Initializes the texture of the background and player character based on chosen character from
+// the character selection screen (choices are mage and knight)
 void BossLevel::initializeTextures()
 {
 	if (this->chosenCharacter == "mage") {
@@ -31,6 +33,7 @@ void BossLevel::initializeTextures()
 	}
 }
 
+// Creates a minotaur enemy, setting its texture and position on the screen
 void BossLevel::initializeBoss()
 {
 	// Sets starting positions in windowed mode
@@ -44,14 +47,16 @@ void BossLevel::initializeBoss()
 		startingPosY = 1260 * 0.53f;
 	}
 
-	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, "Config/MinotaurStats.txt", scaleScreen);
+	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, "Config/MinotaurStats.txt", "Config/MinotaurMoveset.txt", scaleScreen);
 }
 
+// Creates a UI for the boss of the level
 void BossLevel::initializeBossUI()
 {
-	this->bossUI = new EnemyUI(this->boss, "Minotaur");
+	this->bossUI = new EnemyUI(this->boss, "Minotaur", 1.1f, 1.15f, 8.f);
 }
 
+// Updates the pause menu when pushed on the stack
 void BossLevel::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
@@ -61,8 +66,11 @@ void BossLevel::updatePauseMenuButtons()
 	}
 }
 
+// Updates the player input for movement
 void BossLevel::updatePlayerInput(const float & deltaTime)
 {
+	// Movement is soft limited to the bounds of where the screen is. The player can still technically fall off screen, but can't continue moving that way
+	// Up and downward movement limited to actual ground
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT")))) && (this->player->getXPosition() >= this->window->getSize().x * 0.039f))
 	{
 		this->player->move(deltaTime, -0.8f, 0.f);
@@ -84,11 +92,13 @@ void BossLevel::updatePlayerInput(const float & deltaTime)
 	}
 }
 
+// Updates the UI for all enemies
 void BossLevel::updateEnemyUI(const float & deltaTime)
 {
 	this->bossUI->updateUI(deltaTime);
 }
 
+// Handles checking for input and player updates for each frame
 void BossLevel::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
@@ -125,6 +135,7 @@ void BossLevel::updateState(const float & deltaTime)
 
 }
 
+// Renders all necessary elements to the screen
 void BossLevel::renderState(sf::RenderTarget * target)
 {
 	if (!target) {

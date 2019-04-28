@@ -34,12 +34,11 @@ private:
 	std::string manaBarString;
 	sf::RectangleShape manaBar;
 
-	// Experience and Level Displaying
+	// Experience, Level, and Stat Displaying
 	sf::Text levelText;
 	sf::String levelString;
 	sf::Text statText;
 	sf::String statString;
-
 
 	// Texture loading for the various components of the Player UI
 	std::vector<std::string> textureFiles;

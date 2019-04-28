@@ -13,11 +13,12 @@ enum attackKey {
 };
 
 /* Constructor for the player character*/
-PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string statFile, bool scaleScreen)
+PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string statFile, std::string movesetFile, bool scaleScreen)
 {
 	this->startPositionX = startPointX;
 	this->startPositionY = startPointY;
-	this->initializeComponents(spriteTextureSheet, level, statFile);
+	this->setSpriteScale(scaleScreen);
+	this->initializeComponents(spriteTextureSheet, level, statFile, movesetFile);
 	this->initializeVariables(scaleScreen);
 	this->setPosition(startPointX, startPointY);
 }
@@ -110,11 +111,11 @@ void PlayerCharacter::gainEXP(const unsigned xpGain)
 }
 
 // Initializes the components used by the player character
-void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, std::string statFile)
+void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, std::string statFile, std::string movesetFile)
 {
-	this->makeMovementComponent(300.f, 10.f, 3.5f);
+	this->makeMovementComponent(300.f * this->scale, 10.f * this->scale, 3.5f * this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
-	this->makeAttributeComponent(level, statFile);
+	this->makeAttributeComponent(level, statFile, movesetFile);
 }
 
 // Sets starting variables for the player

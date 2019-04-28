@@ -5,6 +5,7 @@ class EnemyUI
 private:
 	Enemy* enemy;
 
+	//Sets Font
 	sf::Font font;
 	float scale;
 	//HP Bar
@@ -16,21 +17,24 @@ private:
 	std::string hpBarString;
 	sf::RectangleShape hpBar;
 
-	// Other Displays
+	//Other Displays
 	sf::Text nameText;
 	std::string nameString;
 
-
+	//Initializers
 	void initializeTextures();
 	void initializeFont();
-	void initializeHPBar();
-	void initializeTextDisplay(std::string enemyName);
+	void initializeHPBar(float xScale, float yScale);
+	void initializeTextDisplay(std::string enemyName, float offsetDivision);
 public:
-	EnemyUI(Enemy* enemy, std::string enemyName);
+	//Constructor
+	EnemyUI(Enemy* enemy, std::string enemyName, float xScale, float yScale, float nameOffset);
 
+	//Update Function
 	void updateUI(const float& deltaTime);
 	void updateHPBar();
 
+	//Render Function
 	void renderUI(sf::RenderTarget& target);
 };
 

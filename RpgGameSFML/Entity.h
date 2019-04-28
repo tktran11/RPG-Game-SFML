@@ -41,7 +41,7 @@ public:
 	void setSpriteTexture(sf::Texture& spriteTextureSheet);
 	void makeMovementComponent(const float maximumVelocity, const float accel, const float decel);
 	void makeAnimationComponent(sf::Texture& spriteTextureSheet);
-	void makeAttributeComponent(const unsigned level, std::string statFile);
+	void makeAttributeComponent(const unsigned level, std::string statFile, std::string movesetFile);
 	// Virtual Destructor
 	virtual ~Entity();
 };

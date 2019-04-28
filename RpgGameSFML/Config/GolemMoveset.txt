@@ -1,0 +1,4 @@
+ElementalFocusPunch 1.25
+ElementalInfusion .1
+Permafrost 5
+PillarOfFlame 1.5

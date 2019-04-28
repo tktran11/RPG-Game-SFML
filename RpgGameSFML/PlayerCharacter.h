@@ -12,7 +12,7 @@ class PlayerCharacter :
 	public Entity
 {
 private:
-	void initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, std::string statFile);
+	void initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, std::string statFile, std::string movesetFile);
 	void initializeVariables(bool scaleScreen);
 	// Initialization Functions
 	float startPositionX;
@@ -22,7 +22,7 @@ protected:
 	bool isAttacking;
 public:
 	// Constructor
-	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string statFile, bool scaleScreen);
+	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string statFile, std::string movesetFile, bool scaleScreen);
 
 	// Assessors
 	CharacterAttributes* getAttributeComponent();

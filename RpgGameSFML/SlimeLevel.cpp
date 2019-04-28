@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SlimeLevel.h"
 
+// Constructor
 SlimeLevel::SlimeLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile)
 	: GameState(stateInfo, playerType, playerLevel, backgroundFile)
 {
@@ -55,12 +56,13 @@ void SlimeLevel::initializeBoss()
 		startingPosY = 1280 * 0.62f;
 	}
 
-	this->boss = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, "Config/ShadeStats.txt",scaleScreen);
+	this->boss = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, "Config/ShadeStats.txt", "Config/ShadeMoveset.txt", scaleScreen);
 }
 
+// Creates a UI for the boss of the level
 void SlimeLevel::initializeBossUI()
 {
-	this->bossUI = new EnemyUI(this->boss, "Shade");
+	this->bossUI = new EnemyUI(this->boss, "Shade", 1.0475f, 1.05f, -11.f);
 }
 
 //Creates a new slime enemy, setting its texture and position on the screen
@@ -80,16 +82,18 @@ void SlimeLevel::initializeMinions()
 
 	}
 
-	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, "SlimeStats.txt", scaleScreen);
-	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, "SlimeStats.txt", scaleScreen);
+	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, "SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
+	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, "SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
 }
 
+// Creates a UI for the minions of the level
 void SlimeLevel::initializeMinionUI()
 {
-	this->minionUI = new EnemyUI(this->minion1, "Slime");
-	this->minionUI = new EnemyUI(this->minion2, "Slime");
+	this->minionUI1 = new EnemyUI(this->minion1, "Slime", 0.98f, 1.f, -10.f);
+	this->minionUI2 = new EnemyUI(this->minion2, "Slime", 0.98f, 1.f, -10.f);
 }
 
+// Updates the pause menu when pushed on the stack
 void SlimeLevel::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
@@ -99,11 +103,11 @@ void SlimeLevel::updatePauseMenuButtons()
 	}
 }
 
+// Updates the player input for movement
 void SlimeLevel::updatePlayerInput(const float & deltaTime)
 {
 	// Movement is soft limited to the bounds of where the screen is. The player can still technically fall off screen, but can't continue moving that way
 	// Up and downward movement limited to actual ground
-
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT")))) && (this->player->getXPosition() >= this->window->getSize().x * 0.039f))
 	{
 		this->player->move(deltaTime, -0.8f, 0.f);
@@ -125,10 +129,12 @@ void SlimeLevel::updatePlayerInput(const float & deltaTime)
 	}
 }
 
+// Updates elements of the UI for all enemies
 void SlimeLevel::updateEnemyUI(const float& deltaTime)
 {
 	this->bossUI->updateUI(deltaTime);
-	this->minionUI->updateUI(deltaTime);
+	this->minionUI1->updateUI(deltaTime);
+	this->minionUI2->updateUI(deltaTime);
 }
 
 // Handles checking for input and player updates for each frame 
@@ -166,7 +172,7 @@ void SlimeLevel::updateState(const float & deltaTime)
 
 }
 
-// Renders characters and such to the state's window
+// Renders all necessary elements to the screen
 void SlimeLevel::renderState(sf::RenderTarget * target)
 {
 	if (!target) {
@@ -183,7 +189,8 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 	this->bossUI->renderUI(*target);
 	this->minion1->renderEntity(*target);
 	this->minion2->renderEntity(*target);
-	this->minionUI->renderUI(*target);
+	this->minionUI1->renderUI(*target);
+	this->minionUI2->renderUI(*target);
 
 	// Render pause menu
 	if (this->isPaused)

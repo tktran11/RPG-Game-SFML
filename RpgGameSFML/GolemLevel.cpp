@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GolemLevel.h"
 
-
+// Constructor
 GolemLevel::GolemLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile)
 	: GameState(stateInfo, playerType, playerLevel, backgroundFile)
 {
@@ -13,6 +13,8 @@ GolemLevel::GolemLevel(StateData* stateInfo, std::string playerType, unsigned pl
 	this->initializeMinionUI();
 }
 
+// Initializes the texture of the background and player character based on chosen character from
+// the character selection screen (choices are mage and knight)
 void GolemLevel::initializeTextures()
 {
 	if (this->chosenCharacter == "mage") {
@@ -45,6 +47,7 @@ void GolemLevel::initializeTextures()
 	
 }
 
+// Creates a new Ice Golem enemy, setting its texture and position on the screen
 void GolemLevel::initializeBoss()
 {
 	// Sets starting positions in windowed mode
@@ -58,14 +61,16 @@ void GolemLevel::initializeBoss()
 		startingPosY = 1260 * 0.62f;
 	}
 
-	this->boss = new IceGolem(this->stateTextures["ICE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", scaleScreen);
+	this->boss = new IceGolem(this->stateTextures["ICE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", "Config/GolemMoveset.txt", scaleScreen);
 }
 
+// Creates a UI for the boss of the level
 void GolemLevel::initializeBossUI()
 {
-	this->bossUI = new EnemyUI(this->boss, "Ice Golem");
+	this->bossUI = new EnemyUI(this->boss, "Ice Golem", 1.045f, 1.f, 6.f);
 }
 
+// Creates new Fire and Stone Golem enemies, setting their texture and position on the screen
 void GolemLevel::initializeMinions()
 {
 	// Sets starting positions in windowed mode
@@ -83,16 +88,18 @@ void GolemLevel::initializeMinions()
 		secondStartY *= 0.95f;
 	}
 
-	this->minion1 = new FireGolem(this->stateTextures["FIRE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", scaleScreen);
-	this->minion2 = new StoneGolem(this->stateTextures["STONE_GOLEM"], secondStartX, secondStartY, "Config/GolemStats.txt", scaleScreen);
+	this->minion1 = new FireGolem(this->stateTextures["FIRE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", "Config/GolemMoveset.txt", scaleScreen);
+	this->minion2 = new StoneGolem(this->stateTextures["STONE_GOLEM"], secondStartX, secondStartY, "Config/GolemStats.txt", "Config/GolemMoveset.txt", scaleScreen);
 }
 
+// Creates a UI for the minions of the level
 void GolemLevel::initializeMinionUI()
 {
-	this->minionUI = new EnemyUI(this->minion1, "Stone Golem");
-	this->minionUI = new EnemyUI(this->minion2, "Fire Golem");
+	this->minionUI1 = new EnemyUI(this->minion1, "Fire Golem", 1.045f, 1.04f, 6.f);
+	this->minionUI2 = new EnemyUI(this->minion2, "Stone Golem", 1.08f, 1.035f, 6.f);
 }
 
+// Updates the pause menu when pushed on the stack
 void GolemLevel::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
@@ -102,9 +109,11 @@ void GolemLevel::updatePauseMenuButtons()
 	}
 }
 
+//Updates player input for movement
 void GolemLevel::updatePlayerInput(const float & deltaTime)
 {
-
+	// Movement is soft limited to the bounds of where the screen is. The player can still technically fall off screen, but can't continue moving that way
+	// Up and downward movement limited to actual ground
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT")))) && (this->player->getXPosition() >= this->window->getSize().x * 0.039f))
 	{
 		this->player->move(deltaTime, -0.8f, 0.f);
@@ -126,10 +135,12 @@ void GolemLevel::updatePlayerInput(const float & deltaTime)
 	}
 }
 
+//Updates elements of the UI for all enemies
 void GolemLevel::updateEnemyUI(const float & deltaTime)
 {
 	this->bossUI->updateUI(deltaTime);
-	this->minionUI->updateUI(deltaTime);
+	this->minionUI1->updateUI(deltaTime);
+	this->minionUI2->updateUI(deltaTime);
 }
 
 void GolemLevel::updateState(const float & deltaTime)
@@ -166,6 +177,7 @@ void GolemLevel::updateState(const float & deltaTime)
 
 }
 
+// Renders all necessary elements to the screen
 void GolemLevel::renderState(sf::RenderTarget * target)
 {
 	if (!target) {
@@ -182,7 +194,8 @@ void GolemLevel::renderState(sf::RenderTarget * target)
 	this->bossUI->renderUI(*target);
 	this->minion2->renderEntity(*target);
 	this->minion1->renderEntity(*target);
-	this->minionUI->renderUI(*target);
+	this->minionUI1->renderUI(*target);
+	this->minionUI2->renderUI(*target);
 
 	// Render pause menu
 	if (this->isPaused)

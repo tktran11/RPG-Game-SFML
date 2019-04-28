@@ -6,8 +6,9 @@
 class CharacterAttributes
 {
 public:
-	// Map to bind stats to values
+	// Map to bind stats annd moves to numeric values
 	std::map<std::string, int> stats;
+	std::map<std::string, float> moveset;
 
 	// Leveling (for Player) and Level Management (all entities) 
 	int level;
@@ -26,12 +27,13 @@ public:
 	bool isDead = false;
 
 	// Constructor
-	CharacterAttributes(int characterLevel, std::string statFile);
+	CharacterAttributes(int characterLevel, std::string statFile, std::string movesetFile);
 
 	// Attribute Calculations and Updating
 	int calculateExpToNext(int characterLevel);
 	void gainXP(const int experience);
 	void initializeStats(std::string statsFile);
+	void initializeMoveset(std::string movesetFile);
 	void updateAttributes(const bool resetOnLevel);
 	//void updateStats(std::string statName, int statChange);
 	void updateLevel();
