@@ -45,6 +45,7 @@ public:
 
 	// State Updating
 	void updatePlayerGUI(const float& deltaTime);
+
 	void updateInput(const float& deltaTime);
 	virtual void updatePlayerInput(const float& deltaTime) = 0;
 	virtual void updateState(const float& deltaTime) = 0;

@@ -1,0 +1,8 @@
+EnemyUI/shadePort.png
+EnemyUI/slimePort.png
+EnemyUI/icePort.png
+EnemyUI/firePort.png
+EnemyUI/stonePort.png
+EnemyUI/minoPort.png
+EnemyUI/health.png
+EnemyUI/mana.png

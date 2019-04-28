@@ -181,6 +181,9 @@
     <ClCompile Include="BossLevel.cpp">
       <Filter>State Files\GameState Files</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyUI.cpp">
+      <Filter>GUI Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -275,6 +278,9 @@
     </ClInclude>
     <ClInclude Include="BossLevel.h">
       <Filter>State Headers\GameState Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyUI.h">
+      <Filter>GUI Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

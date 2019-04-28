@@ -8,6 +8,7 @@ BossLevel::BossLevel(StateData* stateInfo, std::string playerType, unsigned play
 	this->initializeKeybinds("Config/bossLevelKeybinds.ini");
 	this->initializeTextures();
 	this->initializeBoss();
+	this->initializeBossUI();
 }
 
 void BossLevel::initializeTextures()
@@ -46,6 +47,11 @@ void BossLevel::initializeBoss()
 	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, "Config/MinotaurStats.txt", scaleScreen);
 }
 
+void BossLevel::initializeBossUI()
+{
+	this->bossUI = new EnemyUI(this->boss, "Minotaur");
+}
+
 void BossLevel::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
@@ -78,6 +84,11 @@ void BossLevel::updatePlayerInput(const float & deltaTime)
 	}
 }
 
+void BossLevel::updateEnemyUI(const float & deltaTime)
+{
+	this->bossUI->updateUI(deltaTime);
+}
+
 void BossLevel::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
@@ -103,9 +114,8 @@ void BossLevel::updateState(const float & deltaTime)
 		this->updatePlayerInput(deltaTime);
 		this->player->update(deltaTime);
 		this->playerGUI->updateUI(deltaTime);
-
-		// Updates level 1 enemies on the state
 		this->boss->update(deltaTime);
+		this->updateEnemyUI(deltaTime);
 	}
 	else
 	{
@@ -126,9 +136,8 @@ void BossLevel::renderState(sf::RenderTarget * target)
 	this->player->renderEntity(*target);
 	this->playerGUI->renderUI(*target);
 
-	//Renders level 1 enemies (Slime + Shade)
 	this->boss->renderEntity(*target);
-
+	this->bossUI->renderUI(*target);
 	// Render pause menu
 	if (this->isPaused)
 	{
