@@ -7,7 +7,9 @@ SlimeLevel::SlimeLevel(StateData* stateInfo, std::string playerType, unsigned pl
 	this->initializeKeybinds("Config/slimeLevelKeybinds.ini");
 	this->initializeTextures();
 	this->initializeBoss();
+	this->initializeBossUI();
 	this->initializeMinions();
+	this->initializeMinionUI();
 }
 
 
@@ -56,6 +58,11 @@ void SlimeLevel::initializeBoss()
 	this->boss = new Shade(this->stateTextures["SHADE_SPRITE"], startingPosX, startingPosY, "Config/ShadeStats.txt",scaleScreen);
 }
 
+void SlimeLevel::initializeBossUI()
+{
+	this->bossUI = new EnemyUI(this->boss, "Shade");
+}
+
 //Creates a new slime enemy, setting its texture and position on the screen
 void SlimeLevel::initializeMinions()
 {
@@ -75,6 +82,12 @@ void SlimeLevel::initializeMinions()
 
 	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, "SlimeStats.txt", scaleScreen);
 	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, "SlimeStats.txt", scaleScreen);
+}
+
+void SlimeLevel::initializeMinionUI()
+{
+	this->minionUI = new EnemyUI(this->minion1, "Slime");
+	this->minionUI = new EnemyUI(this->minion2, "Slime");
 }
 
 void SlimeLevel::updatePauseMenuButtons()
@@ -112,6 +125,12 @@ void SlimeLevel::updatePlayerInput(const float & deltaTime)
 	}
 }
 
+void SlimeLevel::updateEnemyUI(const float& deltaTime)
+{
+	this->bossUI->updateUI(deltaTime);
+	this->minionUI->updateUI(deltaTime);
+}
+
 // Handles checking for input and player updates for each frame 
 void SlimeLevel::updateState(const float & deltaTime)
 {
@@ -137,6 +156,7 @@ void SlimeLevel::updateState(const float & deltaTime)
 		this->boss->update(deltaTime);
 		this->minion1->update(deltaTime);
 		this->minion2->update(deltaTime);
+		this->updateEnemyUI(deltaTime);
 	}
 	else
 	{
@@ -160,8 +180,10 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 
 	//Renders level 1 enemies (Slime + Shade)
 	this->boss->renderEntity(*target);
+	this->bossUI->renderUI(*target);
 	this->minion1->renderEntity(*target);
 	this->minion2->renderEntity(*target);
+	this->minionUI->renderUI(*target);
 
 	// Render pause menu
 	if (this->isPaused)

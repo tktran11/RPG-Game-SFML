@@ -8,7 +8,9 @@ GolemLevel::GolemLevel(StateData* stateInfo, std::string playerType, unsigned pl
 	this->initializeKeybinds("Config/golemLevelKeybinds.ini");
 	this->initializeTextures();
 	this->initializeBoss();
+	this->initializeBossUI();
 	this->initializeMinions();
+	this->initializeMinionUI();
 }
 
 void GolemLevel::initializeTextures()
@@ -59,6 +61,11 @@ void GolemLevel::initializeBoss()
 	this->boss = new IceGolem(this->stateTextures["ICE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", scaleScreen);
 }
 
+void GolemLevel::initializeBossUI()
+{
+	this->bossUI = new EnemyUI(this->boss, "Ice Golem");
+}
+
 void GolemLevel::initializeMinions()
 {
 	// Sets starting positions in windowed mode
@@ -78,6 +85,12 @@ void GolemLevel::initializeMinions()
 
 	this->minion1 = new FireGolem(this->stateTextures["FIRE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", scaleScreen);
 	this->minion2 = new StoneGolem(this->stateTextures["STONE_GOLEM"], secondStartX, secondStartY, "Config/GolemStats.txt", scaleScreen);
+}
+
+void GolemLevel::initializeMinionUI()
+{
+	this->minionUI = new EnemyUI(this->minion1, "Stone Golem");
+	this->minionUI = new EnemyUI(this->minion2, "Fire Golem");
 }
 
 void GolemLevel::updatePauseMenuButtons()
@@ -113,6 +126,12 @@ void GolemLevel::updatePlayerInput(const float & deltaTime)
 	}
 }
 
+void GolemLevel::updateEnemyUI(const float & deltaTime)
+{
+	this->bossUI->updateUI(deltaTime);
+	this->minionUI->updateUI(deltaTime);
+}
+
 void GolemLevel::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
@@ -132,6 +151,7 @@ void GolemLevel::updateState(const float & deltaTime)
 		this->updatePlayerInput(deltaTime);
 		this->player->update(deltaTime);
 		this->playerGUI->updateUI(deltaTime);
+		this->updateEnemyUI(deltaTime);
 
 		// Updates level 1 enemies on the state
 		this->boss->update(deltaTime);
@@ -159,8 +179,10 @@ void GolemLevel::renderState(sf::RenderTarget * target)
 
 	//Renders level 1 enemies (Slime + Shade)
 	this->boss->renderEntity(*target);
+	this->bossUI->renderUI(*target);
 	this->minion2->renderEntity(*target);
 	this->minion1->renderEntity(*target);
+	this->minionUI->renderUI(*target);
 
 	// Render pause menu
 	if (this->isPaused)

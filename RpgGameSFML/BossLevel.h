@@ -8,7 +8,6 @@ class BossLevel :
 	public GameState
 {
 private:
-
 	EnemyUI* bossUI;
 
 	void initializeTextures();
