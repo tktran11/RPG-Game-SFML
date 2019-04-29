@@ -17,4 +17,5 @@ public:
 	void updateAnimation(const float& deltaTime);
 	void update(const float& deltaTime);
 
+	void playDeathAnimation(const float& deltaTime);
 };

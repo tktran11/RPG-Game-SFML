@@ -24,28 +24,38 @@ Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPoi
 
 void Slime::updateAnimation(const float & deltaTime)
 {
-	if (this->isAttacking)
+	// When the player dies play the death animation
+	if (this->getAttributeComponent()->isDead)
 	{
-		// facing leftside
-		if (this->sprite.getScale().x > 0.f)
-		{
-			this->sprite.setOrigin(0, 0.f);
-		}
-		// animate attack and set end of attack animation
-		if (this->animationComponent->playAnimation("ATTACK", deltaTime, true))
-		{
-			this->isAttacking = false;
-			// reset position after animation for attacking finished
-			if (this->sprite.getScale().x > 0.f)
-			{
-				this->sprite.setOrigin(0.f, 0.f);
-			}
-		}
+		this->animationComponent->playAnimation("DEATH", deltaTime, true);
 	}
-	// plays idle by default
+	// As long as the player is alive
 	else
 	{
-		this->animationComponent->playAnimation("IDLE", deltaTime);
+		// If attack animation is playing
+		if (this->isAttacking)
+		{
+			// facing leftside
+			if (this->sprite.getScale().x > 0.f)
+			{
+				this->sprite.setOrigin(0, 0.f);
+			}
+			// animate attack and set end of attack animation
+			if (this->animationComponent->playAnimation("ATTACK", deltaTime, true))
+			{
+				this->isAttacking = false;
+				// reset position after animation for attacking finished
+				if (this->sprite.getScale().x > 0.f)
+				{
+					this->sprite.setOrigin(0.f, 0.f);
+				}
+			}
+		}
+		// plays idle by default
+		else
+		{
+			this->animationComponent->playAnimation("IDLE", deltaTime);
+		}
 	}
 }
 
@@ -55,4 +65,3 @@ void Slime::update(const float & deltaTime)
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
 }
-

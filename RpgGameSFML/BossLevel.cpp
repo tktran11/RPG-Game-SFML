@@ -103,12 +103,22 @@ void BossLevel::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
 	this->updateKeyboardtime(deltaTime);
+	this->updateDeathTime(deltaTime);
 	this->updateInput(deltaTime);
 
 	// If the player kills the minotaur push WIN endgame screen
-	if (this->boss->getAttributeComponent()->isDead)
+	if (this->boss->getAttributeComponent()->isDead && this->getDeathTimer())
 	{
-		this->states->push(new EndGameScreen(this->stateInfo, true));
+		if (this->boss->playDeathAnimation(400.f))
+		{
+			this->bossDead = true;
+			this->boss->disappear();
+			if (this->bossDead)
+			{
+				this->states->push(new EndGameScreen(this->stateInfo, true));
+			}
+
+		}
 	}
 
 	// If the player dies pushes DEAD endgame screen
@@ -148,7 +158,9 @@ void BossLevel::renderState(sf::RenderTarget * target)
 	this->playerGUI->renderUI(*target);
 
 	this->boss->renderEntity(*target);
+
 	this->bossUI->renderUI(*target);
+
 	// Render pause menu
 	if (this->isPaused)
 	{

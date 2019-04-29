@@ -9,6 +9,7 @@ are denoted with SFML at the front*/
 #include <algorithm>
 #include <atomic>
 #include <cmath>
+#include <chrono>
 #include <cstdint>
 #include <fstream>
 #include <iostream>

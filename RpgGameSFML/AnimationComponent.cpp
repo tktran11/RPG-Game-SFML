@@ -51,7 +51,8 @@ const bool& AnimationComponent::playAnimation(const std::string animationKey, co
 			{
 				if (this->lastPlayedAnimation != NULL)
 				{
-					this->lastPlayedAnimation->reset();
+			
+						this->lastPlayedAnimation->reset();
 				}
 				this->lastPlayedAnimation = this->animationSet[animationKey];
 			}
@@ -73,13 +74,13 @@ const bool& AnimationComponent::playAnimation(const std::string animationKey, co
 		{
 			if (this->lastPlayedAnimation != NULL)
 			{
+	
 				this->lastPlayedAnimation->reset();
 			}
 			this->lastPlayedAnimation = this->animationSet[animationKey];
 		}
 		this->animationSet[animationKey]->play(deltaTime);
 	}
-
 	return this->animationSet[animationKey]->getIsFinished();
 }
 // Plays animation with movement based speed modifers, mainly to change walking animation speed as character slows down

@@ -45,6 +45,12 @@ float Enemy::getSpriteScale()
 	return this->scale;
 }
 
+// Makes enemy sprite disappear
+void Enemy::disappear()
+{
+	this->sprite.setScale(0, 0);
+}
+
 // Scales the sprite for fullscreen applications if necessary
 void Enemy::setSpriteScale(bool fullScreenScale)
 {
@@ -103,3 +109,15 @@ void Enemy::checkForAttackAnimation()
 		this->isAttacking = true;
 	}
 }
+
+bool Enemy::playDeathAnimation(const float & deltaTime)
+{
+
+	if (this->animationComponent->playAnimation("DEATH", deltaTime, true))
+	{
+		return true;
+	}
+
+
+}
+

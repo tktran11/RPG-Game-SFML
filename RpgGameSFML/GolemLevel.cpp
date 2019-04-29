@@ -11,6 +11,7 @@ GolemLevel::GolemLevel(StateData* stateInfo, std::string playerType, unsigned pl
 	this->initializeBossUI();
 	this->initializeMinions();
 	this->initializeMinionUI();
+	this->initializeNextLevelButton();
 }
 
 // Initializes the texture of the background and player character based on chosen character from
@@ -99,6 +100,24 @@ void GolemLevel::initializeMinionUI()
 	this->minionUI2 = new EnemyUI(this->minion2, "Stone Golem", 1.08f, 1.035f, 6.f);
 }
 
+void GolemLevel::initializeNextLevelButton()
+{
+	// Sets starting positions in windowed mode
+	float startingPosX = 1150;
+	float secondStartX = startingPosX - 100;
+	float startingPosY = this->window->getSize().y * .875;
+	float secondStartY = startingPosY * 1.04f;
+	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	// Sets starting positions in fullscreen mode
+	if (scaleScreen)
+	{
+		startingPosX *= 1.45f;
+		secondStartX *= 1.45f;
+
+	}
+	this->nextLevel = new gui::Button(startingPosX, startingPosY, 100, 100, "MenuTextures/NextLevel.png");
+}
+
 // Updates the pause menu when pushed on the stack
 void GolemLevel::updatePauseMenuButtons()
 {
@@ -106,6 +125,15 @@ void GolemLevel::updatePauseMenuButtons()
 	{
 
 		this->states->push(new MainMenuState(this->stateInfo));
+	}
+}
+
+void GolemLevel::updateNextLevelButton()
+{
+	this->nextLevel->updateButton(this->mousPositView);
+	if (this->nextLevel->isPressed())
+	{
+		this->states->push(new BossLevel(this->stateInfo, this->chosenCharacter, 3, "MenuTextures/GameBackground/Map3.png"));
 	}
 }
 
@@ -147,13 +175,21 @@ void GolemLevel::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
 	this->updateKeyboardtime(deltaTime);
+	this->updateDeathTime(deltaTime);
 	this->updateInput(deltaTime);
+
+	if (this->minion1->getAttributeComponent()->isDead && this->minion2->getAttributeComponent()->isDead && this->boss->getAttributeComponent()->isDead)
+	{
+
+		this->updateNextLevelButton();
+		this->allDead = true;
+	}
 
 	// If the player dies push DEAD endgame screen
 	if (this->player->getAttributeComponent()->isDead)
 	{
 
-		this->states->push(new EndGameScreen(this->stateInfo, true));
+		this->states->push(new EndGameScreen(this->stateInfo, false));
 	}
 
 	// Update state while unpaused
@@ -189,13 +225,67 @@ void GolemLevel::renderState(sf::RenderTarget * target)
 	this->player->renderEntity(*target);
 	this->playerGUI->renderUI(*target);
 
-	//Renders level 1 enemies (Slime + Shade)
+	//Renders level 2 enemies (Elemental Golems)
 	this->boss->renderEntity(*target);
-	this->bossUI->renderUI(*target);
 	this->minion2->renderEntity(*target);
 	this->minion1->renderEntity(*target);
-	this->minionUI1->renderUI(*target);
-	this->minionUI2->renderUI(*target);
+
+	// Play death animation when boss dies then de-render
+	if (this->boss->getAttributeComponent()->isDead)
+	{
+		while (!bossDead && this->getDeathTimer())
+		{
+			if (this->boss->playDeathAnimation(200.f))
+			{
+				bossDead = true;
+				this->boss->disappear();
+			}
+		}
+	}
+	else
+	{
+		this->bossUI->renderUI(*target);
+	}
+
+	// Play death animation when minion 1 dies, then de-render
+	if (this->minion1->getAttributeComponent()->isDead)
+	{
+		while (!minion1Dead && this->getDeathTimer())
+		{
+			if (this->minion1->playDeathAnimation(100.f))
+			{
+				minion1Dead = true;
+				this->minion1->disappear();
+			}
+		}
+	}
+	else
+	{
+		this->minionUI1->renderUI(*target);
+	}
+
+	// Play death animation when minion 2 dies, then de-render
+	if (this->minion2->getAttributeComponent()->isDead)
+	{
+		while (!minion2Dead && this->getDeathTimer())
+		{
+			if (this->minion2->playDeathAnimation(100.f))
+			{
+				minion2Dead = true;
+				this->minion2->disappear();
+			}
+		}
+	}
+	else
+	{
+		this->minionUI2->renderUI(*target);
+	}
+	
+	// If all enemies are dead, render a button that pushes the next state
+	if (this->allDead)
+	{
+		this->nextLevel->renderButton(*target);
+	}
 
 	// Render pause menu
 	if (this->isPaused)

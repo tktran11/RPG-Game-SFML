@@ -10,12 +10,14 @@ class BossLevel :
 private:
 	EnemyUI* bossUI;
 
-	void initializeTextures();
-	void initializeBoss();
-	void initializeBossUI();
+	bool bossDead;
 public:
 	BossLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, 
 		std::string backgroundFile = "MenuTextures/GameBackground/Map3.png");
+
+	void initializeTextures();
+	void initializeBoss();
+	void initializeBossUI();
 
 	void updatePauseMenuButtons();
 	void updatePlayerInput(const float& deltaTime);

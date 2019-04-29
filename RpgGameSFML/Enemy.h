@@ -31,6 +31,9 @@ public:
 	float getStartPosY();
 	float getSpriteScale();
 
+	// Makes sprite disappear
+	void disappear();
+
 	// Mutators
 	void setSpriteScale(bool fullScreenScale);
 
@@ -42,4 +45,6 @@ public:
 	virtual void updateAnimation(const float& deltaTime) = 0;
 	virtual void update(const float& deltaTime) = 0;
 	void checkForAttackAnimation();
+
+	bool playDeathAnimation(const float& deltaTime);
 };
