@@ -1,5 +1,12 @@
 #pragma once
 #include "Enemy.h"
+#include "Slime.h"
+#include "Shade.h"
+#include "FireGolem.h"
+#include "IceGolem.h"
+#include "StoneGolem.h"
+#include "Minotaur.h"
+
 class EnemyUI
 {
 private:

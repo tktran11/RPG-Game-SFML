@@ -78,15 +78,21 @@ void CharacterAttributes::gainXP(const int experience)
 // Updates the character's relevent stats upon level update
 void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 {
+	// Knight stats
+	this->knightMaxHP = this->vitality * 25 + (50 + (25 * this->level));
+	this->knightMaxMana = this->intelligence * 10 + (25 * this->level);
 
-	this->maxHP = this->vitality * 10 + (25 * this->level);
-	this->maxMana = this->intelligence * 10 + (25 * this->level);
+	// Mage stats
+	this->mageMaxHP = this->vitality * 20 + (25 * this->level);
+	this->mageMaxMana = this->intelligence * 20 + (50 + (25 * this->level));
 
 	// if we decide to heal on level up, reset total health and mana
 	if (resetOnLevel)
 	{
-		this->currentHP = this->maxHP;
-		this->currentMana = this->maxMana;
+		this->currentHP = this->knightMaxHP;
+		this->currentMana = this->knightMaxMana;
+		this->currentHP = this->mageMaxHP;
+		this->currentMana = this->mageMaxMana;
 	}
 }
 

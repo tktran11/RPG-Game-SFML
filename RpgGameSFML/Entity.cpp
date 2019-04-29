@@ -25,7 +25,7 @@ void Entity::initializeVariables()
 // Renders entity to the target
 void Entity::renderEntity(sf::RenderTarget& target)
 {
-		target.draw(this->sprite);
+	target.draw(this->sprite);
 }
 // Returns the x position of the sprite
 float Entity::getXPosition()

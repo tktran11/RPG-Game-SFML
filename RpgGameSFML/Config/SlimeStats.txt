@@ -1,3 +1,4 @@
+HP 50
 ATK 45
 SPD 10
 DEF 10

@@ -1,3 +1,4 @@
+HP 100
 ATK 55
 SPD 20
 DEF 20

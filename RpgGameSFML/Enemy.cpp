@@ -112,12 +112,9 @@ void Enemy::checkForAttackAnimation()
 
 bool Enemy::playDeathAnimation(const float & deltaTime)
 {
-
 	if (this->animationComponent->playAnimation("DEATH", deltaTime, true))
 	{
 		return true;
 	}
-
-
 }
 

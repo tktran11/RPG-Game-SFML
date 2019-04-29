@@ -1,3 +1,4 @@
+HP 250
 ATK 60
 SPD 30
 DEF 30

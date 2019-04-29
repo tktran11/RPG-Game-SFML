@@ -21,9 +21,11 @@ public:
 
 	// Character Attributes (current vs max values)
 	int currentHP;
-	int maxHP;
+	int knightMaxHP;
+	int mageMaxHP;
 	int currentMana;
-	int maxMana;
+	int knightMaxMana;
+	int mageMaxMana;
 	bool isDead = false;
 
 	// Constructor
