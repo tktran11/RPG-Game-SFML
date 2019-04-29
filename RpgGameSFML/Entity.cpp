@@ -11,7 +11,6 @@ It stores information and will house components for entities to make use of.
 Entity::Entity()
 {
 	this->initializeVariables();
-
 }
 
 // Set initial values to null to avoid garbage before component creation
@@ -27,11 +26,13 @@ void Entity::renderEntity(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);
 }
+
 // Returns the x position of the sprite
 float Entity::getXPosition()
 {
 	return this->sprite.getPosition().x;
 }
+
 // Returns the y position of the sprite
 float Entity::getYPosition()
 {
@@ -41,7 +42,7 @@ float Entity::getYPosition()
 // Sets the sprite's position on the screen
 void Entity::setPosition(const float xPos, const float yPos)
 {
-		this->sprite.setPosition(xPos, yPos);
+	this->sprite.setPosition(xPos, yPos);
 }
 
 // Sets the texture of the sprite to the given texture sheet 

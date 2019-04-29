@@ -50,8 +50,7 @@ protected:
 	float keyboardTimer;
 	float maxKeyboardTime;
 
-	float deathTimer;
-	float deathTimeMax;
+	// Pointer to game window
 	sf::RenderWindow* window;
 
 	// Storage for input and visual features
@@ -74,7 +73,6 @@ public:
 	// Assessor for 
 	const bool& getQuit() const;
 	const bool getKeyboardTimer();
-	const bool getDeathTimer();
 	// State Handling
 	void pauseState();
 	void unPauseState();
@@ -84,7 +82,6 @@ public:
 	virtual void updateMousePositions();
 	virtual void updateInput(const float& deltaTime) = 0;
 	virtual void updateKeyboardtime(const float& deltaTime);
-	virtual void updateDeathTime(const float& deltaTime);
 	virtual void updateState(const float& deltaTime) = 0;
 	virtual void renderState(sf::RenderTarget* target = nullptr) = 0;
 };

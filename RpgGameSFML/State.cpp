@@ -20,9 +20,6 @@ State::State(StateData* stateInfo)
 	this->askedForQuit = false;
 	this->keyboardTimer = 0.f;
 	this->maxKeyboardTime = 20.f;
-	this->deathTimer = 0.f;
-	this->deathTimeMax = 9.f;
-	
 }
 
 // Returns the state's askedForQuit, indicating if the state has shown it should transition to the next state
@@ -37,19 +34,6 @@ const bool State::getKeyboardTimer()
 	if (this->keyboardTimer >= this->maxKeyboardTime)
 	{
 		this->keyboardTimer = 0.f;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-const bool State::getDeathTimer()
-{
-	if (this->deathTimer >= this->deathTimeMax)
-	{
-		this->deathTimer = 0.f;
 		return true;
 	}
 	else
@@ -88,15 +72,6 @@ void State::updateKeyboardtime(const float& deltaTime)
 	if (this->keyboardTimer < this->maxKeyboardTime)
 	{
 		this->keyboardTimer += 100.f * deltaTime;
-	}
-}
-
-// Timer to control how fast death animations happen in a state
-void State::updateDeathTime(const float & deltaTime)
-{
-	if (this->deathTimer < this->deathTimeMax)
-	{
-		this->deathTimer += 100.f * deltaTime;
 	}
 }
 

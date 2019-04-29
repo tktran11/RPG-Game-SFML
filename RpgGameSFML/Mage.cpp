@@ -98,6 +98,7 @@ void Mage::updateAnimation(const float & deltaTime)
 	{
 		this->animationComponent->playAnimation("IDLE", deltaTime);
 	}
+	// walking left
 	else if (this->movementComponent->checkMoveType(WALK_LEFT))
 	{
 		if (this->sprite.getScale().x > 0.f)
@@ -109,6 +110,7 @@ void Mage::updateAnimation(const float & deltaTime)
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().x, this->movementComponent->getMaximumVelocity());
 	}
+	// walking right
 	else if (this->movementComponent->checkMoveType(WALK_RIGHT))
 	{
 		if (this->sprite.getScale().x < 0.f)
@@ -117,10 +119,10 @@ void Mage::updateAnimation(const float & deltaTime)
 			// Flip sprite
 			this->sprite.setScale(1.f * this->scale, 1.f * this->scale);
 		}
-
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().x, this->movementComponent->getMaximumVelocity());
 	}
+	// walking up
 	else if (this->movementComponent->checkMoveType(WALK_UP))
 	{
 		this->animationComponent->playAnimation("MOVE", deltaTime,

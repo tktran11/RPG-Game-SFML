@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "MainMenuState.h"
 #include "EndGameScreen.h"
+#include "GolemLevel.h"
 #include "EnemyUI.h"
 
 class SlimeLevel :

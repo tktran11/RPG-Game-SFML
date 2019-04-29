@@ -10,6 +10,7 @@ enum attackKey {
 	M = 12
 };
 
+// Constructor
 StoneGolem::StoneGolem(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
 	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
 
@@ -25,6 +26,7 @@ StoneGolem::StoneGolem(sf::Texture & spriteTextureSheet, float startPointX, floa
 	this->animationComponent->addAnimation("DEATH", 10.f, 0, 2, 8, 2, 74, 57);
 }
 
+// Updates the animation based on frame data
 void StoneGolem::updateAnimation(const float & deltaTime)
 {
 	// When the player dies play the death animation
@@ -62,6 +64,7 @@ void StoneGolem::updateAnimation(const float & deltaTime)
 	}
 }
 
+// Updates all features of the stone golem including checking movement, animation, and stats
 void StoneGolem::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);

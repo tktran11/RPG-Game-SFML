@@ -40,6 +40,7 @@ public:
 	// Combat Modifications
 	void loseHP(const int hpLost);
 	void gainHP(const int hpGain);
+	void statMod(std::string key, int modifier);
 
 	// Updates data specific to the enemy
 	virtual void updateAnimation(const float& deltaTime) = 0;

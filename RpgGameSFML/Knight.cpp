@@ -60,6 +60,7 @@ void Knight::updateAnimation(const float & deltaTime)
 	{
 		this->animationComponent->playAnimation("IDLE", deltaTime);
 	}
+	// walk right
 	else if (this->movementComponent->checkMoveType(WALK_RIGHT))
 	{
 		if (this->sprite.getScale().x < 0.f)
@@ -71,6 +72,7 @@ void Knight::updateAnimation(const float & deltaTime)
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().x, this->movementComponent->getMaximumVelocity());
 	}
+	// walk left
 	else if (this->movementComponent->checkMoveType(WALK_LEFT))
 	{
 		if (this->sprite.getScale().x > 0.f)
@@ -83,6 +85,7 @@ void Knight::updateAnimation(const float & deltaTime)
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().x, this->movementComponent->getMaximumVelocity());
 	}
+	// walk up
 	else if (this->movementComponent->checkMoveType(WALK_UP))
 	{
 		this->animationComponent->playAnimation("MOVE", deltaTime,

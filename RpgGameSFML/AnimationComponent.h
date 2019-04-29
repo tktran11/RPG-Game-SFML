@@ -25,6 +25,7 @@ private:
 		sf::IntRect startFrame;
 		sf::IntRect endingFrame;
 
+		// Animation constructor
 		Animation(sf::Sprite& sprite, sf::Texture& animationSheet, float timer, int startFrameX, int startFrameY, int frameX, int frameY,
 			int width, int height) : sprite(sprite), animationSheet(animationSheet), animationTimer(timer), width(width), height(height)
 			, isFinished(false), timer(0.f)

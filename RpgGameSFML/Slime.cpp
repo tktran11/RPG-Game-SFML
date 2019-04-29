@@ -10,6 +10,7 @@ enum attackKey {
 	M = 12
 };
 
+// Constructor
 Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
 	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
 {
@@ -22,6 +23,7 @@ Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPoi
 	this->animationComponent->addAnimation("DEATH", 10.f, 0, 2, 5, 2, 32, 25);
 }
 
+// Updates the animation based on frame data
 void Slime::updateAnimation(const float & deltaTime)
 {
 	// When the player dies play the death animation
@@ -59,6 +61,7 @@ void Slime::updateAnimation(const float & deltaTime)
 	}
 }
 
+// Updates all features of the ice golem including checking movement, animation, and stats
 void Slime::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);

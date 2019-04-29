@@ -113,6 +113,7 @@ void BossLevel::updateState(const float & deltaTime)
 		{
 			this->bossDead = true;
 			this->boss->disappear();
+			this->player->gainEXP(this->boss->getAttributeComponent()->stats["EXP"]);
 			if (this->bossDead)
 			{
 				this->states->push(new EndGameScreen(this->stateInfo, true));

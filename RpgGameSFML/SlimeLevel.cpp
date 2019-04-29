@@ -83,8 +83,9 @@ void SlimeLevel::initializeMinions()
 
 	}
 
-	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, "SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
-	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, "SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
+	
+	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, "Config/SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
+	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, "Config/SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
 }
 
 // Creates a UI for the minions of the level
@@ -143,6 +144,7 @@ void SlimeLevel::updatePlayerInput(const float & deltaTime)
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_RIGHT")))) && (this->player->getXPosition() <= this->window->getSize().x * 0.9f))
 	{
 		this->player->move(deltaTime, 0.8f, 0.f);
+
 	}
 
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_DOWN")))) && (this->player->getYPosition() <= this->player->getStartPosY() + 14.f))
@@ -228,11 +230,13 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 	// Play death animation when boss dies then de-render
 	if (this->boss->getAttributeComponent()->isDead)
 	{
+
 		if(!bossDead && this->getDeathTimer())
 		{
 			if (this->boss->playDeathAnimation(600.f))
 			{
 				this->bossDead = true;
+				this->player->gainEXP(this->boss->getAttributeComponent()->stats["EXP"]);
 				this->boss->disappear();
 			}
 		}
@@ -250,6 +254,7 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 			if (this->minion1->playDeathAnimation(100.f))
 			{
 				this->minion1Dead = true;
+				this->player->gainEXP(this->minion1->getAttributeComponent()->stats["EXP"]);
 				this->minion1->disappear();
 			}
 		}
@@ -267,6 +272,7 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 			if (this->minion2->playDeathAnimation(100.f))
 			{
 				this->minion2Dead = true;
+				this->player->gainEXP(this->minion2->getAttributeComponent()->stats["EXP"]);
 				this->minion2->disappear();
 			}
 		}

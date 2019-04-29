@@ -51,7 +51,7 @@ void CharacterGUI::initializeTextDisplays()
 
 
 	this->statText.setFont(this->font);
-	this->statText.setPosition(this->guiDock.getSize().x * 1.35f, 0.f);
+	this->statText.setPosition(this->portrait.getGlobalBounds().width * 0.05f, this->levelText.getPosition().y * 1.25f);
 	this->statText.setCharacterSize(20 * this->player->getSpriteScale());
 }
 

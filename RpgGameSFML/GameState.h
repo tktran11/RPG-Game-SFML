@@ -25,9 +25,16 @@ protected:
 	Enemy* boss;
 	CharacterGUI* playerGUI;
 
+	// Background loading
 	std::string backgroundFile;
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
+
+	// Death animation control
+	float deathTimer;
+	float deathTimeMax;
+	const bool getDeathTimer();
+
 
 	// Initialization Functions used to set default values and other important set ups for things like keybinds
 	// and visual images
@@ -48,8 +55,8 @@ public:
 
 	void updateInput(const float& deltaTime);
 	virtual void updatePlayerInput(const float& deltaTime) = 0;
+	virtual void updateDeathTime(const float& deltaTime);
 	virtual void updateState(const float& deltaTime) = 0;
-
 	// State Rendering
 	virtual void renderState(sf::RenderTarget* target = nullptr) = 0;
 

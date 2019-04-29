@@ -14,13 +14,12 @@ CharacterAttributes::CharacterAttributes(int characterLevel, std::string statFil
 	this->initializeMoveset(movesetFile);
 	this->experience = 0;
 	this->expToNextLevel = calculateExpToNext(this->level);
-	this->intelligence = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
-	this->vitality = 10; // DEFAULT FOR TESTING, CHANGE OR INPUT AS NEEDED
 	this->updateLevel();
 	this->updateAttributes(true);
 }
 
 // Maps a string to a value when read from a file for stat values
+// that will be stored in a map
 void CharacterAttributes::initializeStats(std::string statsFile)
 {
 	std::ifstream readStats(statsFile);
@@ -58,13 +57,13 @@ void CharacterAttributes::initializeMoveset(std::string movesetFile)
 int CharacterAttributes::calculateExpToNext(int characterLevel)
 {
 	int neededExp = 0;
-	if (characterLevel <= 2)
+	if (characterLevel < 2)
 	{
 		neededExp = 100;
 	}
 	else
 	{
-		neededExp = (characterLevel * 50);
+		neededExp = (characterLevel * 75);
 	}
 	return neededExp;
 }
@@ -75,24 +74,24 @@ void CharacterAttributes::gainXP(const int experience)
 	this->experience += experience;
 }
 
-// Updates the character's relevent stats upon level update
+// Updates the character's relevent stats per frame
 void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 {
-	// Knight stats
-	this->knightMaxHP = this->vitality * 25 + (50 + (25 * this->level));
-	this->knightMaxMana = this->intelligence * 10 + (25 * this->level);
+	//Updates max HP and mana based on base stats and level multiplier
+	this->maxHP = this->stats["VIT"] * 10 + (this->stats["ARM"] * 10 * (this->level - 1));
+	this->maxMana = (this->stats["INT"] * 4) + (this->stats["INT"] * (this->level - 1)); 
 
-	// Mage stats
-	this->mageMaxHP = this->vitality * 20 + (25 * this->level);
-	this->mageMaxMana = this->intelligence * 20 + (50 + (25 * this->level));
+	// Updates ATK/SPD/Def based on base stats and level multiplier
+	this->stats["ATK"] += ((this->level - 1) * this->stats["STR"]);
+	this->stats["SPD"] += ((this->level - 1) * this->stats["DEX"]);
+	this->stats["DEF"] += ((this->level - 1) * this->stats["ARM"]);
+
 
 	// if we decide to heal on level up, reset total health and mana
 	if (resetOnLevel)
 	{
-		this->currentHP = this->knightMaxHP;
-		this->currentMana = this->knightMaxMana;
-		this->currentHP = this->mageMaxHP;
-		this->currentMana = this->mageMaxMana;
+		this->currentHP = this->maxHP;
+		this->currentMana = this->maxMana;
 	}
 }
 
@@ -113,5 +112,4 @@ void CharacterAttributes::update(const int experience)
 {
 	this->gainXP(experience);
 	this->updateLevel();
-	//this->updateStats(std::string statName, int statChange);
 }

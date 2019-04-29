@@ -15,17 +15,11 @@ public:
 	int experience;
 	int expToNextLevel;
 
-	// unchanging stats (base stats for calculation of HP and Mana), read in when player created, never changed
-	int vitality;
-	int intelligence;
-
 	// Character Attributes (current vs max values)
 	int currentHP;
-	int knightMaxHP;
-	int mageMaxHP;
+	int maxHP;
 	int currentMana;
-	int knightMaxMana;
-	int mageMaxMana;
+	int maxMana;
 	bool isDead = false;
 
 	// Constructor

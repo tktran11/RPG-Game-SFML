@@ -1,4 +1,4 @@
 Slash 12
 Fortify 15
-Taunt 5
+Taunt -5
 ShieldBash 1.25

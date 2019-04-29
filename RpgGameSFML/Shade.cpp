@@ -10,6 +10,7 @@ enum attackKey {
 	M = 12
 };
 
+// Constructor
 Shade::Shade(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
 	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
 {
@@ -23,6 +24,7 @@ Shade::Shade(sf::Texture & spriteTextureSheet, float startPointX, float startPoi
 	this->animationComponent->addAnimation("INJURE", 10.f, 0, 2, 2, 2, 59, 50);
 }
 
+// Updates the animation based on frame data
 void Shade::updateAnimation(const float & deltaTime)
 {
 	// As long as the player is alive

@@ -10,6 +10,7 @@ enum attackKey {
 	M = 12
 };
 
+// Constructor
 Minotaur::Minotaur(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
 	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
 
@@ -25,6 +26,7 @@ Minotaur::Minotaur(sf::Texture & spriteTextureSheet, float startPointX, float st
 	this->animationComponent->addAnimation("DEATH", 10.f, 0, 2, 7, 2, 96, 77);
 }
 
+// Updates the animation based on frame data
 void Minotaur::updateAnimation(const float & deltaTime)
 {
 	// When the player dies play the death animation
@@ -62,15 +64,10 @@ void Minotaur::updateAnimation(const float & deltaTime)
 	}
 }
 
+// Updates all features of the shade including checking movement, animation, and stats
 void Minotaur::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
 }
-
-void Minotaur::playDeathAnimation(const float & deltaTime)
-{
-	this->animationComponent->playAnimation("DEATH", deltaTime, true);
-}
-

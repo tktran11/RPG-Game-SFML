@@ -1,11 +1,11 @@
 #pragma once
 #include "gui.h"
 #include "SlimeLevel.h"
-#include "GolemLevel.h"
-#include "BossLevel.h"
 
+// Forward Declarations
 class GameState;
 class SlimeLevel;
+
 /* CharacterSelectState.h is the header file for the Character Selection Menu. Here the player
    will select which of the two characters they would like to begin the game as */
 class CharacterSelectState :

@@ -11,7 +11,7 @@ enum attackKey {
 	M = 12
 };
 
-/* Constructor for the player character*/
+// Constructor for the player character
 Enemy::Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string statFile, std::string movesetFile, bool fullScreenScale)
 {
 	this->startPositionX = startPointX;
@@ -87,6 +87,12 @@ void Enemy::gainHP(const int hpGain)
 	}
 }
 
+// Adds/removes stat values to a specific stat (buff/debuff)
+void Enemy::statMod(std::string key, int modifier)
+{
+	this->attributeComponent->stats[key] += modifier;
+}
+
 // Initializes the components used by the player character
 void Enemy::initializeComponents(sf::Texture& spriteTextureSheet, std::string statFile, std::string movesetFile)
 {
@@ -110,6 +116,7 @@ void Enemy::checkForAttackAnimation()
 	}
 }
 
+// Plays the death animation when HP reaches 0
 bool Enemy::playDeathAnimation(const float & deltaTime)
 {
 	if (this->animationComponent->playAnimation("DEATH", deltaTime, true))

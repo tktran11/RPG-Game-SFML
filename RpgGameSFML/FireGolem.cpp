@@ -10,6 +10,7 @@ enum attackKey {
 	M = 12
 };
 
+// Constructor
 FireGolem::FireGolem(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
 	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
 
@@ -25,6 +26,7 @@ FireGolem::FireGolem(sf::Texture & spriteTextureSheet, float startPointX, float 
 	this->animationComponent->addAnimation("DEATH", 10.f, 0, 2, 8, 2, 64, 57);
 }
 
+// Updates the animation based on frame data
 void FireGolem::updateAnimation(const float & deltaTime)
 {
 	// When the player dies play the death animation
@@ -62,6 +64,7 @@ void FireGolem::updateAnimation(const float & deltaTime)
 	}
 }
 
+// Updates all features of the ice golem including checking movement, animation, and stats
 void FireGolem::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);

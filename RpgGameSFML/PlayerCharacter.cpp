@@ -64,13 +64,13 @@ void PlayerCharacter::setSpriteScale(bool scaleScreen)
 void PlayerCharacter::loseHP(const int hpLost)
 {
 	this->attributeComponent->currentHP -= hpLost;
-
 	if (this->attributeComponent->currentHP <= 0)
 	{
 		this->attributeComponent->isDead = true;
 		this->attributeComponent->currentHP = 0;
 	}
 }
+
 // Adds HP to the player based on amount gained
 void PlayerCharacter::gainHP(const int hpGain)
 {
@@ -80,6 +80,12 @@ void PlayerCharacter::gainHP(const int hpGain)
 	{
 		this->attributeComponent->currentHP = this->attributeComponent->maxHP;
 	}
+}
+
+// Adds/removes stat values to a specific stat (buff/debuff)
+void PlayerCharacter::statMod(std::string key, int modifier)
+{
+	this->attributeComponent->stats[key] += modifier;
 }
 
 // Subtracts mana from the player based on the amount spent

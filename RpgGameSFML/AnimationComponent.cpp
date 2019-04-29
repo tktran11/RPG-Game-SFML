@@ -32,9 +32,8 @@ const bool & AnimationComponent::isAnimationFinished(const std::string animation
 	return this->animationSet[animationKey]->getIsFinished();
 }
 
-/* Plays an animation pausing all attempts to play any other animations if that animation has priority (ie. attack animation
-   takes precedence over idle animations)
-*/
+// Plays an animation pausing all attempts to play any other animations if that animation has priority (ie. attack animation
+// takes precedence over idle animations)
 const bool& AnimationComponent::playAnimation(const std::string animationKey, const float & deltaTime, const bool isPriority)
 {
 	if (isPriority)

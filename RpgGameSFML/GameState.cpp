@@ -20,6 +20,22 @@ GameState::GameState(StateData* stateInfo, std::string playerType, unsigned play
 	this->initializePauseMenu();
 	this->initializePlayer(playerLevel);
 	this->initializePlayerGUI();
+	this->deathTimer = 0.f;
+	this->deathTimeMax = 8.5f;
+}
+
+// Returns reset of death timer
+const bool GameState::getDeathTimer()
+{
+	if (this->deathTimer >= this->deathTimeMax)
+	{
+		this->deathTimer = 0.f;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 // Reads keybinds from a specified .ini file and creates a map from keybind to binded value
@@ -114,6 +130,16 @@ void GameState::updateInput(const float & deltaTime)
 		}
 	}
 }
+
+// Timer to control how fast death animations happen in a state
+void GameState::updateDeathTime(const float & deltaTime)
+{
+	if (this->deathTimer < this->deathTimeMax)
+	{
+		this->deathTimer += 100.f * deltaTime;
+	}
+}
+
 
 // Destructor
 GameState::~GameState()

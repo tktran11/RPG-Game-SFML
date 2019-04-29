@@ -141,7 +141,7 @@ void GolemLevel::updateNextLevelButton()
 void GolemLevel::updatePlayerInput(const float & deltaTime)
 {
 	// Movement is soft limited to the bounds of where the screen is. The player can still technically fall off screen, but can't continue moving that way
-	// Up and downward movement limited to actual ground
+// Up and downward movement limited to actual ground
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds.at("MOVE_LEFT")))) && (this->player->getXPosition() >= this->window->getSize().x * 0.039f))
 	{
 		this->player->move(deltaTime, -0.8f, 0.f);
@@ -161,6 +161,7 @@ void GolemLevel::updatePlayerInput(const float & deltaTime)
 	{
 		this->player->move(deltaTime, 0.f, -0.4f);
 	}
+
 }
 
 //Updates elements of the UI for all enemies
@@ -238,6 +239,7 @@ void GolemLevel::renderState(sf::RenderTarget * target)
 			if (this->boss->playDeathAnimation(200.f))
 			{
 				bossDead = true;
+				this->player->gainEXP(this->boss->getAttributeComponent()->stats["EXP"]);
 				this->boss->disappear();
 			}
 		}
@@ -255,6 +257,7 @@ void GolemLevel::renderState(sf::RenderTarget * target)
 			if (this->minion1->playDeathAnimation(100.f))
 			{
 				minion1Dead = true;
+				this->player->gainEXP(this->minion1->getAttributeComponent()->stats["EXP"]);
 				this->minion1->disappear();
 			}
 		}
@@ -272,6 +275,7 @@ void GolemLevel::renderState(sf::RenderTarget * target)
 			if (this->minion2->playDeathAnimation(100.f))
 			{
 				minion2Dead = true;
+				this->player->gainEXP(this->minion2->getAttributeComponent()->stats["EXP"]);
 				this->minion2->disappear();
 			}
 		}
