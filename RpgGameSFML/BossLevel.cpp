@@ -72,8 +72,50 @@ void BossLevel::updateCombatMenuButtons()
 	// Knight moveset
 	if (this->chosenCharacter == "knight")
 	{
+		// Executes combat with move 1 (COSTS NO MANA)
+		if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana"))
+		{
+			this->player->checkForAttackAnimation(true);
+			if (!this->boss->getAttributeComponent()->isDead)
+			{
+				this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash"));
+				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
+			}
+		}
 
+		// Other moves in loop because they require mana
+		if (this->player->getCurrentMana() > 0)
+		{
+			// Executes combat with move 2
+			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability2Mana"))
+			{
+				this->player->statMod("DEF", this->player->getAbilityNumbers("Fortify"));
+				this->player->loseMana(this->player->getAbilityNumbers("Ability2Mana"));
+			}
+
+			// Executes combat with move 3
+			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana"))
+			{
+				if (!this->boss->getAttributeComponent()->isDead)
+				{
+					this->boss->statMod("ATK", this->player->getAbilityNumbers("Taunt"));
+					this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
+				}
+			}
+
+			// Executes combat with move 4
+			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana"))
+			{
+				this->player->checkForAttackAnimation(true);
+				 if (!this->boss->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash"));
+					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
+				}
+			}
+		}
 	}
+
 	// Mage moveset
 	else
 	{

@@ -87,38 +87,38 @@ void GameState::initializeCombatMenu()
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Slash", 28, "MOVE_1");
+			"MenuTextures/CombatMenu/Button.png", "Slash\n0 Mana", 24, "MOVE_1");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Fortify", 28, "MOVE_2");
+			"MenuTextures/CombatMenu/Button.png", "Fortify\n25 Mana", 24, "MOVE_2");
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Taunt", 28, "MOVE_3");
+			"MenuTextures/CombatMenu/Button.png", "Taunt\n50 Mana", 24, "MOVE_3");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Shield Bash", 28, "MOVE_4");
+			"MenuTextures/CombatMenu/Button.png", "Shield Bash \n 50 Mana", 24, "MOVE_4");
 	}
 	else if (this->chosenCharacter == "mage")
 	{
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Hexplosion", 22 , "MOVE_1");
+			"MenuTextures/CombatMenu/Button.png", "Hexplosion\n25 Mana", 22 , "MOVE_1");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Disciplined \n Thinking", 22, "MOVE_2");
+			"MenuTextures/CombatMenu/Button.png", "Disciplined Thinking \n Restores 25 Mana", 18, "MOVE_2");
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Dark Ignition", 22, "MOVE_3");
+			"MenuTextures/CombatMenu/Button.png", "Dark Ignition\n 50 Mana", 22, "MOVE_3");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Obsidian Sweep", 22, "MOVE_4");
+			"MenuTextures/CombatMenu/Button.png", "Obsidian Sweep \n  100 Mana", 22, "MOVE_4");
 	}
 }
 
