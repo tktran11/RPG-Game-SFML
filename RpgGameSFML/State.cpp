@@ -43,28 +43,32 @@ const bool State::getKeyboardTimer()
 	}
 }
 
-// pauseState() is for the pause screen ill be finishing or flusing out later
+// checks to see if the state is paused
 void State::pauseState()
 {
 	this->isPaused = true;
 }
 
+// un pauses the state
 void State::unPauseState()
 {
 	this->isPaused = false;
 }
 
+// quits the state
 void State::endState()
 {
 	this->askedForQuit = true;
 }
 
+// enters combat and initializes keybinds for it
 void State::enterCombatState()
 {
 	this->isInCombat = true;
 	this->initializeKeybinds("Config\combatStateKeybinds.ini");
 }
 
+// exuts combat
 void State::exitCombatState()
 {
 	this->isInCombat = false;
@@ -86,6 +90,3 @@ void State::updateKeyboardtime(const float& deltaTime)
 		this->keyboardTimer += 100.f * deltaTime;
 	}
 }
-
-
-

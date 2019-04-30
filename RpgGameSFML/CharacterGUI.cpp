@@ -26,6 +26,7 @@ void CharacterGUI::initializeTextures()
 		while (std::getline(readTextures, line))
 		{
 			this->textureFiles.push_back(line);
+			// throws exception if not loaded
 			if (!this->texture.loadFromFile(line))
 			{
 				throw "ERROR:GAME_STATE::MISSING_PLAYER_UI_TEXTURE";
@@ -48,7 +49,6 @@ void CharacterGUI::initializeTextDisplays()
 	this->levelText.setPosition(this->guiDock.getSize().x / 2.5f,
 		this->portrait.getSize().y * 0.8f);
 	this->levelText.setCharacterSize(20 * this->player->getSpriteScale());
-
 
 	this->statText.setFont(this->font);
 	this->statText.setPosition(this->portrait.getGlobalBounds().width * 0.05f, this->levelText.getPosition().y * 1.25f);
@@ -134,7 +134,6 @@ void CharacterGUI::updateHPBar()
 	float percent = static_cast<float>(this->player->getAttributeComponent()->currentHP) /
 		static_cast<float>(this->player->getAttributeComponent()->maxHP);
 
-
 	this->hpBar.setSize(sf::Vector2f(static_cast<float>(std::floor(this->hpBarMax * percent)), this->barHeight));
 
 	this->hpBarString = std::to_string(this->player->getAttributeComponent()->currentHP) + " / "
@@ -201,4 +200,3 @@ void CharacterGUI::renderManaBar(sf::RenderTarget & target)
 	target.draw(this->manaBar);
 	target.draw(this->manaBarText);
 }
-

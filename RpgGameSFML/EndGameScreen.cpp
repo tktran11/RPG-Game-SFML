@@ -45,7 +45,6 @@ void EndGameScreen::initializeBackground()
 			throw "ERROR::ENDGAME_SCREEN::FAILED_TO_LOAD_DEATH_BACKGROUND_TEXTURE";
 		}
 	}
-
 	this->background.setTexture(&this->backgroundTexture);
 }
 
@@ -63,7 +62,6 @@ void EndGameScreen::initializeKeybinds(std::string configFile)
 		}
 	}
 	readKeybinds.close();
-
 }
 
 // Initialize buttons for the state

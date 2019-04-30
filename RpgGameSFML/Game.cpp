@@ -10,8 +10,8 @@ Game::Game()
 	this->initializeKeyboard();
 	this->initializeStateData();
 	this->startStates();
-
 }
+
 // Creates the window that the game is played on based on default settings 
 void Game::startWindow()
 {
@@ -60,8 +60,9 @@ void Game::initializeVariables()
 	this->deltaTime = 0.f;
 }
 
-/* Initializes the list of supported keys for the entire game. Each state has the opportunity to assign any of these 
-   keys to specific functionality within the state itself 
+/* 
+Initializes the list of supported keys for the entire game. Each state has the opportunity to assign any of these 
+keys to specific functionality within the state itself 
 */
 void Game::initializeKeyboard()
 {
@@ -78,16 +79,18 @@ void Game::initializeKeyboard()
 	readKeys.close();
 }
 
-/* updates DeltaTime to the time it took to render one frame of our game. Needed for
-   less hardware dependant playability 
+/* 
+Updates DeltaTime to the time it took to render one frame of our game. Needed for
+less hardware dependant playability 
 */
 void Game::updateDeltaTime()
 {
 	this->deltaTime = this->deltaClock.restart().asSeconds();
 }
 
-/* Polls game window for SFML events, specifically if the game is still running or not. Closes and destroys
-   window when applicable 
+/* 
+Polls game window for SFML events, specifically if the game is still running or not. Closes and destroys
+window when applicable 
  */
 void Game::updateEvents()
 {

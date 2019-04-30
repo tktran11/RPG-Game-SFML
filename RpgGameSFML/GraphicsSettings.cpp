@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "GraphicsSettings.h"
 
-/* GraphicsSettings.cpp is the body file for the graphics settings container. This stores all 
+/* 
+GraphicsSettings.cpp is the body file for the graphics settings container. This stores all 
 the graphic elements to be passed from state to state to ensure that the game's playability and
 window remain constant even after changing things via the Settings Menu
 */
@@ -16,7 +17,6 @@ GraphicsSettings::GraphicsSettings()
 	this->fpsLimit = 144;
 	this->contextSettings.antialiasingLevel = 0;
 	this->displayModes = sf::VideoMode::getFullscreenModes();
-
 }
 
 // Saves settings to a file

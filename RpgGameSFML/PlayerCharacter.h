@@ -9,19 +9,23 @@ inherit features from this class.
 It also stores information and houses components to manipulate the character.
 */
 
+// Forward declaration
 class Enemy;
 
 class PlayerCharacter :
 	public Entity
 {
 private:
+	// Initialization functions
 	void initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, 
 		std::string statFile, std::string movesetFile);
 	void initializeVariables(bool scaleScreen);
-	// Initialization Functions
+	
+	// Float values for position
 	float startPositionX;
 	float startPositionY;
 protected:
+	// Protected values for calculations
 	float scale;
 	bool isAttacking;
 	bool isPoweringUp;
@@ -44,20 +48,22 @@ public:
 	int getStatNumbers(std::string key);
 	int getCurrentMana();
 	int getMaxMana();
-	void dealDamage(Enemy* enemy, const int damage);
 
-	// Combat Modifications
+	// Combat Modifications/Assessors
 	void loseHP(const int hpLost);
 	void gainHP(const int hpGain);
+	void dealDamage(Enemy* enemy, const int damage);
 	void statMod(std::string key, int modifier);
 	void loseMana(const int manaLost);
 	void gainMana(const int manaGain);
 	void gainEXP(const unsigned xpGain);
 	
-	// Updates data specific to the enemy
+	// Virtual updates for data specific to the player
 	virtual void updateAnimation(const float& deltaTime) = 0;
 	virtual void update(const float& deltaTime) = 0;
 	virtual void move(const float& deltaTime, const float x, const float y);
+
+	// Checks for various animations w/ default values
 	void checkForAttackAnimation(bool shouldAttack = false);
 	void checkForPowerUpAnimation(bool shouldPower = false);
 };

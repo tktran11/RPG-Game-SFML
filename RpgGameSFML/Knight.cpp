@@ -13,6 +13,7 @@ Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPo
 	this->setPosition(startPointX, startPointY);
 	this->sprite.setScale(this->scale, this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
+
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("MOVE", 5.f, 0, 0, 11, 0, 192, 192);
 	this->animationComponent->addAnimation("IDLE", 18.f, 0, 3, 13, 3, 192, 192);
@@ -22,6 +23,7 @@ Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPo
 // Updates the animation for the knight, deciding what way it faces and if its attacking
 void Knight::updateAnimation(const float & deltaTime)
 {
+	// if mage is attacking, play animation
 	if (this->isAttacking)
 	{
 		// facing rightside
@@ -51,6 +53,7 @@ void Knight::updateAnimation(const float & deltaTime)
 			}
 		}
 	}
+
 	// checks for idle
 	if (this->movementComponent->checkMoveType(IDLE))
 	{
@@ -92,7 +95,6 @@ void Knight::updateAnimation(const float & deltaTime)
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().y, this->movementComponent->getMaximumVelocity());
 	}
-
 }
 
 // Updates all features of the knight including checking movement, animation, and stats

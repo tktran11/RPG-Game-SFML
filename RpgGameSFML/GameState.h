@@ -19,11 +19,13 @@ class CharacterGUI;
 class GameState : public State
 {
 protected:
+	// Different menus
 	PauseMenu* pauseMenu;
 	CombatMenu* combatMenu;
 
 	// Key for chosen character (mage or knight)
 	std::string chosenCharacter;
+
 	// Player character knight or mage
 	PlayerCharacter* player;
 	Enemy* boss;
@@ -42,6 +44,7 @@ protected:
 	float deathTimer;
 	float deathTimeMax;
 
+	// Timers for stalling animations
 	const bool getPlayerActionTimer();
 	const bool getEnemyActionTimer();
 	const bool getDeathTimer();
@@ -49,7 +52,6 @@ protected:
 
 	// Initialization Functions used to set default values and other important set ups for things like keybinds
 	// and visual images
-
 	virtual void initializeTextures() = 0;
 	virtual void initializeBoss() = 0;
 	void initializeKeybinds(std::string configFile);
@@ -58,6 +60,7 @@ protected:
 	void initializeCombatMenu();
 	void initializePlayer(unsigned playerLevel);
 	void initializePlayerGUI();
+
 public:
 	// Constructor
 	GameState(StateData* stateInfo, std::string playerType, unsigned playerLevel, std::string backgroundFile);
@@ -65,6 +68,7 @@ public:
 	// State Updating
 	void updatePlayerGUI(const float& deltaTime);
 
+	// Updates fuctions
 	void updateInput(const float& deltaTime);
 	void updateCombat(const float& deltaTime);
 	virtual void updatePlayerInput(const float& deltaTime) = 0;
@@ -72,11 +76,10 @@ public:
 	virtual void updateEnemyActionTime(const float& deltaTime);
 	virtual void updateDeathTime(const float& deltaTime);
 	virtual void updateState(const float& deltaTime) = 0;
+
 	// State Rendering
 	virtual void renderState(sf::RenderTarget* target = nullptr) = 0;
 
 	// Destructor
 	virtual ~GameState();
-
 };
-

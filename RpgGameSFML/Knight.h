@@ -16,6 +16,4 @@ public:
 	// Updates animation and other characteristics
 	void updateAnimation(const float& deltaTime);
 	void update(const float& deltaTime);
-
 };
-

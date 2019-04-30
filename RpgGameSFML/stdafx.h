@@ -5,7 +5,6 @@ cleaner. It stores useful includes from C++ standard library and SFML. All SFML 
 are denoted with SFML at the front*/
 
 // Standard Library Includes
-
 #include <algorithm>
 #include <atomic>
 #include <cmath>

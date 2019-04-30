@@ -9,7 +9,6 @@ and has unique characteristics specifc to the mage (Stats, animations, and abili
 class Mage :
 	public PlayerCharacter
 {
-
 public:
 	// Constructor
 	Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string filePath, std::string movesetFilePath, bool scaleScreen = false);
@@ -18,4 +17,3 @@ public:
 	void updateAnimation(const float& deltaTime);
 	void update(const float& deltaTime);
 };
-

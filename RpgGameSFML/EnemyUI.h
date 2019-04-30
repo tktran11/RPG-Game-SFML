@@ -10,15 +10,18 @@
 class EnemyUI
 {
 private:
+	// Enemy object
 	Enemy* enemy;
 
 	//Sets Font
 	sf::Font font;
 	float scale;
+
 	//HP Bar
 	float barHeight;
 	float hpBarMax;
 
+	// SFML textures
 	sf::Texture texture;
 	sf::Text hpBarText;
 	std::string hpBarString;

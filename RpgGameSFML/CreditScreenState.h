@@ -6,10 +6,12 @@
 houses a simple picture of the contributors to this project, including the programmers
 and our artist friend
 */
+
 class CreditScreenState :
 	public State
 {
 private:
+	// Background textures
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 	gui::Button* backButton;
@@ -18,6 +20,7 @@ private:
 	void initializeBackground();
 	void initializeKeybinds(std::string configFile);
 	void initializeButtons();
+
 public:
 	// Constructor
 	CreditScreenState(StateData* stateInfo);
@@ -33,4 +36,3 @@ public:
 	// Destructor
 	virtual ~CreditScreenState();
 };
-

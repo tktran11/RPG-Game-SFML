@@ -10,6 +10,7 @@
 #include "FireGolem.h"
 #include "Minotaur.h"
 #include "GraphicsSettings.h"
+
 /*
 State.h is the header for the state class, which handles the resources for
 each game state. It houses textures and such for each menu or screen. 
@@ -38,7 +39,6 @@ public:
 class State
 {
 protected:
-
 	// State Stack to keep track of all the possible states that the game has, top state is the one in use
 	std::stack<State*>* states;
 	// State Data Holder
@@ -74,6 +74,7 @@ public:
 	// Assessor for 
 	const bool& getQuit() const;
 	const bool getKeyboardTimer();
+
 	// State Handling
 	void pauseState();
 	void unPauseState();

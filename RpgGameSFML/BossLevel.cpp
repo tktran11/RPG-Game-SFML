@@ -15,18 +15,21 @@ BossLevel::BossLevel(StateData* stateInfo, std::string playerType, unsigned play
 // the character selection screen (choices are mage and knight)
 void BossLevel::initializeTextures()
 {
+	// loads mage texture otherwise throws an exception
 	if (this->chosenCharacter == "mage") {
 		if (!this->stateTextures["PLAYER_SPRITES"].loadFromFile("Sprites/mageSheet.png"))
 		{
 			throw "ERROR:GAME_STATE::MISSING_PLAYER_TEXTURE";
 		}
 	}
+	// loads knight texture otherwise throws an exception
 	else {
 		if (!this->stateTextures["PLAYER_SPRITES"].loadFromFile("Sprites/knightSheet.png"))
 		{
 			throw "ERROR:GAME_STATE::MISSING_PLAYER_TEXTURE";
 		}
 	}
+	// loads minotaur texture otherwise throws an exception
 	if (!this->stateTextures["MINOTAUR"].loadFromFile("Sprites/minotaurSheet.png"))
 	{
 		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
@@ -40,13 +43,14 @@ void BossLevel::initializeBoss()
 	float startingPosX = 1000;
 	float startingPosY = this->window->getSize().y * 0.65f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+
 	// Sets starting positions in fullscreen mode
 	if (scaleScreen)
 	{
 		startingPosX = 1100 * 1.34f;
 		startingPosY = 1260 * 0.53f;
 	}
-
+	// creates a new minotaur
 	this->boss = new Minotaur(this->stateTextures["MINOTAUR"], startingPosX, startingPosY, "Config/MinotaurStats.txt", "Config/MinotaurMoveset.txt", scaleScreen);
 }
 
@@ -72,10 +76,11 @@ void BossLevel::updateCombatMenuButtons()
 	// Knight moveset
 	if (this->chosenCharacter == "knight")
 	{
-		// Executes combat with move 1 (COSTS NO MANA)
+		// Executes standard attack (COSTS NO MANA)
 		if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana")
 			&& this->getPlayerActionTimer())
 		{
+			// Targets boss
 			if (!this->boss->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->boss, (
@@ -90,7 +95,7 @@ void BossLevel::updateCombatMenuButtons()
 		// Other moves in loop because they require mana
 		if (this->player->getCurrentMana() > 0)
 		{
-			// Executes combat with move 2
+			// Executes stat buff
 			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability2Mana")
 				&& this->getPlayerActionTimer())
 
@@ -100,10 +105,11 @@ void BossLevel::updateCombatMenuButtons()
 				this->playerActed = true;
 			}
 
-			// Executes combat with move 3
+			// Executes enemy debuff
 			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana")
 				&& this->getPlayerActionTimer())
 			{
+				// Debuffs boss
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->boss->statMod("ATK", this->player->getAbilityNumbers("Taunt"));
@@ -112,12 +118,13 @@ void BossLevel::updateCombatMenuButtons()
 				this->playerActed = true;
 			}
 
-			// Executes combat with move 4
+			// Executes powerful attack
 			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana")
 				&& this->getPlayerActionTimer())
 
 			{
 				this->player->checkForAttackAnimation(true);
+				// Targets boss
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
@@ -133,15 +140,16 @@ void BossLevel::updateCombatMenuButtons()
 	// Mage moveset
 	else
 	{
-		// Execute combat based on first move in set
+		// So long as the mage doesnt go OOM
 		if (this->player->getCurrentMana() > 0)
 		{
-			// Execute combat based on first move in set
+			// Execute standard attack
 			if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana")
 				&& this->getPlayerActionTimer())
 
 			{
 				this->player->checkForAttackAnimation(true);
+				// Targets boss
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
@@ -152,7 +160,7 @@ void BossLevel::updateCombatMenuButtons()
 				this->playerActed = true;
 			}
 
-			// Execute combat based on second move in set
+			// Execute Stat buff
 			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana()
 				&& this->getPlayerActionTimer())
 			{
@@ -170,13 +178,14 @@ void BossLevel::updateCombatMenuButtons()
 				}
 			}
 
-			// Execute combat based on third move in set
+			// Execute healing attack
 			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana")
 				&& this->getPlayerActionTimer())
 
 			{
 				this->player->checkForAttackAnimation(true);
 				{
+					// Targets boss
 					if (!this->boss->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->boss,
@@ -184,13 +193,13 @@ void BossLevel::updateCombatMenuButtons()
 						this->boss->checkForDamagedAnimation(true);
 					}
 				}
-				// Heal on attack
+				// Heal based on attack stat
 				this->player->gainHP(this->player->getStatNumbers("ATK"));
 				this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
 				this->playerActed = true;
 			}
 
-			// Execute combat based on fourth move in set
+			// Execute AOE attack
 			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana")
 				&& this->getPlayerActionTimer())
 
@@ -207,6 +216,7 @@ void BossLevel::updateCombatMenuButtons()
 				this->playerActed = true;
 			}
 		}
+		// If oom, kills player
 		else if (this->player->getCurrentMana() == 0)
 		{
 			this->playerActed = true;
@@ -216,6 +226,7 @@ void BossLevel::updateCombatMenuButtons()
 	// Enemy combat
 	if (this->playerActed && this->getEnemyActionTimer())
 	{
+		// Boss attacks while it isnt dead
 		if (!this->boss->getAttributeComponent()->isDead)
 		{
 			this->boss->checkForAttackAnimation(true);
@@ -289,7 +300,6 @@ void BossLevel::updateState(const float & deltaTime)
 	// If the player dies pushes DEAD endgame screen
 	if (this->player->getAttributeComponent()->isDead)
 	{
-
 		this->states->push(new EndGameScreen(this->stateInfo, false));
 	}
 
@@ -301,6 +311,7 @@ void BossLevel::updateState(const float & deltaTime)
 		this->updateEnemyUI(deltaTime);
 		this->boss->update(deltaTime);
 
+		// Updates if player is in combat
 		if (this->isInCombat)
 		{
 			this->updatePlayerActionTimer(deltaTime);
@@ -313,6 +324,7 @@ void BossLevel::updateState(const float & deltaTime)
 			this->updatePlayerInput(deltaTime);
 		}
 	}
+	// Updates menus
 	else
 	{
 		this->pauseMenu->updateMenu(this->mousPositView);

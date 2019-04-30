@@ -18,17 +18,16 @@ MainMenuState::MainMenuState(StateData* stateInfo)
 // Sets background texture for the main menu
 void MainMenuState::initializeBackground()
 {
-		this->background.setSize(
-			sf::Vector2f
-			(static_cast<float>(this->window->getSize().x),
+	this->background.setSize(
+		sf::Vector2f
+		(static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)));
-		if (!this->backgroundTexture.loadFromFile("MenuTextures/MainMenu/MenuArt.png"))
-		{
-			throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-		}
-
-		this->background.setTexture(&this->backgroundTexture);
+	if (!this->backgroundTexture.loadFromFile("MenuTextures/MainMenu/MenuArt.png"))
+	{
+		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
+	this->background.setTexture(&this->backgroundTexture);
+}
 
 // Sets keybinds for the main menu
 void MainMenuState::initializeKeybinds(std::string configFile)
@@ -44,14 +43,11 @@ void MainMenuState::initializeKeybinds(std::string configFile)
 		}
 	}
 	readKeybinds.close();
-
 }
 
 // Creates a set of buttons for the main menu
 void MainMenuState::initializeButtons()
 {
-	
-	
 	this->buttons["PLAY_GAME"] = new gui::Button((this->window->getSize().x * 0.5f),
 		(this->window->getSize().y * 0.5f), (this->window->getSize().x * 0.156f),
 		(this->window->getSize().y * 0.111f), "MenuTextures/MainMenu/Play.png");
@@ -107,7 +103,6 @@ void MainMenuState::updateState(const float & deltaTime)
 {
 	this->updateMousePositions();
 	this->updateInput(deltaTime);
-
 }
 
 // Renders the buttons
@@ -128,7 +123,6 @@ void MainMenuState::renderState(sf::RenderTarget* target)
 	}
 	target->draw(this->background);
 	this->renderButtons(target);
-
 }
 
 // Destructor

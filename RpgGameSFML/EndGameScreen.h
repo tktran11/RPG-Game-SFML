@@ -5,6 +5,7 @@
 /* EndGameScreen.h is the header file for the end game screen. This screen represents
 the victory or death screen for the player depending on the outcome of the game
 */
+
 class EndGameScreen :
 	public State
 {
@@ -21,6 +22,7 @@ private:
 	void initializeBackground();
 	void initializeKeybinds(std::string configFile);
 	void initializeButtons();
+
 public:
 	// Constructor
 	EndGameScreen(StateData* stateInfo, bool wonGame);

@@ -32,7 +32,6 @@ void CreditScreenState::initializeBackground()
 	{
 		throw "ERROR::CREDITS_SCREEN::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
-
 	this->background.setTexture(&this->backgroundTexture);
 }
 
@@ -50,7 +49,6 @@ void CreditScreenState::initializeKeybinds(std::string configFile)
 		}
 	}
 	readKeybinds.close();
-
 }
 
 // Creates the buttons for the state
@@ -65,14 +63,11 @@ void CreditScreenState::initializeButtons()
 // Updates input on the state, specifically for the single button the state has
 void CreditScreenState::updateInput(const float & deltaTime)
 {
-
 	this->backButton->updateButton(this->mousPositView);
 	if (this->backButton->isPressed())
 	{
 		this->askedForQuit = true;
 	}
-	
-
 }
 
 // Updates the state including mouse position and the buttons

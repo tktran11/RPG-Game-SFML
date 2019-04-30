@@ -15,15 +15,18 @@ private:
 	private:
 		bool isFinished;
 	public:
+		// SFML created objects
 		sf::Sprite& sprite;
 		sf::Texture& animationSheet;
-		float animationTimer;
-		float timer;
-		int height;
-		int width;
 		sf::IntRect currentFrame;
 		sf::IntRect startFrame;
 		sf::IntRect endingFrame;
+
+		// Numeric values for data calculation
+		int height;
+		int width;
+		float animationTimer;
+		float timer;
 
 		// Animation constructor
 		Animation(sf::Sprite& sprite, sf::Texture& animationSheet, float timer, int startFrameX, int startFrameY, int frameX, int frameY,
@@ -37,6 +40,8 @@ private:
 			this->sprite.setTextureRect(this->startFrame);
 		}
 		void reset();
+
+		// Animation checkers
 		const bool& getIsFinished();
 		const bool& play(const float& deltaTime);
 		const bool& play(const float& deltaTime, float playSpeedPercent);

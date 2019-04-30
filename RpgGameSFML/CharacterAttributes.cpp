@@ -77,7 +77,7 @@ void CharacterAttributes::gainXP(const int experience)
 // Updates the character's relevent stats per frame
 void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 {
-	//Updates max HP and mana based on base stats and level multiplier
+	// Updates max HP and mana based on base stats and level multiplier
 	this->maxHP = this->stats["VIT"] * 10 + (this->stats["ARM"] * 10 * (this->level - 1));
 	this->maxMana = (this->stats["INT"] * 4) + (this->stats["INT"] * (this->level - 1)); 
 
@@ -87,7 +87,7 @@ void CharacterAttributes::updateAttributes(const bool resetOnLevel)
 	this->stats["DEF"] += ((this->level - 1) * this->stats["ARM"]);
 
 
-	// if we decide to heal on level up, reset total health and mana
+	// Reset total health and mana on level up
 	if (resetOnLevel)
 	{
 		this->currentHP = this->maxHP;

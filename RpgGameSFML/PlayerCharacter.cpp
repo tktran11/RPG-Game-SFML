@@ -178,6 +178,7 @@ void PlayerCharacter::checkForAttackAnimation(bool shouldAttack)
 	}
 }
 
+// Checks to see if the player is currently powering up (so that no other animation plays while powering up)
 void PlayerCharacter::checkForPowerUpAnimation(bool shouldPower)
 {
 	if (shouldPower)

@@ -33,7 +33,6 @@ void SettingsMenuState::initializeVariables()
 
 		this->fpsLimits.push_back(frameRateChoices[i]);
 	}
-
 }
 
 // Creates the background by setting size and texture
@@ -48,7 +47,6 @@ void SettingsMenuState::initializeBackground()
 	{
 		throw "ERROR::SETTINGS_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
-
 	this->background.setTexture(&this->backgroundTexture);
 }
 
@@ -109,6 +107,7 @@ void SettingsMenuState::initializeGUI()
 
 
 }
+
 // Updates the buttons for the settings menu
 void SettingsMenuState::updateButtons()
 {
@@ -169,12 +168,10 @@ void SettingsMenuState::updateButtons()
 			sf::View properScreenView((sf::FloatRect(0, 0, 1280, 720)));
 			this->window->setView(properScreenView);
 		}
-		
 		this->states->push(new MainMenuState(this->stateInfo));
 	}
 
 	// Drop Down Menu
-
 	for (auto dropDownIt : this->dropDown)
 	{
 		dropDownIt.second->updateDropDown(this->mousPositView);
@@ -216,7 +213,6 @@ void SettingsMenuState::renderState(sf::RenderTarget * target)
 	}
 	target->draw(this->background);
 	this->renderGUI(target);
-
 }
 
 // Destructor

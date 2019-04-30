@@ -14,6 +14,7 @@ TitleScreenState::TitleScreenState(StateData* stateInfo)
 	this->initializeKeybinds("Config/titleScreenKeybinds.ini");
 	this->initializeButtons();
 }
+
 // Sets the backround for the window by loading the
 // appropriate texture
 void TitleScreenState::initializeBackground()
@@ -27,7 +28,6 @@ void TitleScreenState::initializeBackground()
 	{
 		throw "ERROR::TITLE_SCREEN_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
-
 	this->background.setTexture(&this->backgroundTexture);
 }
 

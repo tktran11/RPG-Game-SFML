@@ -6,18 +6,14 @@ StoneGolem.cpp is the .cpp for the Stone Golem class, which is a derived class o
 and has unique characteristics specifc to the Stone Golem (Stats, animations, and abilities)
 */
 
-enum attackKey {
-	M = 12
-};
-
 // Constructor
 StoneGolem::StoneGolem(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
 	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
-
 {
 	this->setPosition(startPointX, startPointY);
 	this->sprite.setScale(this->scale, this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
+
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("ATTACK", 7.f, 0, 0, 6, 0, 74, 57);
 	this->animationComponent->addAnimation("ATTACK_2", 10.f, 0, 1, 10, 1, 74, 57);
@@ -29,10 +25,10 @@ StoneGolem::StoneGolem(sf::Texture & spriteTextureSheet, float startPointX, floa
 // Updates the animation based on frame data
 void StoneGolem::updateAnimation(const float & deltaTime)
 {
-	// As long as the player is alive
+	// As long as the stone golem is alive
 	if (!this->getAttributeComponent()->isDead)
 	{
-		// if injured animation is playing
+		// if injured play injured animation
 		if (this->isDamaged)
 		{
 			// facing leftside

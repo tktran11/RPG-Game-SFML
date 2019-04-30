@@ -6,10 +6,6 @@ Shade.cpp is the .cpp for the shade class, which is a derived class of Enemy
 and has unique characteristics specifc to the shade (Stats, animations, and abilities)
 */
 
-enum attackKey {
-	M = 12
-};
-
 // Constructor
 Shade::Shade(sf::Texture & spriteTextureSheet, float startPointX, float startPointY, std::string filePath, std::string movesetFilePath, bool fullScreenScale) :
 	Enemy(spriteTextureSheet, startPointX, startPointY, filePath, movesetFilePath, fullScreenScale)
@@ -17,6 +13,7 @@ Shade::Shade(sf::Texture & spriteTextureSheet, float startPointX, float startPoi
 	this->setPosition(startPointX, startPointY);
 	this->sprite.setScale(this->scale, this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
+
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 0, 6, 0, 59, 59);
 	this->animationComponent->addAnimation("IDLE", 20.f, 0, 3, 3, 3, 59, 50);
@@ -27,10 +24,10 @@ Shade::Shade(sf::Texture & spriteTextureSheet, float startPointX, float startPoi
 // Updates the animation based on frame data
 void Shade::updateAnimation(const float & deltaTime)
 {
-	// As long as the player is alive
+	// As long as the shade is alive
 	if (!this->getAttributeComponent()->isDead)
 	{
-		// if injured animation is playing
+		// if injured, play injured animation
 		if (this->isDamaged)
 	{
 		// facing leftside

@@ -26,6 +26,7 @@ Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY
 // Updates the animation for the mage, changing direction when moving, and checking for animation
 void Mage::updateAnimation(const float & deltaTime)
 {
+	// if knight is attacking, play animation
 	if (this->isAttacking)
 	{
 		// facing rightside
@@ -38,6 +39,7 @@ void Mage::updateAnimation(const float & deltaTime)
 		{
 			this->sprite.setOrigin(236.f, 0.f);
 		}
+
 		// animate attack and set end of attack animation
 		if (this->animationComponent->playAnimation("ATTACK", deltaTime, true))
 		{
@@ -54,6 +56,7 @@ void Mage::updateAnimation(const float & deltaTime)
 			}
 		}
 	}
+
 	// if powering up and not attacking
 	if (this->isPoweringUp && !this->isAttacking)
 	{
@@ -83,6 +86,7 @@ void Mage::updateAnimation(const float & deltaTime)
 			}
 		}
 	}
+
 	// checks for idle
 	if (this->movementComponent->checkMoveType(IDLE))
 	{
@@ -123,10 +127,9 @@ void Mage::updateAnimation(const float & deltaTime)
 		this->animationComponent->playAnimation("MOVE", deltaTime,
 			this->movementComponent->getVelocity().y, this->movementComponent->getMaximumVelocity());
 	}
-
 }
 
-// Updates all components for the mage, checking for animation and movement and stat changes
+// Updates all features of the mage including checking movement, animation, and stats
 void Mage::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);

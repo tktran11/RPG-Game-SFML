@@ -2,7 +2,7 @@ Slash 5
 Abilit1Mana 0
 Fortify 5
 Ability2Mana 25
-Taunt -5
+Taunt -10
 Ability3Mana 50
 ShieldBash 1.75
 Ability4Mana 50

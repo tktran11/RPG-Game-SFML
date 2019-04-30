@@ -57,7 +57,6 @@ void CharacterSelectState::initializeKeybinds(std::string configFile)
 		}
 	}
 	readKeybinds.close();
-
 }
 
 // Creates the buttons for the state
@@ -74,7 +73,6 @@ void CharacterSelectState::initializeButtons()
 	this->buttons["BACK"] = new gui::Button((this->window->getSize().x * 0.898f),
 		(this->window->getSize().y * 0.902f), (this->window->getSize().x * 0.156f),
 		(this->window->getSize().y * 0.111f), "MenuTextures/Back.png");
-
 }
 
 // Checks to see what's happening with the buttons
@@ -98,8 +96,6 @@ void CharacterSelectState::updateButtons()
 		this->characterChoice = "mage";
 		this->states->push(new SlimeLevel(this->stateInfo, this->characterChoice, 1));
 	}
-
-
 }
 
 // Updates any input on the state
@@ -111,11 +107,10 @@ void CharacterSelectState::updateInput(const float & deltaTime)
 // Updates the state
 void CharacterSelectState::updateState(const float & deltaTime)
 {
-
 	this->updateMousePositions();
 	this->updateInput(deltaTime);
-
 }
+
 // Renders the buttons to the state
 void CharacterSelectState::renderButtons(sf::RenderTarget* target)
 {
@@ -134,8 +129,8 @@ void CharacterSelectState::renderState(sf::RenderTarget* target)
 	}
 	target->draw(this->background);
 	this->renderButtons(target);
-
 }
+
 // Destructor
 CharacterSelectState::~CharacterSelectState()
 {

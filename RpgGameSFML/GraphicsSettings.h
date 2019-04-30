@@ -1,9 +1,11 @@
 #pragma once
 
-/* GraphicsSettings.cpp is the body file for the graphics settings container. This stores all
+/* 
+GraphicsSettings.cpp is the body file for the graphics settings container. This stores all
 the graphic elements to be passed from state to state to ensure that the game's playability and
 window remain constant even after changing things via the Settings Menu
 */
+
 class GraphicsSettings
 {
 public:

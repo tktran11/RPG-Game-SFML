@@ -4,12 +4,14 @@
    movement by accelerating or decelerating characters as they move. 
 */
 
+// Enums for the input directions
 enum movementTypes { IDLE = 0, WALKING, WALK_LEFT, WALK_RIGHT, WALK_UP, WALK_DOWN};
 class MovementComponent
 {
 private:
 	sf::Sprite& sprite;
 
+	// Floats used in calculations for movement
 	float maximumVelocity;
 	float acceleration;
 	float deceleration;

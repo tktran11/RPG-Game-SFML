@@ -18,12 +18,14 @@ GolemLevel::GolemLevel(StateData* stateInfo, std::string playerType, unsigned pl
 // the character selection screen (choices are mage and knight)
 void GolemLevel::initializeTextures()
 {
+	// loads mage texture otherwise throws an exception
 	if (this->chosenCharacter == "mage") {
 		if (!this->stateTextures["PLAYER_SPRITES"].loadFromFile("Sprites/mageSheet.png"))
 		{
 			throw "ERROR:GAME_STATE::MISSING_PLAYER_TEXTURE";
 		}
 	}
+	// loads knight texture otherwise throws an exception
 	else {
 		if (!this->stateTextures["PLAYER_SPRITES"].loadFromFile("Sprites/knightSheet.png"))
 		{
@@ -31,21 +33,23 @@ void GolemLevel::initializeTextures()
 		}
 	}
 
+	// loads fire golem texture otherwise throws an exception
 	if (!this->stateTextures["FIRE_GOLEM"].loadFromFile("Sprites/fireGolemSheet.png"))
 	{
 		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
 	}
 
+	// loads ice golem texture otherwise throws an exception
 	if (!this->stateTextures["ICE_GOLEM"].loadFromFile("Sprites/iceGolemSheet.png"))
 	{
 		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
 	}
 
+	// loads stone golem texture otherwise throws an exception
 	if (!this->stateTextures["STONE_GOLEM"].loadFromFile("Sprites/stoneGolemSheet.png"))
 	{
 		throw "ERROR:GAME_STATE::MISSING_ENEMY_TEXTURE";
 	}
-
 }
 
 // Creates a new Ice Golem enemy, setting its texture and position on the screen
@@ -55,6 +59,7 @@ void GolemLevel::initializeBoss()
 	float startingPosX = 1100;
 	float startingPosY = this->window->getSize().y * 0.75f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+
 	// Sets starting positions in fullscreen mode
 	if (scaleScreen)
 	{
@@ -62,6 +67,7 @@ void GolemLevel::initializeBoss()
 		startingPosY = 1260 * 0.62f;
 	}
 
+	// Creates ice golem boss
 	this->boss = new IceGolem(this->stateTextures["ICE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", "Config/GolemMoveset.txt", scaleScreen);
 }
 
@@ -80,6 +86,7 @@ void GolemLevel::initializeMinions()
 	float startingPosY = this->window->getSize().y * 0.75f;
 	float secondStartY = startingPosY - 10.f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+
 	// Sets starting positions in fullscreen mode
 	if (scaleScreen)
 	{
@@ -89,6 +96,7 @@ void GolemLevel::initializeMinions()
 		secondStartY *= 0.95f;
 	}
 
+	// Creates golem minions for the level
 	this->minion1 = new StoneGolem(this->stateTextures["STONE_GOLEM"], secondStartX, secondStartY, "Config/GolemStats.txt", "Config/GolemMoveset.txt", scaleScreen);
 	this->minion2 = new FireGolem(this->stateTextures["FIRE_GOLEM"], startingPosX, startingPosY, "Config/GolemStats.txt", "Config/GolemMoveset.txt", scaleScreen);
 }
@@ -100,6 +108,7 @@ void GolemLevel::initializeMinionUI()
 	this->minionUI2 = new EnemyUI(this->minion2, "Stone Golem", 1.08f, 1.035f, 6.f);
 }
 
+// Initializes the button to push the next state
 void GolemLevel::initializeNextLevelButton()
 {
 	// Sets starting positions in windowed mode
@@ -108,6 +117,7 @@ void GolemLevel::initializeNextLevelButton()
 	float startingPosY = this->window->getSize().y * .875;
 	float secondStartY = startingPosY * 1.04f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+
 	// Sets starting positions in fullscreen mode
 	if (scaleScreen)
 	{
@@ -123,7 +133,6 @@ void GolemLevel::updatePauseMenuButtons()
 {
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
 	{
-
 		this->states->push(new MainMenuState(this->stateInfo));
 	}
 }
@@ -134,10 +143,11 @@ void GolemLevel::updateCombatMenuButtons()
 	// Knight moveset
 	if (this->chosenCharacter == "knight")
 	{
-		// Executes combat with move 1 (COSTS NO MANA)
+		// Executes standard attack (COSTS NO MANA)
 		if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana")
 			&& this->getPlayerActionTimer())
 		{
+			// Targets minion 1
 			if (!this->minion1->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->minion1,
@@ -145,6 +155,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->minion1->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
+			// Targets minion 2
 			else if (!this->minion2->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->minion2,
@@ -152,6 +163,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->minion2->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
+			// Targets boss
 			else if (!this->boss->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->boss, (
@@ -166,30 +178,33 @@ void GolemLevel::updateCombatMenuButtons()
 		// Other moves in loop because they require mana
 		if (this->player->getCurrentMana() > 0)
 		{
-			// Executes combat with move 2
+			// Executes stat buff
 			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability2Mana")
 				&& this->getPlayerActionTimer())
-
 			{
 				this->player->statMod("DEF", this->player->getAbilityNumbers("Fortify"));
 				this->player->loseMana(this->player->getAbilityNumbers("Ability2Mana"));
 				this->playerActed = true;
 			}
 
-			// Executes combat with move 3
+			// Executes enemy debuff
 			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana")
 				&& this->getPlayerActionTimer())
 			{
+				// Debuffs minion 1
 				if (!this->minion1->getAttributeComponent()->isDead)
 				{
 					this->minion1->statMod("ATK", this->player->getAbilityNumbers("Taunt"));
 					this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
 				}
+				// Debuffs minion 2
 				else if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->minion2->statMod("ATK", this->player->getAbilityNumbers("Taunt"));
 					this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
 				}
+
+				// Debuffs minion 3
 				else if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->boss->statMod("ATK", this->player->getAbilityNumbers("Taunt"));
@@ -198,12 +213,13 @@ void GolemLevel::updateCombatMenuButtons()
 				this->playerActed = true;
 			}
 
-			// Executes combat with move 4
+			// Executes powerful attack
 			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana")
 				&& this->getPlayerActionTimer())
 
 			{
 				this->player->checkForAttackAnimation(true);
+				// Targets minion 1
 				if (!this->minion1->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion1,
@@ -211,6 +227,7 @@ void GolemLevel::updateCombatMenuButtons()
 					this->minion1->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
+				// Targets minion 2
 				else if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
@@ -218,6 +235,7 @@ void GolemLevel::updateCombatMenuButtons()
 					this->minion2->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
+				// Targets boss
 				else if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
@@ -233,15 +251,15 @@ void GolemLevel::updateCombatMenuButtons()
 	// Mage moveset
 	else
 	{
-		// Execute combat based on first move in set
+		// So long as the mage doesnt go OOM
 		if (this->player->getCurrentMana() > 0)
 		{
-			// Execute combat based on first move in set
+			// Execute standard attack
 			if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana")
 				&& this->getPlayerActionTimer())
-
 			{
 				this->player->checkForAttackAnimation(true);
+				// Targets minion 1
 				if (!this->minion1->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion1,
@@ -249,6 +267,7 @@ void GolemLevel::updateCombatMenuButtons()
 					this->minion1->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
+				// Targets minion 2
 				else if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
@@ -256,6 +275,7 @@ void GolemLevel::updateCombatMenuButtons()
 					this->minion2->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
+				// Targets boss
 				else if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
@@ -266,7 +286,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->playerActed = true;
 			}
 
-			// Execute combat based on second move in set
+			// Execute stat buff
 			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana()
 				&& this->getPlayerActionTimer())
 			{
@@ -284,25 +304,28 @@ void GolemLevel::updateCombatMenuButtons()
 				}
 			}
 
-			// Execute combat based on third move in set
+			// Execute healing attack
 			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana")
 				&& this->getPlayerActionTimer())
 
 			{
 				this->player->checkForAttackAnimation(true);
 				{
+					// Targets minion 1
 					if (!this->minion1->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->minion1,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->minion1->getStatNumbers("DEF"));
 						this->minion1->checkForDamagedAnimation(true);
 					}
+					// Targets minion 2
 					else if (!this->minion2->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->minion2,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->minion2->getStatNumbers("DEF"));
 						this->minion2->checkForDamagedAnimation(true);
 					}
+					// Targets boss
 					else if (!this->boss->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->boss,
@@ -310,13 +333,13 @@ void GolemLevel::updateCombatMenuButtons()
 						this->boss->checkForDamagedAnimation(true);
 					}
 				}
-				// Heal on attack
+				// Heal based on attack stat
 				this->player->gainHP(this->player->getStatNumbers("ATK"));
 				this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
 				this->playerActed = true;
 			}
 
-			// Execute combat based on fourth move in set
+			// Execute AOE attack
 			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana")
 				&& this->getPlayerActionTimer())
 
@@ -347,6 +370,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->playerActed = true;
 			}
 		}
+		// If OOM, kills player
 		else if (this->player->getCurrentMana() == 0)
 		{
 			this->playerActed = true;
@@ -356,6 +380,7 @@ void GolemLevel::updateCombatMenuButtons()
 	// Enemy combat
 	if (this->playerActed && this->getEnemyActionTimer())
 	{
+		// Minion 1 attacks while it isnt dead
 		if (!this->minion1->getAttributeComponent()->isDead)
 		{
 			this->minion1->checkForAttackAnimation(true);
@@ -367,6 +392,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->minion1->checkForDamagedAnimation(false);
 			}
 		}
+		// Minion 2 attacks while it isnt dead
 		if (!this->minion2->getAttributeComponent()->isDead)
 		{
 			this->minion2->checkForAttackAnimation(true);
@@ -378,6 +404,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->minion2->checkForDamagedAnimation(false);
 			}
 		}
+		// Boss attacks while it isnt dead
 		if (!this->boss->getAttributeComponent()->isDead)
 		{
 			this->boss->checkForAttackAnimation(true);
@@ -392,7 +419,7 @@ void GolemLevel::updateCombatMenuButtons()
 	}
 }
 
-
+// Updates the button to push next level state
 void GolemLevel::updateNextLevelButton()
 {
 	this->nextLevel->updateButton(this->mousPositView);
@@ -445,9 +472,9 @@ void GolemLevel::updateState(const float & deltaTime)
 	this->updateInput(deltaTime);
 	this->updateCombat(deltaTime);
 
+	// If everyone is dead set a bool for the render
 	if (this->minion1->getAttributeComponent()->isDead && this->minion2->getAttributeComponent()->isDead && this->boss->getAttributeComponent()->isDead)
 	{
-
 		this->updateNextLevelButton();
 		this->allDead = true;
 	}
@@ -455,7 +482,6 @@ void GolemLevel::updateState(const float & deltaTime)
 	// If the player dies push DEAD endgame screen
 	if (this->player->getAttributeComponent()->isDead)
 	{
-
 		this->states->push(new EndGameScreen(this->stateInfo, false));
 	}
 
@@ -469,6 +495,7 @@ void GolemLevel::updateState(const float & deltaTime)
 		this->minion1->update(deltaTime);
 		this->minion2->update(deltaTime);
 
+		// Updates if the player is in combat
 		if (this->isInCombat)
 		{
 			this->updatePlayerActionTimer(deltaTime);
@@ -481,6 +508,7 @@ void GolemLevel::updateState(const float & deltaTime)
 			this->updatePlayerInput(deltaTime);
 		}
 	}
+	// Updates menus
 	else
 	{
 		this->pauseMenu->updateMenu(this->mousPositView);

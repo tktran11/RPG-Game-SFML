@@ -15,11 +15,11 @@ gui::Button::Button(float x, float y, float width, float height, std::string fil
 	this->button.setPosition(sf::Vector2f(x, y));
 	this->button.setSize(sf::Vector2f(width, height));
 	this->button.setOrigin(sf::Vector2f(width / 2, height / 2));
+	// exception
 	if (!this->buttonTexture.loadFromFile(this->file))
 	{
 		throw "ERROR:FAILED_TO_LOAD_BUTTON_TEXTURE";
 	}
-
 	this->button.setTexture(&this->buttonTexture);
 }
 
@@ -33,13 +33,12 @@ gui::Button::Button(float x, float y, float width, float height, std::string fil
 	this->button.setPosition(sf::Vector2f(x, y));
 	this->button.setSize(sf::Vector2f(width, height));
 	this->button.setOrigin(sf::Vector2f(width / 2, height / 2));
+	// loads texture from file, otherwise throws exception
 	if (!this->buttonTexture.loadFromFile(this->file))
 	{
 		throw "ERROR:FAILED_TO_LOAD_BUTTON_TEXTURE";
 	}
-
 	this->button.setTexture(&this->buttonTexture);
-
 	this->initializeFont();
 	this->charSize = characterSize;
 	this->textString = buttonText;
@@ -52,6 +51,8 @@ void gui::Button::initializeFont()
 {
 	this->font.loadFromFile("Fonts/MorrisRoman-Black.ttf");
 }
+
+// Initializes text to a button
 void gui::Button::initializeButtonText(std::string buttonText, short unsigned size)
 {
 	this->text.setFont(this->font);
@@ -63,7 +64,8 @@ void gui::Button::initializeButtonText(std::string buttonText, short unsigned si
 	);
 	this->text.setOrigin(this->text.getGlobalBounds().width / 2.f, this->text.getGlobalBounds().height / 2.f);
 }
-// Returns a boolean stating if the button is being pressed */
+
+// Returns a boolean stating if the button is being pressed
 const bool gui::Button::isPressed() const
 {
 	return (this->buttonState == BUTN_PRESSED);
@@ -86,6 +88,7 @@ void gui::Button::setTexture(std::string textureName)
 {
 	this->file = textureName;
 	sf::Texture newTexture;
+	// throws exception if file cannot be loaded
 	if (!this->newTexture.loadFromFile(this->file) || (this->newTexture.getSize() != this->buttonTexture.getSize()))
 	{
 		throw "ERROR:FAILED_TO_LOAD_BUTTON_TEXTURE";
@@ -99,8 +102,7 @@ void gui::Button::setID(const short unsigned newID)
 	this->buttonID = newID;
 }
 
-/* updateButton() updates the current state of the button (checking to see whats happening)
-   based on mouse position. */
+// Updates the current state of the button (checking to see whats happening) based on mouse position.
 void gui::Button::updateButton(const sf::Vector2f mousePosition)
 {
 	this->buttonState = BUTN_IDLE;
@@ -175,7 +177,6 @@ void gui::Button::renderTextButton(sf::RenderTarget & target)
 	this->renderButton(target);
 	target.draw(this->text);
 }
-
 
 /* gui::DropDownMenu is a class that handles the drop down menus of the game. It creates
    the a drop down menu with changing elements, and houses functions that check if the user is hovering or

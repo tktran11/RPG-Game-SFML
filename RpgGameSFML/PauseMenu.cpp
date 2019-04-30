@@ -16,11 +16,13 @@ void PauseMenu::initializeBackground(sf::RenderWindow& window)
 				static_cast<float>(window.getSize().y)));
 
 		this->background.setFillColor(sf::Color(20, 20, 20, 100));
+		// loads texture from a file, otherwise throws exception
 		if (!this->menuTexture.loadFromFile("MenuTextures/PauseMenu/Banner.png"))
 		{
 			throw "ERROR::PAUSE_MENU:: FAILED TO LOAD BACKGROUND TEXTURE";
 		}
 
+		// sets size numbers for the button
 		this->buttonHolder.setSize(
 			sf::Vector2f
 			(static_cast<float>(window.getSize().x) / 2.f,

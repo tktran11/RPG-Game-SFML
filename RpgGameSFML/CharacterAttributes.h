@@ -3,6 +3,7 @@
    and enemy characters. It holds information for the current state of the player such as their health or mana, 
    and also handles level progression
 */
+
 class CharacterAttributes
 {
 public:
@@ -15,7 +16,7 @@ public:
 	int experience;
 	int expToNextLevel;
 
-	// Character Attributes (current vs max values)
+	// Character Attributes (current vs max values/alive vs dead)
 	int currentHP;
 	int maxHP;
 	int currentMana;
@@ -25,13 +26,16 @@ public:
 	// Constructor
 	CharacterAttributes(int characterLevel, std::string statFile, std::string movesetFile);
 
-	// Attribute Calculations and Updating
+	// Attribute calculations for EXP
 	int calculateExpToNext(int characterLevel);
 	void gainXP(const int experience);
+
+	// Initializers
 	void initializeStats(std::string statsFile);
 	void initializeMoveset(std::string movesetFile);
+
+	// Updates 
 	void updateAttributes(const bool resetOnLevel);
-	//void updateStats(std::string statName, int statChange);
 	void updateLevel();
 	void update(const int experience);
 

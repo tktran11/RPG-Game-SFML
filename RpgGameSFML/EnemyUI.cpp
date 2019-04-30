@@ -13,7 +13,7 @@ EnemyUI::EnemyUI(Enemy* enemy, std::string enemyName, float xScale, float yScale
 	this->initializeTextDisplay(enemyName, nameOffset);
 }
 
-//Initializes texture for the UI
+//Initializes texture for the UI and throws exception if it can't be loaded
 void EnemyUI::initializeTextures()
 {
 	if (!this->texture.loadFromFile("EnemyUI/health.png"))
@@ -66,7 +66,6 @@ void EnemyUI::updateHPBar()
 	float percent = static_cast<float>(this->enemy->getAttributeComponent()->currentHP) /
 		static_cast<float>(this->enemy->getAttributeComponent()->maxHP);
 
-
 	this->hpBar.setSize(sf::Vector2f(static_cast<float>(std::floor(this->hpBarMax * percent)), this->barHeight));
 
 	this->hpBarString = std::to_string(this->enemy->getAttributeComponent()->currentHP) + " / "
@@ -81,4 +80,3 @@ void EnemyUI::renderUI(sf::RenderTarget & target)
 	target.draw(this->hpBarText);
 	target.draw(this->nameText);
 }
-

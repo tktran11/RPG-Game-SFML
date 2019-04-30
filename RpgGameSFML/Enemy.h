@@ -10,18 +10,22 @@ the player will face. It stores information and will house components for enemie
 use of (Most notably the exclusion of movement).
 */
 
+// Forward declaration
 class PlayerCharacter;
 
 class Enemy :
 	public Entity
 {
 private:
+	// Initializer functions
 	void initializeComponents(sf::Texture& spriteTextureSheet, std::string statFile, std::string movesetFile);
 	void initializeVariables(bool fullScreenScale);
-	// Initialization Functions
+
+	// Float values for position
 	float startPositionX;
 	float startPositionY;
 protected:
+	// Protected values for calculations
 	float scale;
 	bool isAttacking;
 	bool isDamaged;
@@ -35,17 +39,13 @@ public:
 	float getStartPosY();
 	float getSpriteScale();
 
-	// Makes sprite disappear
-	void disappear();
-
 	// Mutators
 	void setSpriteScale(bool fullScreenScale);
+	void disappear();
 
-	// Combat Modifications
+	// Combat Modifications/Assessors
 	void loseHP(const int hpLost);
 	void gainHP(const int hpGain);
-
-	// Combat Assessors
 	void dealDamage(PlayerCharacter* player, const int damage);
 	void statMod(std::string key, int modifier);
 	int getStatNumbers(std::string key);

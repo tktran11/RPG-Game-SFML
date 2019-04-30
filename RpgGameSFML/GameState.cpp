@@ -28,6 +28,7 @@ GameState::GameState(StateData* stateInfo, std::string playerType, unsigned play
 	this->deathTimeMax = 8.5f;
 }
 
+// Gets the timer for the time between player actions
 const bool GameState::getPlayerActionTimer()
 {
 	if (this->playerActionTimer >= this->playerActionTimerMax)
@@ -41,6 +42,7 @@ const bool GameState::getPlayerActionTimer()
 	}
 }
 
+// Gets the timer for the time between enemy actions
 const bool GameState::getEnemyActionTimer()
 {
 	if (this->enemyActionTimer>= this->enemyActionTimerMax)
@@ -109,10 +111,13 @@ void GameState::initializePauseMenu()
 		"MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
 }
 
+// Creates the combat menu on the screen
 void GameState::initializeCombatMenu()
 {
 	float scale = this->player->getSpriteScale();
 	this->combatMenu = new CombatMenu(*this->window);
+
+	// Menu with moveset for when the knight is chosen
 	if (this->chosenCharacter == "knight")
 	{
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
@@ -132,6 +137,7 @@ void GameState::initializeCombatMenu()
 			(this->window->getSize().y * 0.09f),
 			"MenuTextures/CombatMenu/Button.png", "Shield Bash \n 50 Mana", 24 * scale, "MOVE_4");
 	}
+	// Menu with moveset for when the mage is chosen
 	else if (this->chosenCharacter == "mage")
 	{
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
@@ -158,10 +164,13 @@ void GameState::initializePlayer(unsigned playerLevel)
 {
 	float startingPos = this->window->getSize().y * 0.72f;
 	bool scaleScreen = this->stateInfo->graphicsSettings->isFullScreen;
+	
+	// If fullscreen
 	if (scaleScreen)
 	{
 		startingPos = 1280 * 0.62f;
 	}
+
 	// If knight, loads knight texture sheet
 	if (this->chosenCharacter == "knight")
 	{
@@ -214,6 +223,7 @@ void GameState::updateCombat(const float& deltaTime)
 	}
 }
 
+// Updates the timer for player action
 void GameState::updatePlayerActionTimer(const float & deltaTime)
 {
 	if (this->playerActionTimer < this->playerActionTimerMax)
@@ -222,6 +232,7 @@ void GameState::updatePlayerActionTimer(const float & deltaTime)
 	}
 }
 
+// Updates the timer for enemy action
 void GameState::updateEnemyActionTime(const float & deltaTime)
 {
 	if (this->enemyActionTimer < this->enemyActionTimerMax)
@@ -238,7 +249,6 @@ void GameState::updateDeathTime(const float & deltaTime)
 		this->deathTimer += 100.f * deltaTime;
 	}
 }
-
 
 // Destructor
 GameState::~GameState()

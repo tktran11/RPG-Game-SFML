@@ -17,8 +17,10 @@ class CharacterAttributes;
 class Entity
 {
 private:
+	// Initializer function
 	void initializeVariables();
 protected:
+	// SFML sprite object
 	sf::Sprite sprite;
 
 	// Components that entities can choose to have (ie. player will likely have all of them, enemy wont move)
@@ -26,7 +28,6 @@ protected:
 	AnimationComponent* animationComponent;
 	CharacterAttributes* attributeComponent;
 public:
-
 	// Constructor
 	Entity();
 	virtual void update(const float& deltaTime) = 0;
@@ -42,6 +43,7 @@ public:
 	void makeMovementComponent(const float maximumVelocity, const float accel, const float decel);
 	void makeAnimationComponent(sf::Texture& spriteTextureSheet);
 	void makeAttributeComponent(const unsigned level, std::string statFile, std::string movesetFile);
+
 	// Virtual Destructor
 	virtual ~Entity();
 };
