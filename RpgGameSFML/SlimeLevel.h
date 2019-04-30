@@ -33,6 +33,7 @@ public:
 	void initializeMinionUI();
 	void initializeNextLevelButton();
 
+	// Updates both menus
 	void updatePauseMenuButtons();
 	void updateCombatMenuButtons();
 

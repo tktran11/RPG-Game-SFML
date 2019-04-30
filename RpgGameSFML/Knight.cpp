@@ -16,7 +16,7 @@ Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPo
 	// Given texture key, animation delay (lower = faster), xPos, yPos, number of X frames, Y Frames, width, height 
 	this->animationComponent->addAnimation("MOVE", 5.f, 0, 0, 11, 0, 192, 192);
 	this->animationComponent->addAnimation("IDLE", 18.f, 0, 3, 13, 3, 192, 192);
-	this->animationComponent->addAnimation("SWING", 2.5f, 0, 5, 13, 5, 384, 192);
+	this->animationComponent->addAnimation("SWING", 5.f, 0, 5, 13, 5, 384, 192);
 }
 
 // Updates the animation for the knight, deciding what way it faces and if its attacking

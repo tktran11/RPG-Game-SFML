@@ -73,46 +73,57 @@ void BossLevel::updateCombatMenuButtons()
 	if (this->chosenCharacter == "knight")
 	{
 		// Executes combat with move 1 (COSTS NO MANA)
-		if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana"))
+		if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana")
+			&& this->getPlayerActionTimer())
 		{
-			this->player->checkForAttackAnimation(true);
 			if (!this->boss->getAttributeComponent()->isDead)
 			{
-				this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash"));
+				this->player->dealDamage(this->boss, (
+					this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->boss->getStatNumbers("DEF"));
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
+			this->player->checkForAttackAnimation(true);
+			this->playerActed = true;
 		}
 
 		// Other moves in loop because they require mana
 		if (this->player->getCurrentMana() > 0)
 		{
 			// Executes combat with move 2
-			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability2Mana"))
+			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability2Mana")
+				&& this->getPlayerActionTimer())
+
 			{
 				this->player->statMod("DEF", this->player->getAbilityNumbers("Fortify"));
 				this->player->loseMana(this->player->getAbilityNumbers("Ability2Mana"));
+				this->playerActed = true;
 			}
 
 			// Executes combat with move 3
-			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana"))
+			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana")
+				&& this->getPlayerActionTimer())
 			{
-				this->player->checkForAttackAnimation(true);
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->boss->statMod("ATK", this->player->getAbilityNumbers("Taunt"));
 					this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
 				}
+				this->playerActed = true;
 			}
 
 			// Executes combat with move 4
-			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana"))
+			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana")
+				&& this->getPlayerActionTimer())
+
 			{
 				this->player->checkForAttackAnimation(true);
-				 if (!this->boss->getAttributeComponent()->isDead)
+				if (!this->boss->getAttributeComponent()->isDead)
 				{
-					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash"));
+					this->player->dealDamage(this->boss,
+						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->boss->getStatNumbers("DEF"));
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
+				this->playerActed = true;
 			}
 		}
 	}
@@ -124,19 +135,23 @@ void BossLevel::updateCombatMenuButtons()
 		if (this->player->getCurrentMana() > 0)
 		{
 			// Execute combat based on first move in set
-			if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana"))
+			if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana")
+				&& this->getPlayerActionTimer())
+
 			{
 				this->player->checkForAttackAnimation(true);
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
-					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion"));
+					this->player->dealDamage(this->boss,
+						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->boss->getStatNumbers("DEF"));
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
+				this->playerActed = true;
 			}
 
 			// Execute combat based on second move in set
-			if (this->combatMenu->isButtonPressed("MOVE_2")
-				&& this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana())
+			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana()
+				&& this->getPlayerActionTimer())
 			{
 				// Check to see if mage (only mage can power up)
 				if (this->chosenCharacter == "mage")
@@ -153,29 +168,57 @@ void BossLevel::updateCombatMenuButtons()
 			}
 
 			// Execute combat based on third move in set
-			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana"))
+			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana")
+				&& this->getPlayerActionTimer())
+
 			{
 				this->player->checkForAttackAnimation(true);
 				{
 					if (!this->boss->getAttributeComponent()->isDead)
 					{
-						this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition"));
+						this->player->dealDamage(this->boss,
+							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->boss->getStatNumbers("DEF"));
 					}
 				}
 				// Heal on attack
 				this->player->gainHP(this->player->getStatNumbers("ATK"));
 				this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
+				this->playerActed = true;
 			}
 
 			// Execute combat based on fourth move in set
-			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana"))
+			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana")
+				&& this->getPlayerActionTimer())
+
 			{
 				this->player->checkForAttackAnimation(true);
+				//deals damage to boss if alive
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
-					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep"));
-					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
+					this->player->dealDamage(this->boss,
+						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->boss->getStatNumbers("DEF"));
 				}
+				this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
+				this->playerActed = true;
+			}
+		}
+		else if (this->player->getCurrentMana() == 0)
+		{
+			this->playerActed = true;
+		}
+	}
+
+	// Enemy combat
+	if (this->playerActed && this->getEnemyActionTimer())
+	{
+		if (!this->boss->getAttributeComponent()->isDead)
+		{
+			this->boss->checkForAttackAnimation(true);
+			if (this->boss->getStatNumbers("ATK") - this->player->getStatNumbers("DEF") >= 0)
+			{
+				this->boss->dealDamage(this->player,
+					this->boss->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
+				this->playerActed = false;
 			}
 		}
 	}
@@ -252,8 +295,11 @@ void BossLevel::updateState(const float & deltaTime)
 		this->playerGUI->updateUI(deltaTime);
 		this->updateEnemyUI(deltaTime);
 		this->boss->update(deltaTime);
+
 		if (this->isInCombat)
 		{
+			this->updatePlayerActionTimer(deltaTime);
+			this->updateEnemyActionTime(deltaTime);
 			this->combatMenu->updateMenu(this->mousPositView);
 			this->updateCombatMenuButtons();
 		}

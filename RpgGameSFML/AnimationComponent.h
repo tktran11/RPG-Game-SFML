@@ -53,7 +53,6 @@ private:
 	sf::Sprite& sprite;
 	sf::Texture& spriteSheet;
 public:
-
 	AnimationComponent(sf::Sprite& sprite, sf::Texture& spriteSheet);
 	// Add animation to component
 	void addAnimation(const std::string animationKey,

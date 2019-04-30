@@ -3,6 +3,7 @@
 #include "PauseMenu.h"
 #include "CombatMenu.h"
 #include "CharacterGUI.h"
+#include "AnimationComponent.h"
 
 /*
 GameState.h is the header for the Gamestate class, which handles the resources for
@@ -33,9 +34,16 @@ protected:
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 
-	// Death animation control
+	// Timers for animation control
+	float playerActionTimer;
+	float playerActionTimerMax;
+	float enemyActionTimer;
+	float enemyActionTimerMax;
 	float deathTimer;
 	float deathTimeMax;
+
+	const bool getPlayerActionTimer();
+	const bool getEnemyActionTimer();
 	const bool getDeathTimer();
 
 
@@ -60,6 +68,8 @@ public:
 	void updateInput(const float& deltaTime);
 	void updateCombat(const float& deltaTime);
 	virtual void updatePlayerInput(const float& deltaTime) = 0;
+	virtual void updatePlayerActionTimer(const float& deltaTime);
+	virtual void updateEnemyActionTime(const float& deltaTime);
 	virtual void updateDeathTime(const float& deltaTime);
 	virtual void updateState(const float& deltaTime) = 0;
 	// State Rendering

@@ -118,9 +118,9 @@ void Enemy::initializeVariables(bool fullScreenScale)
 }
 
 // Checks to see if the player is currently attacking (so that no other animation plays while attacking)
-void Enemy::checkForAttackAnimation()
+void Enemy::checkForAttackAnimation(bool shouldAttack)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(M)))
+	if (shouldAttack)
 	{
 		this->isAttacking = true;
 	}

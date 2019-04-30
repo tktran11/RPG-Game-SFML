@@ -10,6 +10,8 @@ class BossLevel :
 private:
 	EnemyUI* bossUI;
 
+	// Boolean checks
+	bool playerActed = false;
 	bool bossDead;
 public:
 	BossLevel(StateData* stateInfo, std::string playerType, unsigned playerLevel, 

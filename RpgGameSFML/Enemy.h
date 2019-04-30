@@ -52,7 +52,7 @@ public:
 	// Updates data specific to the enemy
 	virtual void updateAnimation(const float& deltaTime) = 0;
 	virtual void update(const float& deltaTime) = 0;
-	void checkForAttackAnimation();
+	void checkForAttackAnimation(bool shouldAttack = false);
 
 	bool playDeathAnimation(const float& deltaTime);
 };

@@ -16,12 +16,42 @@ GameState::GameState(StateData* stateInfo, std::string playerType, unsigned play
 	this->backgroundFile = backgroundFile;
 	this->chosenCharacter = playerType;
 	this->initializeBackground(backgroundFile);
-	this->initializePauseMenu();
-	this->initializeCombatMenu();
 	this->initializePlayer(playerLevel);
 	this->initializePlayerGUI();
+	this->initializePauseMenu();
+	this->initializeCombatMenu();
+	this->playerActionTimer = 50.f;
+	this->playerActionTimerMax = 100.f;
+	this->enemyActionTimer = 0.f;
+	this->enemyActionTimerMax = 175.f;
 	this->deathTimer = 0.f;
 	this->deathTimeMax = 8.5f;
+}
+
+const bool GameState::getPlayerActionTimer()
+{
+	if (this->playerActionTimer >= this->playerActionTimerMax)
+	{
+		this->playerActionTimer = 100.f;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+const bool GameState::getEnemyActionTimer()
+{
+	if (this->enemyActionTimer>= this->enemyActionTimerMax)
+	{
+		this->enemyActionTimer = 0.f;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 // Returns reset of death timer
@@ -81,44 +111,45 @@ void GameState::initializePauseMenu()
 
 void GameState::initializeCombatMenu()
 {
+	float scale = this->player->getSpriteScale();
 	this->combatMenu = new CombatMenu(*this->window);
 	if (this->chosenCharacter == "knight")
 	{
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Slash\n0 Mana", 24, "MOVE_1");
+			"MenuTextures/CombatMenu/Button.png", "Slash\n0 Mana", 24 * scale, "MOVE_1");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Fortify\n25 Mana", 24, "MOVE_2");
+			"MenuTextures/CombatMenu/Button.png", "Fortify\n25 Mana", 24 * scale, "MOVE_2");
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Taunt\n50 Mana", 24, "MOVE_3");
+			"MenuTextures/CombatMenu/Button.png", "Taunt\n50 Mana", 24 * scale, "MOVE_3");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Shield Bash \n 50 Mana", 24, "MOVE_4");
+			"MenuTextures/CombatMenu/Button.png", "Shield Bash \n 50 Mana", 24 * scale, "MOVE_4");
 	}
 	else if (this->chosenCharacter == "mage")
 	{
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Hexplosion\n25 Mana", 22 , "MOVE_1");
+			"MenuTextures/CombatMenu/Button.png", "Hexplosion\n25 Mana", 22 * scale, "MOVE_1");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Disciplined Thinking \n Restores 25 Mana", 18, "MOVE_2");
+			"MenuTextures/CombatMenu/Button.png", "Disciplined Thinking \n Restores 25 Mana", 18 * scale, "MOVE_2");
 		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Dark Ignition\n 50 Mana", 22, "MOVE_3");
+			"MenuTextures/CombatMenu/Button.png", "Dark Ignition\n 50 Mana", 22 * scale, "MOVE_3");
 		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
 			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
 			(this->window->getSize().y * 0.09f),
-			"MenuTextures/CombatMenu/Button.png", "Obsidian Sweep \n  100 Mana", 22, "MOVE_4");
+			"MenuTextures/CombatMenu/Button.png", "Obsidian Sweep \n  100 Mana", 22 * scale, "MOVE_4");
 	}
 }
 
@@ -144,7 +175,6 @@ void GameState::initializePlayer(unsigned playerLevel)
 			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, 
 				"Config/MageStats.txt", "Config/MageMoveset.txt", scaleScreen);
 		}
-
 }
 
 // Creates the player interface for relevant stats like health and mana, experience, and level
@@ -181,6 +211,22 @@ void GameState::updateCombat(const float& deltaTime)
 	if (this->player->getXPosition() >= this->window->getSize().x * 0.4f)
 	{
 		this->enterCombatState();
+	}
+}
+
+void GameState::updatePlayerActionTimer(const float & deltaTime)
+{
+	if (this->playerActionTimer < this->playerActionTimerMax)
+	{
+		this->playerActionTimer += 100.f * deltaTime;
+	}
+}
+
+void GameState::updateEnemyActionTime(const float & deltaTime)
+{
+	if (this->enemyActionTimer < this->enemyActionTimerMax)
+	{
+		this->enemyActionTimer += 100.f * deltaTime;
 	}
 }
 
