@@ -8,12 +8,9 @@ inherit features from this class.
 It also stores information and houses components to manipulate the character.
 */
 
-enum attackKey {
-	K = 10
-};
-
 /* Constructor for the player character*/
-PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string statFile, std::string movesetFile, bool scaleScreen)
+PlayerCharacter::PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, 
+	std::string statFile, std::string movesetFile, bool scaleScreen)
 {
 	this->startPositionX = startPointX;
 	this->startPositionY = startPointY;
@@ -58,6 +55,36 @@ void PlayerCharacter::setSpriteScale(bool scaleScreen)
 	{
 		this->scale = 1.f;
 	}
+}
+
+// Assessor for moveset numbers
+float PlayerCharacter::getAbilityNumbers(std::string key)
+{
+	return this->attributeComponent->moveset[key];
+}
+
+// Assessor for stat numbers
+int PlayerCharacter::getStatNumbers(std::string key)
+{
+	return this->attributeComponent->stats[key];
+}
+
+// Assessor for player's current mana
+int PlayerCharacter::getCurrentMana()
+{
+	return this->attributeComponent->currentMana;
+}
+
+// Assessor for player's maximum mana
+int PlayerCharacter::getMaxMana()
+{
+	return this->attributeComponent->maxMana;
+}
+
+// Assessor for dealing damage to the enemy
+void PlayerCharacter::dealDamage(Enemy * enemy, const int damage)
+{
+	enemy->loseHP(damage);
 }
 
 // Subtracts HP from the player based on damage taken
@@ -117,7 +144,8 @@ void PlayerCharacter::gainEXP(const unsigned xpGain)
 }
 
 // Initializes the components used by the player character
-void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, std::string statFile, std::string movesetFile)
+void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, 
+	std::string statFile, std::string movesetFile)
 {
 	this->makeMovementComponent(300.f * this->scale, 10.f * this->scale, 3.5f * this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
@@ -128,6 +156,7 @@ void PlayerCharacter::initializeComponents(sf::Texture& spriteTextureSheet, unsi
 void PlayerCharacter::initializeVariables(bool fullScreenScale)
 {
 	this->isAttacking = false;
+	this->isPoweringUp = false;
 	this->setSpriteScale(fullScreenScale);
 }
 
@@ -139,12 +168,21 @@ void PlayerCharacter::move(const float & deltaTime, const float x, const float y
 		this->movementComponent->move(deltaTime, x, y);
 	}
 }
+
 // Checks to see if the player is currently attacking (so that no other animation plays while attacking)
-void PlayerCharacter::checkForAttackAnimation()
+void PlayerCharacter::checkForAttackAnimation(bool shouldAttack)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(K)))
+	if (shouldAttack)
 	{
 		this->isAttacking = true;
+	}
+}
+
+void PlayerCharacter::checkForPowerUpAnimation(bool shouldPower)
+{
+	if (shouldPower)
+	{
+		this->isPoweringUp = true;
 	}
 }
 

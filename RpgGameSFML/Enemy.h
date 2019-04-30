@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "PlayerCharacter.h"
 #include "CharacterAttributes.h"
 #include "AnimationComponent.h"
 
@@ -8,6 +9,8 @@ Enemy.h is the header for the enemy class, which is the base class for enemy cha
 the player will face. It stores information and will house components for enemies to make 
 use of (Most notably the exclusion of movement).
 */
+
+class PlayerCharacter;
 
 class Enemy :
 	public Entity
@@ -40,7 +43,11 @@ public:
 	// Combat Modifications
 	void loseHP(const int hpLost);
 	void gainHP(const int hpGain);
+
+	// Combat Assessors
+	void dealDamage(PlayerCharacter* player, const int damage);
 	void statMod(std::string key, int modifier);
+	int getStatNumbers(std::string key);
 
 	// Updates data specific to the enemy
 	virtual void updateAnimation(const float& deltaTime) = 0;

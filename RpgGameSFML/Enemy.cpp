@@ -87,10 +87,20 @@ void Enemy::gainHP(const int hpGain)
 	}
 }
 
+void Enemy::dealDamage(PlayerCharacter* player, const int damage)
+{
+	player->loseHP(damage);
+}
+
 // Adds/removes stat values to a specific stat (buff/debuff)
 void Enemy::statMod(std::string key, int modifier)
 {
 	this->attributeComponent->stats[key] += modifier;
+}
+
+int Enemy::getStatNumbers(std::string key)
+{
+	return this->attributeComponent->stats[key];
 }
 
 // Initializes the components used by the player character

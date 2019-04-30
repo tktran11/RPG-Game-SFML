@@ -23,6 +23,7 @@ namespace gui
 
 		// Text Based Button Alternatives
 		sf::Font font;
+		std::string textString;
 		sf::Text text;
 		short unsigned charSize;
 		void initializeFont();
@@ -41,6 +42,7 @@ namespace gui
 		const bool isPressed() const;
 		const std::string getTexture() const;
 		const short unsigned& getButtonID() const;
+
 
 		// Mutators
 		void setTexture(std::string textureName);

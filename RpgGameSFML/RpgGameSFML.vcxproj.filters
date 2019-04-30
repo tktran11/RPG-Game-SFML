@@ -184,6 +184,9 @@
     <ClCompile Include="EnemyUI.cpp">
       <Filter>GUI Files</Filter>
     </ClCompile>
+    <ClCompile Include="CombatMenu.cpp">
+      <Filter>GUI Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -280,6 +283,9 @@
       <Filter>State Headers\GameState Headers</Filter>
     </ClInclude>
     <ClInclude Include="EnemyUI.h">
+      <Filter>GUI Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatMenu.h">
       <Filter>GUI Headers</Filter>
     </ClInclude>
   </ItemGroup>

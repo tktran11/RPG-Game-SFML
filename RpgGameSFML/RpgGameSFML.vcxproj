@@ -162,6 +162,7 @@
     <ClCompile Include="CharacterAttributes.cpp" />
     <ClCompile Include="CharacterGUI.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
+    <ClCompile Include="CombatMenu.cpp" />
     <ClCompile Include="CreditScreenState.cpp" />
     <ClCompile Include="EndGameScreen.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="CharacterAttributes.h" />
     <ClInclude Include="CharacterGUI.h" />
     <ClInclude Include="CharacterSelectState.h" />
+    <ClInclude Include="CombatMenu.h" />
     <ClInclude Include="CreditScreenState.h" />
     <ClInclude Include="EndGameScreen.h" />
     <ClInclude Include="Enemy.h" />

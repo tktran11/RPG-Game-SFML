@@ -66,6 +66,78 @@ void BossLevel::updatePauseMenuButtons()
 	}
 }
 
+// Updates the combat menu when pushed on the stack
+void BossLevel::updateCombatMenuButtons()
+{
+	// Knight moveset
+	if (this->chosenCharacter == "knight")
+	{
+
+	}
+	// Mage moveset
+	else
+	{
+		// Execute combat based on first move in set
+		if (this->player->getCurrentMana() > 0)
+		{
+			// Execute combat based on first move in set
+			if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana"))
+			{
+				this->player->checkForAttackAnimation(true);
+				if (!this->boss->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion"));
+					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
+				}
+			}
+
+			// Execute combat based on second move in set
+			if (this->combatMenu->isButtonPressed("MOVE_2")
+				&& this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana())
+			{
+				// Check to see if mage (only mage can power up)
+				if (this->chosenCharacter == "mage")
+				{
+					this->player->checkForPowerUpAnimation(true);
+					this->player->statMod("ATK", this->player->getAbilityNumbers("DisciplinedThinking"));
+					this->player->statMod("SPD", this->player->getAbilityNumbers("DisciplinedThinking"));
+					this->player->gainMana(this->player->getAbilityNumbers("Ability2Mana"));
+				}
+				else
+				{
+					this->player->checkForAttackAnimation(true);
+				}
+			}
+
+			// Execute combat based on third move in set
+			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana"))
+			{
+				this->player->checkForAttackAnimation(true);
+				{
+					if (!this->boss->getAttributeComponent()->isDead)
+					{
+						this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition"));
+					}
+				}
+				// Heal on attack
+				this->player->gainHP(this->player->getStatNumbers("ATK"));
+				this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
+			}
+
+			// Execute combat based on fourth move in set
+			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana"))
+			{
+				this->player->checkForAttackAnimation(true);
+				if (!this->boss->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep"));
+					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
+				}
+			}
+		}
+	}
+}
+
 // Updates the player input for movement
 void BossLevel::updatePlayerInput(const float & deltaTime)
 {
@@ -105,6 +177,7 @@ void BossLevel::updateState(const float & deltaTime)
 	this->updateKeyboardtime(deltaTime);
 	this->updateDeathTime(deltaTime);
 	this->updateInput(deltaTime);
+	this->updateCombat(deltaTime);
 
 	// If the player kills the minotaur push WIN endgame screen
 	if (this->boss->getAttributeComponent()->isDead && this->getDeathTimer())
@@ -132,18 +205,25 @@ void BossLevel::updateState(const float & deltaTime)
 	// Update state while unpaused
 	if (!this->isPaused) {
 		// Updated player related functions on the state
-		this->updatePlayerInput(deltaTime);
 		this->player->update(deltaTime);
 		this->playerGUI->updateUI(deltaTime);
-		this->boss->update(deltaTime);
 		this->updateEnemyUI(deltaTime);
+		this->boss->update(deltaTime);
+		if (this->isInCombat)
+		{
+			this->combatMenu->updateMenu(this->mousPositView);
+			this->updateCombatMenuButtons();
+		}
+		else
+		{
+			this->updatePlayerInput(deltaTime);
+		}
 	}
 	else
 	{
 		this->pauseMenu->updateMenu(this->mousPositView);
 		this->updatePauseMenuButtons();
 	}
-
 }
 
 // Renders all necessary elements to the screen
@@ -166,5 +246,14 @@ void BossLevel::renderState(sf::RenderTarget * target)
 	if (this->isPaused)
 	{
 		this->pauseMenu->renderMenu(target);
+	}
+	
+	// Render combat menu
+	if (this->isInCombat)
+	{
+		if (!this->isPaused)
+		{
+			this->combatMenu->renderMenu(target);
+		}
 	}
 }

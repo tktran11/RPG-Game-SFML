@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include "PauseMenu.h"
+#include "CombatMenu.h"
 #include "CharacterGUI.h"
 
 /*
@@ -18,6 +19,8 @@ class GameState : public State
 {
 protected:
 	PauseMenu* pauseMenu;
+	CombatMenu* combatMenu;
+
 	// Key for chosen character (mage or knight)
 	std::string chosenCharacter;
 	// Player character knight or mage
@@ -44,6 +47,7 @@ protected:
 	void initializeKeybinds(std::string configFile);
 	void initializeBackground(std::string backgroundFile);
 	void initializePauseMenu();
+	void initializeCombatMenu();
 	void initializePlayer(unsigned playerLevel);
 	void initializePlayerGUI();
 public:
@@ -54,6 +58,7 @@ public:
 	void updatePlayerGUI(const float& deltaTime);
 
 	void updateInput(const float& deltaTime);
+	void updateCombat(const float& deltaTime);
 	virtual void updatePlayerInput(const float& deltaTime) = 0;
 	virtual void updateDeathTime(const float& deltaTime);
 	virtual void updateState(const float& deltaTime) = 0;

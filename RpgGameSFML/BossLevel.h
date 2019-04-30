@@ -20,6 +20,8 @@ public:
 	void initializeBossUI();
 
 	void updatePauseMenuButtons();
+	void updateCombatMenuButtons();
+
 	void updatePlayerInput(const float& deltaTime);
 	void updateEnemyUI(const float& deltaTime);
 	void updateState(const float& deltaTime);

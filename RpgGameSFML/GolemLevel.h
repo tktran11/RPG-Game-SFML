@@ -32,6 +32,8 @@ public:
 	void initializeNextLevelButton();
 
 	void updatePauseMenuButtons();
+	void updateCombatMenuButtons();
+
 	void updateNextLevelButton();
 	void updatePlayerInput(const float& deltaTime);
 	void updateEnemyUI(const float& deltaTime);

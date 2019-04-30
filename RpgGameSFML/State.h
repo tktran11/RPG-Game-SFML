@@ -47,6 +47,7 @@ protected:
 	// Variables for single state management 
 	bool askedForQuit;
 	bool isPaused;
+	bool isInCombat;
 	float keyboardTimer;
 	float maxKeyboardTime;
 
@@ -77,6 +78,8 @@ public:
 	void pauseState();
 	void unPauseState();
 	void endState();
+	void enterCombatState();
+	void exitCombatState();
 
 	// Virtual Functions for State Input and Management
 	virtual void updateMousePositions();

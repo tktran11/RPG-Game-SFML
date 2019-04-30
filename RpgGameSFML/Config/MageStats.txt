@@ -1,5 +1,4 @@
-ATK 50
-
+ATK 30
 SPD 25
 
 DEF 15

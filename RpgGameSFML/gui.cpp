@@ -42,7 +42,8 @@ gui::Button::Button(float x, float y, float width, float height, std::string fil
 
 	this->initializeFont();
 	this->charSize = characterSize;
-	this->initializeButtonText(buttonText, this->charSize);
+	this->textString = buttonText;
+	this->initializeButtonText(this->textString, this->charSize);
 	
 }
 
@@ -58,7 +59,7 @@ void gui::Button::initializeButtonText(std::string buttonText, short unsigned si
 	this->text.setCharacterSize(size);
 	this->text.setPosition(
 		this->button.getPosition().x,
-		this->button.getPosition().y
+		this->button.getPosition().y * 0.95f
 	);
 	this->text.setOrigin(this->text.getGlobalBounds().width / 2.f, this->text.getGlobalBounds().height / 2.f);
 }
@@ -147,15 +148,15 @@ void gui::Button::updateTextButton(const sf::Vector2f mousePosition)
 	{
 	case BUTN_IDLE:
 		this->button.setScale(1, 1);
-		this->text.setCharacterSize(this->charSize);
+		this->text.setScale(1, 1);
 		break;
 	case BUTN_HOVER:
 		this->button.setScale(1.15, 1.15);
-		this->text.setCharacterSize(this->charSize * 1.15);
+		this->text.setScale(1.15, 1.15);
 		break;
 	case BUTN_PRESSED:
 		this->button.setScale(1.25, 1.25);
-		this->text.setCharacterSize(this->charSize * 1.25);
+		this->text.setScale(1.25 , 1.25);
 		break;
 	default:
 		break;

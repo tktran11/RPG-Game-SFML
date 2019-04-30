@@ -6,10 +6,6 @@ Knight.cpp is the .cpp for the knight class, which is a derived class of PlayerC
 and has unique characteristics specifc to the knight (Stats, animations, and abilities)
 */
 
-enum attackKey {
-	K = 10
-};
-
 // Constructor
 Knight::Knight(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string filePath, std::string movesetFilePath, bool scaleScreen) :
 	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, level, filePath, movesetFilePath, scaleScreen)

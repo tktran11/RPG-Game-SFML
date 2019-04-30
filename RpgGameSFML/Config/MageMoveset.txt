@@ -1,4 +1,8 @@
-Hexplosion 12
+Hexplosion 10
+Ability1Mana 25
 DisciplinedThinking 5
+Ability2Mana 25
 DarkIgnition 15
-ObsidianSweep 1.5
+Ability3Mana 50
+ObsidianSweep 1.25
+Ability4Mana 100

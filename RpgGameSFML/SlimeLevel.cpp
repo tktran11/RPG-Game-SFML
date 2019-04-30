@@ -82,8 +82,6 @@ void SlimeLevel::initializeMinions()
 		secondStartX *= 1.45f;
 
 	}
-
-	
 	this->minion1 = new Slime(this->stateTextures["SLIME_SPRITE"], secondStartX, secondStartY, "Config/SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
 	this->minion2 = new Slime(this->stateTextures["SLIME_SPRITE"], startingPosX, startingPosY, "Config/SlimeStats.txt", "Config/SlimeMoveset.txt", scaleScreen);
 }
@@ -119,6 +117,107 @@ void SlimeLevel::updatePauseMenuButtons()
 	if (this->pauseMenu->isButtonPressed("QUIT_GAME"))
 	{
 		this->states->push(new MainMenuState(this->stateInfo));
+	}
+}
+
+// Updates the combat menu when pushed on the stack
+void SlimeLevel::updateCombatMenuButtons()
+{
+	// Knight moveset
+	if (this->chosenCharacter == "knight")
+	{
+
+	}
+	// Mage moveset
+	else
+	{
+		// Execute combat based on first move in set
+		if (this->player->getCurrentMana() > 0)
+		{
+			// Execute combat based on first move in set
+			if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana"))
+			{
+				this->player->checkForAttackAnimation(true);
+				if (!this->minion1->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->minion1, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion"));
+					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
+				}
+				else if (!this->minion2->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->minion2, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion"));
+					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
+				}
+				else if (!this->boss->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion"));
+					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
+				}
+			}
+
+			// Execute combat based on second move in set
+			if (this->combatMenu->isButtonPressed("MOVE_2") 
+				&& this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana())
+			{
+				// Check to see if mage (only mage can power up)
+				if (this->chosenCharacter == "mage")
+				{
+					this->player->checkForPowerUpAnimation(true);
+					this->player->statMod("ATK", this->player->getAbilityNumbers("DisciplinedThinking"));
+					this->player->statMod("SPD", this->player->getAbilityNumbers("DisciplinedThinking"));
+					this->player->gainMana(this->player->getAbilityNumbers("Ability2Mana"));
+				}
+				else
+				{
+					this->player->checkForAttackAnimation(true);
+				}
+			}
+
+			// Execute combat based on third move in set
+			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana"))
+			{
+				this->player->checkForAttackAnimation(true);
+				{
+					if (!this->minion1->getAttributeComponent()->isDead)
+					{
+						this->player->dealDamage(this->minion1, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition"));
+					}
+					else if (!this->minion2->getAttributeComponent()->isDead)
+					{
+						this->player->dealDamage(this->minion2, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition"));
+					}
+					else if (!this->boss->getAttributeComponent()->isDead)
+					{
+						this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition"));
+					}
+				}
+				// Heal on attack
+				this->player->gainHP(this->player->getStatNumbers("ATK"));
+				this->player->loseMana(this->player->getAbilityNumbers("Ability3Mana"));
+			}
+
+			// Execute combat based on fourth move in set
+			if (this->combatMenu->isButtonPressed("MOVE_4") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability4Mana"))
+			{
+				this->player->checkForAttackAnimation(true);
+				//deals damage to minion 1 if alive
+				if (!this->minion1->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->minion1, this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep"));
+				}
+				//deals damage to minion 2 if alive
+				if (!this->minion2->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->minion2, this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep"));
+				}
+				//deals damage to boss if alive
+				if (!this->boss->getAttributeComponent()->isDead)
+				{
+					this->player->dealDamage(this->boss, this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep"));
+				}
+				this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
+			}
+		}
 	}
 }
 
@@ -174,7 +273,7 @@ void SlimeLevel::updateState(const float & deltaTime)
 	this->updateKeyboardtime(deltaTime);
 	this->updateDeathTime(deltaTime);
 	this->updateInput(deltaTime);
-
+	this->updateCombat(deltaTime);
 	if (this->minion1->getAttributeComponent()->isDead && this->minion2->getAttributeComponent()->isDead && this->boss->getAttributeComponent()->isDead)
 	{
 
@@ -185,29 +284,33 @@ void SlimeLevel::updateState(const float & deltaTime)
 	//If the player dies pushes DEAD endgame screen
 	if (this->player->getAttributeComponent()->isDead)
 	{
-
 		this->states->push(new EndGameScreen(this->stateInfo, false));
 	}
 
 	// Update state while unpaused
 	if (!this->isPaused) {
 		// Updated player related functions on the state
-		this->updatePlayerInput(deltaTime);
 		this->player->update(deltaTime);
 		this->playerGUI->updateUI(deltaTime);
-
-		// Updates level 1 enemies on the state
+		this->updateEnemyUI(deltaTime);
 		this->boss->update(deltaTime);
 		this->minion1->update(deltaTime);
 		this->minion2->update(deltaTime);
-		this->updateEnemyUI(deltaTime);
+		if (this->isInCombat)
+		{
+			this->combatMenu->updateMenu(this->mousPositView);
+			this->updateCombatMenuButtons();
+		}
+		else
+		{
+			this->updatePlayerInput(deltaTime);
+		}
 	}
 	else
 	{
 		this->pauseMenu->updateMenu(this->mousPositView);
 		this->updatePauseMenuButtons();
 	}
-
 }
 
 // Renders all necessary elements to the screen
@@ -231,7 +334,7 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 	if (this->boss->getAttributeComponent()->isDead)
 	{
 
-		if(!bossDead && this->getDeathTimer())
+		if (!bossDead && this->getDeathTimer())
 		{
 			if (this->boss->playDeathAnimation(600.f))
 			{
@@ -263,7 +366,7 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 	{
 		this->minionUI1->renderUI(*target);
 	}
-	
+
 	// Play death animation when minion 2 dies, then de-render
 	if (this->minion2->getAttributeComponent()->isDead)
 	{
@@ -282,9 +385,10 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 		this->minionUI2->renderUI(*target);
 	}
 
-	// If all enemies are dead, render a button 
+	// If all enemies are dead, render a button that pushes the next state
 	if (this->allDead)
 	{
+		this->isInCombat = false;
 		this->nextLevel->renderButton(*target);
 	}
 
@@ -292,5 +396,14 @@ void SlimeLevel::renderState(sf::RenderTarget * target)
 	if (this->isPaused)
 	{
 		this->pauseMenu->renderMenu(target);
+	}
+
+	// Render combat menu
+	if (this->isInCombat)
+	{
+		if (!this->isPaused)
+		{
+			this->combatMenu->renderMenu(target);
+		}
 	}
 }

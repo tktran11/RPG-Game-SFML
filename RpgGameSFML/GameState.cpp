@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameState.h"
 
-
 /*
 GameState.cpp is the body for the Gamestate class, which handles the resources for
 the specific state called GameState. It houses textures and such for the main portion of
@@ -18,6 +17,7 @@ GameState::GameState(StateData* stateInfo, std::string playerType, unsigned play
 	this->chosenCharacter = playerType;
 	this->initializeBackground(backgroundFile);
 	this->initializePauseMenu();
+	this->initializeCombatMenu();
 	this->initializePlayer(playerLevel);
 	this->initializePlayerGUI();
 	this->deathTimer = 0.f;
@@ -52,7 +52,6 @@ void GameState::initializeKeybinds(std::string configFile)
 		}
 	}
 	readKeybinds.close();
-
 }
 
 // Initializes the texture of the background and sets its texture
@@ -80,6 +79,49 @@ void GameState::initializePauseMenu()
 		"MenuTextures/MainMenu/Quit.png", "QUIT_GAME");
 }
 
+void GameState::initializeCombatMenu()
+{
+	this->combatMenu = new CombatMenu(*this->window);
+	if (this->chosenCharacter == "knight")
+	{
+		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
+			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Slash", 28, "MOVE_1");
+		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
+			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Fortify", 28, "MOVE_2");
+		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
+			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Taunt", 28, "MOVE_3");
+		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
+			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Shield Bash", 28, "MOVE_4");
+	}
+	else if (this->chosenCharacter == "mage")
+	{
+		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
+			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Hexplosion", 22 , "MOVE_1");
+		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
+			(this->window->getSize().y * 0.12f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Disciplined \n Thinking", 22, "MOVE_2");
+		this->combatMenu->createButton((this->window->getSize().x * 0.41f),
+			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Dark Ignition", 22, "MOVE_3");
+		this->combatMenu->createButton((this->window->getSize().x * 0.59f),
+			(this->window->getSize().y * 0.22f), (this->window->getSize().x * 0.15f),
+			(this->window->getSize().y * 0.09f),
+			"MenuTextures/CombatMenu/Button.png", "Obsidian Sweep", 22, "MOVE_4");
+	}
+}
+
 // Creates a new player, setting its texture and position on the screen
 void GameState::initializePlayer(unsigned playerLevel)
 {
@@ -92,13 +134,15 @@ void GameState::initializePlayer(unsigned playerLevel)
 	// If knight, loads knight texture sheet
 	if (this->chosenCharacter == "knight")
 	{
-		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "Config/KnightStats.txt", "Config/KnightMoveset.txt", scaleScreen);
+		this->player = new Knight(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, 
+			"Config/KnightStats.txt", "Config/KnightMoveset.txt", scaleScreen);
 	}
 	// Otherwise load mage texture sheet
 	else
 		if (this->chosenCharacter == "mage")
 		{
-			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, "Config/MageStats.txt", "Config/MageMoveset.txt", scaleScreen);
+			this->player = new Mage(this->stateTextures["PLAYER_SPRITES"], 0, startingPos, playerLevel, 
+				"Config/MageStats.txt", "Config/MageMoveset.txt", scaleScreen);
 		}
 
 }
@@ -131,6 +175,15 @@ void GameState::updateInput(const float & deltaTime)
 	}
 }
 
+void GameState::updateCombat(const float& deltaTime)
+{
+	//std::cout << this->player->getXPosition() << std::endl;
+	if (this->player->getXPosition() >= this->window->getSize().x * 0.4f)
+	{
+		this->enterCombatState();
+	}
+}
+
 // Timer to control how fast death animations happen in a state
 void GameState::updateDeathTime(const float & deltaTime)
 {
@@ -147,4 +200,5 @@ GameState::~GameState()
 	delete this->player;
 	delete this->playerGUI;
 	delete this->pauseMenu;
+	delete this->combatMenu;
 }

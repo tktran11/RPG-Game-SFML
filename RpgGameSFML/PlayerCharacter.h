@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Enemy.h"
 
 /*
 PlayerCharacter.h is the .header for the Player Character class, which is a virtual class that houses the
@@ -8,11 +9,14 @@ inherit features from this class.
 It also stores information and houses components to manipulate the character.
 */
 
+class Enemy;
+
 class PlayerCharacter :
 	public Entity
 {
 private:
-	void initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, std::string statFile, std::string movesetFile);
+	void initializeComponents(sf::Texture& spriteTextureSheet, unsigned level, 
+		std::string statFile, std::string movesetFile);
 	void initializeVariables(bool scaleScreen);
 	// Initialization Functions
 	float startPositionX;
@@ -20,9 +24,11 @@ private:
 protected:
 	float scale;
 	bool isAttacking;
+	bool isPoweringUp;
 public:
 	// Constructor
-	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string statFile, std::string movesetFile, bool scaleScreen);
+	PlayerCharacter(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, 
+		std::string statFile, std::string movesetFile, bool scaleScreen);
 
 	// Assessors
 	CharacterAttributes* getAttributeComponent();
@@ -32,6 +38,13 @@ public:
 
 	// Mutators
 	void setSpriteScale(bool scaleScreen);
+
+	// Combat Assessors 
+	float getAbilityNumbers(std::string key);
+	int getStatNumbers(std::string key);
+	int getCurrentMana();
+	int getMaxMana();
+	void dealDamage(Enemy* enemy, const int damage);
 
 	// Combat Modifications
 	void loseHP(const int hpLost);
@@ -45,6 +58,7 @@ public:
 	virtual void updateAnimation(const float& deltaTime) = 0;
 	virtual void update(const float& deltaTime) = 0;
 	virtual void move(const float& deltaTime, const float x, const float y);
-	void checkForAttackAnimation();
+	void checkForAttackAnimation(bool shouldAttack = false);
+	void checkForPowerUpAnimation(bool shouldPower = false);
 };
 

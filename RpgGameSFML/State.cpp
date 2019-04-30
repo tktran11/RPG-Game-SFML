@@ -17,6 +17,7 @@ State::State(StateData* stateInfo)
 	this->supportedKeys = stateInfo->supportedKeys;
 	this->states = stateInfo->states;
 	this->isPaused = false;
+	this->isInCombat = false;
 	this->askedForQuit = false;
 	this->keyboardTimer = 0.f;
 	this->maxKeyboardTime = 20.f;
@@ -56,6 +57,17 @@ void State::unPauseState()
 void State::endState()
 {
 	this->askedForQuit = true;
+}
+
+void State::enterCombatState()
+{
+	this->isInCombat = true;
+	this->initializeKeybinds("Config\combatStateKeybinds.ini");
+}
+
+void State::exitCombatState()
+{
+	this->isInCombat = false;
 }
 
 // updateMousePositions() checks the position of the mouse 

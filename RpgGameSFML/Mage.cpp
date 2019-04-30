@@ -6,15 +6,11 @@ Mage.h is the .cpp for the mage class, which is a derived class of PlayerCharact
 and has unique characteristics specifc to the mage (Stats, animations, and abilities)
 */
 
-enum attackKey {
-	K = 10,	L = 11
-};
 
 // Constructor
 Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, unsigned level, std::string filePath, std::string movesetFilePath, bool scaleScreen) :
 	PlayerCharacter(spriteTextureSheet, startPointX, startPointY, level, filePath, movesetFilePath, scaleScreen)
 {
-	this->initializeVariables();
 	this->setPosition(startPointX, startPointY);
 	this->sprite.setScale(this->scale, this->scale);
 	this->makeAnimationComponent(spriteTextureSheet);
@@ -26,12 +22,6 @@ Mage::Mage(sf::Texture& spriteTextureSheet, float startPointX, float startPointY
 	this->animationComponent->addAnimation("POWER_UP", 5.f, 0, 2, 16, 2, 192, 192);
 }
 
-// Sets base values for animation checking
-void Mage::initializeVariables()
-{
-	this->isAttacking = false;
-	this->isPoweringUp = false;
-}
 
 // Updates the animation for the mage, changing direction when moving, and checking for animation
 void Mage::updateAnimation(const float & deltaTime)
@@ -136,18 +126,10 @@ void Mage::updateAnimation(const float & deltaTime)
 
 }
 
-// Checks to see if the mage is in the middle of powering up
-void Mage::checkForPowerUpAnimation()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(L)))
-	{
-		this->isPoweringUp = true;
-	}
-}
-
 // Updates all components for the mage, checking for animation and movement and stat changes
 void Mage::update(const float & deltaTime)
 {
+	this->attributeComponent->update(deltaTime);
 	this->movementComponent->updateMovement(deltaTime);
 	this->checkForAttackAnimation();
 	this->checkForPowerUpAnimation();
