@@ -80,6 +80,7 @@ void BossLevel::updateCombatMenuButtons()
 			{
 				this->player->dealDamage(this->boss, (
 					this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->boss->getStatNumbers("DEF"));
+				this->boss->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
 			this->player->checkForAttackAnimation(true);
@@ -121,6 +122,7 @@ void BossLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
 				this->playerActed = true;
@@ -144,6 +146,7 @@ void BossLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
 				this->playerActed = true;
@@ -178,6 +181,7 @@ void BossLevel::updateCombatMenuButtons()
 					{
 						this->player->dealDamage(this->boss,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->boss->getStatNumbers("DEF"));
+						this->boss->checkForDamagedAnimation(true);
 					}
 				}
 				// Heal on attack
@@ -197,6 +201,7 @@ void BossLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 				}
 				this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				this->playerActed = true;
@@ -219,6 +224,7 @@ void BossLevel::updateCombatMenuButtons()
 				this->boss->dealDamage(this->player,
 					this->boss->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
 				this->playerActed = false;
+				this->boss->checkForDamagedAnimation(false);
 			}
 		}
 	}
@@ -277,7 +283,6 @@ void BossLevel::updateState(const float & deltaTime)
 			{
 				this->states->push(new EndGameScreen(this->stateInfo, true));
 			}
-
 		}
 	}
 

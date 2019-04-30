@@ -114,6 +114,7 @@ void Enemy::initializeComponents(sf::Texture& spriteTextureSheet, std::string st
 void Enemy::initializeVariables(bool fullScreenScale)
 {
 	this->isAttacking = false;
+	this->isDamaged = false;
 	this->setSpriteScale(fullScreenScale);
 }
 
@@ -123,6 +124,14 @@ void Enemy::checkForAttackAnimation(bool shouldAttack)
 	if (shouldAttack)
 	{
 		this->isAttacking = true;
+	}
+}
+
+void Enemy::checkForDamagedAnimation(bool takeDamage)
+{
+	if (takeDamage)
+	{
+		this->isDamaged = true;
 	}
 }
 

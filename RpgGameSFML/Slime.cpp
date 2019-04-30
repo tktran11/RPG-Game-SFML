@@ -26,21 +26,16 @@ Slime::Slime(sf::Texture & spriteTextureSheet, float startPointX, float startPoi
 // Updates the animation based on frame data
 void Slime::updateAnimation(const float & deltaTime)
 {
-	// When the player dies play the death animation
-	if (this->getAttributeComponent()->isDead)
-	{
-		this->animationComponent->playAnimation("DEATH", deltaTime, true);
-	}
 	// As long as the player is alive
-	else
+	if (!this->getAttributeComponent()->isDead)
 	{
-		// If attack animation is playing
+		// if attack animation is playing
 		if (this->isAttacking)
 		{
 			// facing leftside
 			if (this->sprite.getScale().x > 0.f)
 			{
-				this->sprite.setOrigin(0, 0.f);
+				this->sprite.setOrigin(0.f, 0.f);
 			}
 			// animate attack and set end of attack animation
 			if (this->animationComponent->playAnimation("ATTACK", deltaTime, true))
@@ -53,7 +48,7 @@ void Slime::updateAnimation(const float & deltaTime)
 				}
 			}
 		}
-		// plays idle by default
+		// plays idle as default
 		else
 		{
 			this->animationComponent->playAnimation("IDLE", deltaTime);
@@ -65,6 +60,7 @@ void Slime::updateAnimation(const float & deltaTime)
 void Slime::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);
+	this->checkForDamagedAnimation();
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
 }

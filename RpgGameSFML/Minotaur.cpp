@@ -37,8 +37,27 @@ void Minotaur::updateAnimation(const float & deltaTime)
 	// As long as the player is alive
 	else
 	{
+		// if injured animation is playing
+		if (this->isDamaged)
+		{
+			// facing leftside
+			if (this->sprite.getScale().x > 0.f)
+			{
+				this->sprite.setOrigin(0.f, 0.f);
+			}
+			// animate attack and set end of attack animation
+			if (this->animationComponent->playAnimation("INJURE", deltaTime, true))
+			{
+				this->isDamaged = false;
+				// reset position after animation for attacking finished
+				if (this->sprite.getScale().x > 0.f)
+				{
+					this->sprite.setOrigin(0.f, 0.f);
+				}
+			}
+		}
 		// If attack animation is playing
-		if (this->isAttacking)
+		else if (this->isAttacking)
 		{
 			// facing leftside
 			if (this->sprite.getScale().x > 0.f)
@@ -68,6 +87,7 @@ void Minotaur::updateAnimation(const float & deltaTime)
 void Minotaur::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);
+	this->checkForDamagedAnimation();
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
 }

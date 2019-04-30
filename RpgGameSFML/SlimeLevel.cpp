@@ -127,25 +127,28 @@ void SlimeLevel::updateCombatMenuButtons()
 	if (this->chosenCharacter == "knight")
 	{
 		// Executes combat with move 1 (COSTS NO MANA)
-		if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana") 
+		if (this->combatMenu->isButtonPressed("MOVE_1") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability1Mana")
 			&& this->getPlayerActionTimer())
 		{
 			if (!this->minion1->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->minion1,
 					(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->minion1->getStatNumbers("DEF"));
+				this->minion1->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
 			else if (!this->minion2->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->minion2,
 					(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->minion2->getStatNumbers("DEF"));
+				this->minion2->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
 			else if (!this->boss->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->boss, (
 					this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->boss->getStatNumbers("DEF"));
+				this->boss->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
 			this->player->checkForAttackAnimation(true);
@@ -197,18 +200,21 @@ void SlimeLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->minion1,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->minion1->getStatNumbers("DEF"));
+					this->minion1->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
 				else if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->minion2->getStatNumbers("DEF"));
+					this->minion2->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
 				else if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
 				this->playerActed = true;
@@ -232,25 +238,28 @@ void SlimeLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->minion1,
 						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->minion1->getStatNumbers("DEF"));
+					this->minion1->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
 				else if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
 						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->minion2->getStatNumbers("DEF"));
+					this->minion2->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
 				else if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
 				this->playerActed = true;
 			}
 
 			// Execute combat based on second move in set
-			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana() 
+			if (this->combatMenu->isButtonPressed("MOVE_2") && this->player->getCurrentMana() > 0 && this->player->getCurrentMana() < this->player->getMaxMana()
 				&& this->getPlayerActionTimer())
 			{
 				// Check to see if mage (only mage can power up)
@@ -278,16 +287,19 @@ void SlimeLevel::updateCombatMenuButtons()
 					{
 						this->player->dealDamage(this->minion1,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->minion1->getStatNumbers("DEF"));
+						this->minion1->checkForDamagedAnimation(true);
 					}
 					else if (!this->minion2->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->minion2,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->minion2->getStatNumbers("DEF"));
+						this->minion2->checkForDamagedAnimation(true);
 					}
 					else if (!this->boss->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->boss,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->boss->getStatNumbers("DEF"));
+						this->boss->checkForDamagedAnimation(true);
 					}
 				}
 				// Heal on attack
@@ -307,18 +319,21 @@ void SlimeLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->minion1,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->minion1->getStatNumbers("DEF"));
+					this->minion1->checkForDamagedAnimation(true);
 				}
 				//deals damage to minion 2 if alive
 				if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->minion2->getStatNumbers("DEF"));
+					this->minion2->checkForDamagedAnimation(true);
 				}
 				//deals damage to boss if alive
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 				}
 				this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				this->playerActed = true;
@@ -341,6 +356,7 @@ void SlimeLevel::updateCombatMenuButtons()
 				this->minion1->dealDamage(this->player,
 					this->minion1->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
 				this->playerActed = false;
+				this->minion1->checkForDamagedAnimation(false);
 			}
 		}
 		if (!this->minion2->getAttributeComponent()->isDead)
@@ -351,6 +367,7 @@ void SlimeLevel::updateCombatMenuButtons()
 				this->minion2->dealDamage(this->player,
 					this->minion2->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
 				this->playerActed = false;
+				this->minion2->checkForDamagedAnimation(false);
 			}
 		}
 		if (!this->boss->getAttributeComponent()->isDead)
@@ -361,6 +378,7 @@ void SlimeLevel::updateCombatMenuButtons()
 				this->boss->dealDamage(this->player,
 					this->boss->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
 				this->playerActed = false;
+				this->boss->checkForDamagedAnimation(false);
 			}
 		}
 	}

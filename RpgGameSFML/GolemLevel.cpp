@@ -142,18 +142,21 @@ void GolemLevel::updateCombatMenuButtons()
 			{
 				this->player->dealDamage(this->minion1,
 					(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->minion1->getStatNumbers("DEF"));
+				this->minion1->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
 			else if (!this->minion2->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->minion2,
 					(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->minion2->getStatNumbers("DEF"));
+				this->minion2->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
 			else if (!this->boss->getAttributeComponent()->isDead)
 			{
 				this->player->dealDamage(this->boss, (
 					this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Slash")) - this->boss->getStatNumbers("DEF"));
+				this->boss->checkForDamagedAnimation(true);
 				this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 			}
 			this->player->checkForAttackAnimation(true);
@@ -205,18 +208,21 @@ void GolemLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->minion1,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->minion1->getStatNumbers("DEF"));
+					this->minion1->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
 				else if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->minion2->getStatNumbers("DEF"));
+					this->minion2->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
 				else if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ShieldBash")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				}
 				this->playerActed = true;
@@ -240,18 +246,21 @@ void GolemLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->minion1,
 						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->minion1->getStatNumbers("DEF"));
+					this->minion1->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
 				else if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
 						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->minion2->getStatNumbers("DEF"));
+					this->minion2->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
 				else if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Hexplosion")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 					this->player->loseMana(this->player->getAbilityNumbers("Ability1Mana"));
 				}
 				this->playerActed = true;
@@ -286,16 +295,19 @@ void GolemLevel::updateCombatMenuButtons()
 					{
 						this->player->dealDamage(this->minion1,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->minion1->getStatNumbers("DEF"));
+						this->minion1->checkForDamagedAnimation(true);
 					}
 					else if (!this->minion2->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->minion2,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->minion2->getStatNumbers("DEF"));
+						this->minion2->checkForDamagedAnimation(true);
 					}
 					else if (!this->boss->getAttributeComponent()->isDead)
 					{
 						this->player->dealDamage(this->boss,
 							(this->player->getStatNumbers("ATK") + this->player->getAbilityNumbers("Dark Ignition")) - this->boss->getStatNumbers("DEF"));
+						this->boss->checkForDamagedAnimation(true);
 					}
 				}
 				// Heal on attack
@@ -315,18 +327,21 @@ void GolemLevel::updateCombatMenuButtons()
 				{
 					this->player->dealDamage(this->minion1,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->minion1->getStatNumbers("DEF"));
+					this->minion1->checkForDamagedAnimation(true);
 				}
 				//deals damage to minion 2 if alive
 				if (!this->minion2->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->minion2,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->minion2->getStatNumbers("DEF"));
+					this->minion2->checkForDamagedAnimation(true);
 				}
 				//deals damage to boss if alive
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->player->dealDamage(this->boss,
 						(this->player->getStatNumbers("ATK") * this->player->getAbilityNumbers("ObsidianSweep")) - this->boss->getStatNumbers("DEF"));
+					this->boss->checkForDamagedAnimation(true);
 				}
 				this->player->loseMana(this->player->getAbilityNumbers("Ability4Mana"));
 				this->playerActed = true;
@@ -349,6 +364,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->minion1->dealDamage(this->player,
 					this->minion1->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
 				this->playerActed = false;
+				this->minion1->checkForDamagedAnimation(false);
 			}
 		}
 		if (!this->minion2->getAttributeComponent()->isDead)
@@ -359,6 +375,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->minion2->dealDamage(this->player,
 					this->minion2->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
 				this->playerActed = false;
+				this->minion2->checkForDamagedAnimation(false);
 			}
 		}
 		if (!this->boss->getAttributeComponent()->isDead)
@@ -369,6 +386,7 @@ void GolemLevel::updateCombatMenuButtons()
 				this->boss->dealDamage(this->player,
 					this->boss->getStatNumbers("ATK") - this->player->getStatNumbers("DEF"));
 				this->playerActed = false;
+				this->boss->checkForDamagedAnimation(false);
 			}
 		}
 	}

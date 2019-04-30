@@ -30,21 +30,35 @@ IceGolem::IceGolem(sf::Texture & spriteTextureSheet, float startPointX, float st
 // Updates the animation based on frame data
 void IceGolem::updateAnimation(const float & deltaTime)
 {
-	// When the player dies play the death animation
-	if (this->getAttributeComponent()->isDead)
-	{
-		this->animationComponent->playAnimation("DEATH", deltaTime, true);
-	}
 	// As long as the player is alive
-	else
+	if (!this->getAttributeComponent()->isDead)
 	{
-		// If attack animation is playing
-		if (this->isAttacking)
+		// if injured animation is playing
+		if (this->isDamaged)
 		{
 			// facing leftside
 			if (this->sprite.getScale().x > 0.f)
 			{
-				this->sprite.setOrigin(0, 0.f);
+				this->sprite.setOrigin(0.f, 0.f);
+			}
+			// animate attack and set end of attack animation
+			if (this->animationComponent->playAnimation("INJURE", deltaTime, true))
+			{
+				this->isDamaged = false;
+				// reset position after animation for attacking finished
+				if (this->sprite.getScale().x > 0.f)
+				{
+					this->sprite.setOrigin(0.f, 0.f);
+				}
+			}
+		}
+		// if attack animation is playing
+		else if (this->isAttacking)
+		{
+			// facing leftside
+			if (this->sprite.getScale().x > 0.f)
+			{
+				this->sprite.setOrigin(0.f, 0.f);
 			}
 			// animate attack and set end of attack animation
 			if (this->animationComponent->playAnimation("ATTACK", deltaTime, true))
@@ -57,7 +71,7 @@ void IceGolem::updateAnimation(const float & deltaTime)
 				}
 			}
 		}
-		// plays idle by default
+		// plays idle as default
 		else
 		{
 			this->animationComponent->playAnimation("IDLE", deltaTime);
@@ -69,6 +83,7 @@ void IceGolem::updateAnimation(const float & deltaTime)
 void IceGolem::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);
+	this->checkForDamagedAnimation();
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
 }

@@ -30,8 +30,27 @@ void Shade::updateAnimation(const float & deltaTime)
 	// As long as the player is alive
 	if (!this->getAttributeComponent()->isDead)
 	{
-		// If attack animation is playing
-		if (this->isAttacking)
+		// if injured animation is playing
+		if (this->isDamaged)
+	{
+		// facing leftside
+		if (this->sprite.getScale().x > 0.f)
+		{
+			this->sprite.setOrigin(0.f, 0.f);
+		}
+		// animate attack and set end of attack animation
+		if (this->animationComponent->playAnimation("INJURE", deltaTime, true))
+		{
+			this->isDamaged = false;
+			// reset position after animation for attacking finished
+			if (this->sprite.getScale().x > 0.f)
+			{
+				this->sprite.setOrigin(0.f, 0.f);
+			}
+		}
+	}
+		// if attack animation is playing
+		else if (this->isAttacking)
 		{
 			// facing leftside
 			if (this->sprite.getScale().x > 0.f)
@@ -61,6 +80,7 @@ void Shade::updateAnimation(const float & deltaTime)
 void Shade::update(const float & deltaTime)
 {
 	this->attributeComponent->update(deltaTime);
+	this->checkForDamagedAnimation();
 	this->checkForAttackAnimation();
 	this->updateAnimation(deltaTime);
 }

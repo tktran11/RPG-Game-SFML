@@ -24,6 +24,7 @@ private:
 protected:
 	float scale;
 	bool isAttacking;
+	bool isDamaged;
 public:
 	// Constructor
 	Enemy(sf::Texture& spriteTextureSheet, float startPointX, float startPointY, std::string statFile, std::string movesetFile, bool fullScreenScale);
@@ -52,7 +53,9 @@ public:
 	// Updates data specific to the enemy
 	virtual void updateAnimation(const float& deltaTime) = 0;
 	virtual void update(const float& deltaTime) = 0;
-	void checkForAttackAnimation(bool shouldAttack = false);
 
+	// Animation checkers
+	void checkForAttackAnimation(bool shouldAttack = false);
+	void checkForDamagedAnimation(bool takeDamage = false);
 	bool playDeathAnimation(const float& deltaTime);
 };
