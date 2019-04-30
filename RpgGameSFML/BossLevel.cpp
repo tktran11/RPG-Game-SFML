@@ -96,6 +96,7 @@ void BossLevel::updateCombatMenuButtons()
 			// Executes combat with move 3
 			if (this->combatMenu->isButtonPressed("MOVE_3") && this->player->getCurrentMana() >= this->player->getAbilityNumbers("Ability3Mana"))
 			{
+				this->player->checkForAttackAnimation(true);
 				if (!this->boss->getAttributeComponent()->isDead)
 				{
 					this->boss->statMod("ATK", this->player->getAbilityNumbers("Taunt"));

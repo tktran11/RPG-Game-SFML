@@ -17,6 +17,8 @@ private:
 	Enemy* minion1;
 	Enemy* minion2;
 
+	// Boolean checks
+	bool playerActed = false;
 	bool allDead = false;
 	bool bossDead = false;
 	bool minion1Dead = false;
